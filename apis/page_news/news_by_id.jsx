@@ -2,13 +2,14 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "http://46.62.244.169";
 
 const getNewsById = async (locale = 'en', Title) => {
   try {
+  const apiLocale = locale === 'zh-CN' ? 'zh-cn' : locale; // ✅ fix
 
     const response = await fetch(
-      `${BASE_URL}/api/getnews/${locale}/${Title}/`,  // ✅ GET — slug URL mein
+      `${BASE_URL}/api/getnews/${apiLocale}/${Title}/`,  // ✅ GET — slug URL mein
       {
         next: {
   revalidate: false,  // ← INFINITE cache — kabhi revalidate nahi
-  tags: [`${Title}`,`${locale}-${Title}`], // ← sirf manual purge se hi update hoga
+  tags: [`${Title}`,`${apiLocale}-${Title}`], // ← sirf manual purge se hi update hoga
 }
       }
     );
