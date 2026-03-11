@@ -11,7 +11,7 @@ export const revalidate = 3600;
 const BASE_URL          = "https://cryptonewstrend.com";
 const SITE_NAME         = "CryptoNews";
 const DEFAULT_IMAGE     = `${BASE_URL}/og-image.png`;
-const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-cn"]; // ✅ zh → zh-cn
+const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-CN"]; // ✅ zh → zh-CN
 
 // ─────────────────────────────────────────────
 // STATIC CATEGORY CONTENT (English base)
@@ -99,7 +99,7 @@ const LOCALE_SUFFIX = {
   es:      `| CryptoNoticias`,
   fr:      `| CryptoActualités`,
   de:      `| KryptoNachrichten`,
-  'zh-cn': `| 加密新闻`,
+  'zh-CN': `| 加密新闻`,
 };
 
 // ─────────────────────────────────────────────

@@ -42,7 +42,7 @@ const META = {
     description: 'Erfahren Sie mehr über CryptoWhales — Ihre vertrauenswürdige Quelle für Krypto-Nachrichten in 12+ Sprachen.',
     keywords:    'Krypto Nachrichten, Blockchain, Kryptowährung',
   },
-  'zh-cn': {
+  'zh-CN': {
   title:       '关于我们 — CryptoWhales | 加密货币新闻',
   description: '了解 CryptoWhales — 您值得信赖的加密货币新闻、区块链资讯和市场分析来源，支持12种以上语言。',
   keywords:    '加密货币新闻, 区块链, 比特币, 数字货币, 市场分析',

@@ -7,7 +7,7 @@ import EventsPage from "./eventpage";
 // ─────────────────────────────────────────────
 const BASE_URL          = "https://cryptonewstrend.com";
 const SITE_NAME         = "CryptoNews";
-const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-cn"]; // ✅ zh → zh-cn
+const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-CN"]; // ✅ zh → zh-CN
 
 // ─────────────────────────────────────────────
 // LOCALE-AWARE META
@@ -43,7 +43,7 @@ const META = {
     description: "Entdecken Sie die neuesten globalen Krypto- und Blockchain-Events, Konferenzen, Gipfel und Meetups 2025. Nach Status, Ort und Datum filtern.",
     keywords:    "Krypto Events 2025, Blockchain Konferenz, Krypto Gipfel, Web3 Meetup",
   },
-  'zh-cn': {
+  'zh-CN': {
     title:       "加密货币活动 2025 – 会议、峰会与区块链聚会",
     description: "探索2025年全球最新加密货币和区块链活动、会议、峰会和聚会。按状态、地点和日期筛选。",
     keywords:    "加密货币活动, 区块链会议, Web3峰会, NFT活动, DeFi聚会",

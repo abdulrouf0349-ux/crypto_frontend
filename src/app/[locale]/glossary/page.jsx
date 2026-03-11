@@ -6,7 +6,7 @@ import CoinsPage from "./glosary";
 // ─────────────────────────────────────────────
 const BASE_URL          = "https://cryptonewstrend.com";
 const SITE_NAME         = "CryptoNews";
-const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-cn"];
+const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-CN"];
 
 // ─────────────────────────────────────────────
 // LOCALE-AWARE META
@@ -42,7 +42,7 @@ const META = {
     description: "Entdecken Sie unser vollständiges Kryptowährungs-Glossar. Durchsuchen Sie Bitcoin, Ethereum und über 10.000 Coins und Token mit Beschreibungen.",
     keywords:    "Krypto Glossar, Kryptowährungsliste, Bitcoin, Ethereum, Blockchain Token",
   },
-  'zh-cn': {
+  'zh-CN': {
     title:       "加密货币词汇表 – 所有加密货币和代币 2025",
     description: "探索我们完整的加密货币词汇表。浏览比特币、以太坊及10,000多种加密货币和代币，包含详细描述和区块链信息。",
     keywords:    "加密货币词汇表, 加密货币列表, 比特币, 以太坊, 区块链代币, DeFi",

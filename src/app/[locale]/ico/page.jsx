@@ -6,7 +6,7 @@ import ICOPage from "./ICOPage";
 // ─────────────────────────────────────────────
 const BASE_URL          = "https://cryptonewstrend.com"; // ✅ yourcrypto-news → sahi domain
 const SITE_NAME         = "CryptoNews";
-const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-cn"]; // ✅ zh → zh-cn
+const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-CN"]; // ✅ zh → zh-CN
 
 // ─────────────────────────────────────────────
 // LOCALE-AWARE META
@@ -42,7 +42,7 @@ const META = {
     description: "Entdecken Sie die vielversprechendsten Blockchain-Startups und Token-Verkäufe. Verfolgen Sie aktive ICOs, bevorstehende Krypto-Starts und beendete Token-Verkäufe.",
     keywords:    "ICO 2025, Krypto Launchpad, Token Verkauf, Blockchain Startup, Krypto Vorverkauf, DeFi, Web3",
   },
-  'zh-cn': {
+  'zh-CN': {
     title:       "加密货币ICO发射台 2025 – 活跃、即将到来和已结束的代币销售",
     description: "发现最具潜力的区块链初创项目和代币销售。追踪活跃ICO、即将推出的加密货币项目和已结束的代币销售。寻找下一个100倍收益项目。",
     keywords:    "ICO 2025, 加密货币发射台, 代币销售, 区块链初创, 加密货币预售, DeFi, Web3",

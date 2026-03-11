@@ -3,7 +3,7 @@ import WhaleTracker from "./whalestracker";
 
 const BASE_URL  = "https://cryptonewstrend.com";
 const SITE_NAME = "CryptoNews";
-const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-cn"];
+const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-CN"];
 
 // ✅ META top-level — dono functions use kar saktay hain
 const META = {
@@ -37,7 +37,7 @@ const META = {
     description: "Verfolgen Sie Krypto-Wal-Bewegungen in Echtzeit über Bitcoin, Ethereum und 50+ Blockchains. Überwachen Sie große Transfers, Burns und Exchange-Flows.",
     keywords:    "Krypto Wal Tracker, Whale Alert, Bitcoin Transfer, On-Chain Analyse",
   },
-  'zh-cn': {
+  'zh-CN': {
     title:       "加密鲸鱼追踪器 – 大额交易实时监控 2025",
     description: "实时追踪比特币、以太坊及50多个区块链上的加密鲸鱼动向。监控大额转账、销毁、铸造和交易所资金流动。",
     keywords:    "加密鲸鱼追踪, 鲸鱼预警, 比特币大额转账, 链上分析",

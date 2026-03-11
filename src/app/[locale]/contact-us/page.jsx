@@ -42,7 +42,7 @@ const META = {
     description: 'Kontaktieren Sie CryptoWhales für allgemeine Anfragen, Urheberrechtsprobleme oder technischen Support. Wir antworten innerhalb von 24 Stunden.',
     keywords:    'Kontakt, Krypto Support, Hilfe',
   },
-  'zh-cn': {
+  'zh-CN': {
     title:       '联系我们 — CryptoWhales',
     description: '联系 CryptoWhales，咨询一般问题、版权问题或技术支持。我们将在24小时内回复。',
     keywords:    '联系我们, 加密货币支持, 帮助',

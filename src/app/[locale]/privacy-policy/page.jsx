@@ -6,7 +6,7 @@ import PrivacyPolicyPage from "./privayPage";
 // ─────────────────────────────────────────────
 const BASE_URL          = "https://cryptonewstrend.com";
 const SITE_NAME         = "CryptoNews";
-const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-cn"];
+const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-CN"];
 
 // ─────────────────────────────────────────────
 // LOCALE-AWARE META
@@ -42,7 +42,7 @@ const META = {
     description: "Lesen Sie die Datenschutzrichtlinie von CryptoNews Trend, um zu verstehen, wie wir Ihre persönlichen Daten erfassen, verwenden und schützen.",
     keywords:    "Datenschutzrichtlinie, Datenschutz, Cookies, DSGVO, Krypto Datenschutz",
   },
-  'zh-cn': {
+  'zh-CN': {
     title:       `隐私政策 | ${SITE_NAME}`,
     description: "阅读 CryptoNews Trend 的隐私政策，了解我们如何收集、使用和保护您的个人数据。您的隐私是我们的首要任务。",
     keywords:    "隐私政策, 数据保护, Cookie政策, GDPR, 个人数据",

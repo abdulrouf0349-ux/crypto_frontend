@@ -13,7 +13,7 @@ const inter = Inter({
 
 const BASE_URL = "https://cryptonewstrend.com";
 const SITE_NAME = "CryptoNews";
-const SUPPORTED_LOCALES = ['en', 'ur', 'es', 'fr', 'de', 'ar', 'zh-cn'];
+const SUPPORTED_LOCALES = ['en', 'ur', 'es', 'fr', 'de', 'ar', 'zh-CN'];
 const RTL_LOCALES = ['ar', 'ur'];
 
 // ✅ FIX 1: x-default hreflang add kiya — Google multilingual best practice

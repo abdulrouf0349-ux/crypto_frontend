@@ -9,7 +9,7 @@ import { fetchWhaleAlerts } from "../../../../../apis/cryptowhales";
 // ─────────────────────────────────────────────
 const BASE_URL          = "https://cryptonewstrend.com";
 const SITE_NAME         = "CryptoNews";
-const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-cn"]; // ✅ zh → zh-cn
+const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-CN"]; // ✅ zh → zh-CN
 
 // ─────────────────────────────────────────────
 // HELPER — ek jagah reusable meta builder
@@ -96,7 +96,7 @@ export async function generateMetadata({ params }) {
 
 
 export async function generateStaticParams() {
-  const LOCALES = ['en', 'ur', 'ar', 'de', 'fr', 'ru', 'zh-cn', 'es'];
+  const LOCALES = ['en', 'ur', 'ar', 'de', 'fr', 'ru', 'zh-CN', 'es'];
   const params = [];
 
   for (const locale of LOCALES) {

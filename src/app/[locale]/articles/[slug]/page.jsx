@@ -12,7 +12,7 @@ const BASE_URL          = "https://cryptonewstrend.com";
 const DJANGO_URL        = "http://46.62.244.169";
 const SITE_NAME         = "CryptoNewsTrend";
 const TWITTER_HANDLE    = "@cryptonews90841";
-const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-cn"];
+const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-CN"];
 
 // ─────────────────────────────────────────────
 // API — Article fetch
@@ -111,7 +111,7 @@ export async function generateMetadata({ params }) {
 
 
 export async function generateStaticParams() {
-  const LOCALES = ['en', 'ur', 'ar', 'de', 'fr', 'ru', 'zh-cn', 'es'];
+  const LOCALES = ['en', 'ur', 'ar', 'de', 'fr', 'ru', 'zh-CN', 'es'];
   const params = [];
 
   for (const locale of LOCALES) {
