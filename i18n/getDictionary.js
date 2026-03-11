@@ -5,7 +5,7 @@ import es from "./es.json";
 import fr from "./fr.json";
 import ar from "./ar.json"
 import de from "./de.json";
-import zhcn from "./zh-CN.json"; // renamed variable for clarity
+import zhCN from './zh-CN.json'
 
 // map locales to dictionaries
 const dictionaries = {
@@ -16,7 +16,7 @@ const dictionaries = {
   es,
   fr,
   de,
-  "zh-CN": zhcn, // send zh-CN when locale is zh-CN
+  "zh-CN": zhCN, // send zh-CN when locale is zh-CN
 };
 
 export async function getDictionary(locale) {
