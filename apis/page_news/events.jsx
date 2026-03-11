@@ -1,15 +1,18 @@
+import { toApiLocale } from "@/context/locales";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "http://46.62.244.169";
 
 
 export const fetchAllEvents = async (page = 1, locale) => {
   try {
+    const apiLocale = toApiLocale(locale);
+
     const response = await fetch(
-      `http://46.62.244.169/api/get-events/${locale}/?page=${page}`,
+      `http://46.62.244.169/api/get-events/${apiLocale}/?page=${page}`,
       {
      next: { 
   revalidate: 43200, // ✅ 12 hours
-  tags: ['events', `${locale}-events`]
+  tags: ['events', `${apiLocale}-events`]
 }
       }
     );
@@ -36,13 +39,15 @@ export const fetchAllEvents = async (page = 1, locale) => {
  * Isay aap apne kisi bhi component ya action mein call kar sakte hain.
  */
 export const fetchAllIcoProjects = async (locale = 'en', status = 'Active', page = 1) => {
-  const API_URL = `http://46.62.244.169/api/ico_data/${locale}/?status=${status}&page=${page}`;
+      const apiLocale = toApiLocale(locale);
+
+  const API_URL = `http://46.62.244.169/api/ico_data/${apiLocale}/?status=${status}&page=${page}`;
 
   try {
     const response = await fetch(API_URL, {
       next: {
         revalidate: 43200, // ✅ 12 hours — ICO list jaldi nahi badlti
-        tags: ['ico', `${locale}-ico`] // ✅ status ke hisaab se tag
+        tags: ['ico', `${apiLocale}-ico`] // ✅ status ke hisaab se tag
       }
     });
 
@@ -67,14 +72,16 @@ export const fetchAllIcoProjects = async (locale = 'en', status = 'Active', page
 
 export const fetchIcoBySlug = async (slug, locale = 'en') => {
   try {
+          const apiLocale = toApiLocale(locale);
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "http://46.62.244.169";
 
     const response = await fetch(
-      `${BASE_URL}/api/get_slug_ico/${locale}/${slug}/`,  // ✅ GET — slug URL mein
+      `${BASE_URL}/api/get_slug_ico/${apiLocale}/${slug}/`,  // ✅ GET — slug URL mein
       {
         next: {
           revalidate: false,                              // ✅ PERMANENT — ICO slug data change nahi hota
-          tags: [`${locale}-ico-${slug}`],               // ✅ exact page tag
+          tags: [`${apiLocale}-ico-${slug}`],               // ✅ exact page tag
         },
       }
     );
@@ -106,13 +113,14 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "http://46.62.244.169";
 async function fetchEventDetails(eventSlug, locale) {
   try {
     const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "http://46.62.244.169";
+          const apiLocale = toApiLocale(locale);
 
     const response = await fetch(
-      `http://46.62.244.169/api/get_slug_event/${locale}/${eventSlug}/`,
+      `http://46.62.244.169/api/get_slug_event/${apiLocale}/${eventSlug}/`,
       {
         next: {
           revalidate: false,
-          tags: [`${locale}-events-${eventSlug}`],
+          tags: [`${apiLocale}-events-${eventSlug}`],
         },
       }
     );
@@ -136,14 +144,16 @@ async function fetchEventDetails(eventSlug, locale) {
 
 async function getAlertDetailsByHash(hash, locale = 'en') {
   try {
+              const apiLocale = toApiLocale(locale);
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "http://46.62.244.169";
 
     const response = await fetch(
-      `${BASE_URL}/api/get_whales_slug/${locale}/${hash}/`,  // ✅ GET — URL mein
+      `${BASE_URL}/api/get_whales_slug/${apiLocale}/${hash}/`,  // ✅ GET — URL mein
       {
         next: {
           revalidate: false,                                  // ✅ PERMANENT — whale tx change nahi hoti
-          tags: [`${locale}-crypto-whales-${hash}`],                 // ✅ exact page tag
+          tags: [`${apiLocale}-crypto-whales-${hash}`],                 // ✅ exact page tag
         },
       }
     );
@@ -168,18 +178,19 @@ if (response.status === 404) {
 
 export async function fetchAllArticles(locale = 'en', page = 1, category = null) {
   try {
+              const apiLocale = toApiLocale(locale);
 
     const params = new URLSearchParams({ page: String(page) });
     if (category) params.append('category', category);
     const BASE_API = process.env.NEXT_PUBLIC_API_BASE || "http://46.62.244.169";
 
-    const url = `${BASE_API}/api/get_all_articles/${locale}?${params.toString()}`;
+    const url = `${BASE_API}/api/get_all_articles/${apiLocale}?${params.toString()}`;
 
     const response = await fetch(url, {
      
         next: {
           revalidate: 43200,
-          tags: [`${locale}-articles`, `${locale}-articles-${page}`],
+          tags: [`${apiLocale}-articles`, `${apiLocale}-articles-${page}`],
 
         },
       
@@ -214,14 +225,17 @@ export async function fetchAllArticles(locale = 'en', page = 1, category = null)
 
 async function getArticleBySlug(slug, locale) {
   try {
+
+                  const apiLocale = toApiLocale(locale);
+
     const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "http://46.62.244.169";
 
     const response = await fetch(
-      `${BASE_URL}/api/get_article_by_slug/${locale}/${slug}/`, // ✅ locale nahi
+      `${BASE_URL}/api/get_article_by_slug/${apiLocale}/${slug}/`, // ✅ locale nahi
       {
         next: {
           revalidate: false,
-          tags: [`${locale}-articles-${slug}`],
+          tags: [`${apiLocale}-articles-${slug}`],
         },
       }
     );

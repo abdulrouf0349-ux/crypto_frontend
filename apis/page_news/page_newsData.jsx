@@ -1,10 +1,13 @@
+import { toApiLocale } from "@/context/locales";
+
 const Page_NewsData = async (page = 1,locale) => {
   const baseUrl = "http://46.62.244.169/api/getdata";
+                      const apiLocale = toApiLocale(locale);
 
   const apiUrl =
     locale === "en"
       ? `${baseUrl}/?page=${page}`
-      : `${baseUrl}/${locale}/?page=${page}`;
+      : `${baseUrl}/${apiLocale}/?page=${page}`;
 
   const res = await fetch(apiUrl, {
     method: "POST", // Changed to POST

@@ -1,12 +1,16 @@
+import { toApiLocale } from "@/context/locales";
+
 const NewstypeApi = async (news_type, page, locale) => {
   try {
+                      const apiLocale = toApiLocale(locale);
+    
     const response = await fetch(
-      `http://46.62.244.169/api/get_news_type/${locale}/?page=${page}`,
+      `http://46.62.244.169/api/get_news_type/${apiLocale}/?page=${page}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ news: news_type }),
-        next: { revalidate: 300, tags: [`${locale}-news`, `${locale}-news-${news_type}`] }, // ✅
+        next: { revalidate: 300, tags: [`${apiLocale}-news`, `${apiLocale}-news-${news_type}`] }, // ✅
       }
     );
 

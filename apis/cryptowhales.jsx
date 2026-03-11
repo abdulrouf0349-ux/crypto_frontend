@@ -1,6 +1,10 @@
+import { toApiLocale } from "@/context/locales";
+
 export const fetchWhaleAlerts = async (page = 1, locale = 'en') => {
     // URL matching your Django view: api/whales_alert/<locale>/?page=<page>
-    const API_URL = `http://46.62.244.169/api/whales_alert/${locale}/?page=${page}`; 
+                          const apiLocale = toApiLocale(locale);
+    
+    const API_URL = `http://46.62.244.169/api/whales_alert/${apiLocale}/?page=${page}`; 
     try {
 const response = await fetch(API_URL, { 
   next: { revalidate: 3600 } // 1 hour
@@ -17,13 +21,16 @@ const response = await fetch(API_URL, {
 
 
 async function fetchCoins(page = 1, search = '', type = 'all', locale = 'en') {
+                            const apiLocale = toApiLocale(locale);
+
   try {
+
 
     const params = new URLSearchParams({
       page: page.toString(),
       search,
       type,
-      locale,
+      apiLocale,
     });
 
     const url = `http://46.62.244.169/api/coins?${params.toString()}`;
@@ -31,7 +38,7 @@ async function fetchCoins(page = 1, search = '', type = 'all', locale = 'en') {
     const res = await fetch(url, {
       next: {
         revalidate: false,                          // ✅ PERMANENT — coin details change nahi hoti
-        tags: [`${locale}-glossary-${type}`],          // ✅ exact page tag
+        tags: [`${apiLocale}-glossary-${type}`],          // ✅ exact page tag
       },
     });
 
@@ -50,9 +57,11 @@ if (!res.ok) return { data: [], metadata: { total_pages: 1 } };
 
 async function fetchCoinDetail(slug, locale = 'en') {
   try {
+                                const apiLocale = toApiLocale(locale);
+
 
     const res = await fetch(
-      `http://46.62.244.169/api/coins/${slug}/?locale=${locale}`,
+      `http://46.62.244.169/api/coins/${slug}/?locale=${apiLocale}`,
       {
         next: {
           revalidate: false,                        // ✅ PERMANENT — coin details change nahi hoti
