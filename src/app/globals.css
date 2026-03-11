@@ -1,26 +1,51 @@
 @import "tailwindcss";
 
 :root {
+  /* Soft Professional Colors */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #2f3c42; /* Aapka signature slate color */
+  --accent: #37474f;
+  
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Global Font: Inter (Professional standard) */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #f1f5f9;
   }
 }
 
+/* Global Styles for Uniformity */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans); /* Sab jagah same font */
+  font-size: 16px; /* Base font size for the whole page */
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* Heading uniformity */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: -0.02em; /* Sharp professional look */
+}
+
+/* Consistent link styling */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+/* globals.css */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

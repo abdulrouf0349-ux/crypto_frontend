@@ -1,0 +1,241 @@
+{
+  "home": "Home",
+  "info_title": "Information",
+  "contact_support": "Contact Support",
+  
+  "market_data": "Market Data",
+"ico_token": "ICO Token",
+"coin_glossary": "Coin Glossary",
+"upcoming_tokens": "Upcoming Tokens",
+"company": "Company",
+"about_us": "About Us",
+"privacy_policy": "Privacy Policy",
+  "latest_news": "Latest News",
+  "top_news": "Top News",
+  "read_more": "Read More",
+
+
+  "brand": {
+    "name": "CryptoNews",
+"description": "Your global authority for real-time cryptocurrency news, blockchain updates, and expert market analysis. Stay informed with the pulse of the crypto world on CryptoNews."  },
+  "social": {
+    "facebook": "Facebook",
+    "twitter": "Twitter",
+    "whatsapp": "WhatsApp",
+    "instagram": "Instagram",
+    "telegram": "Telegram"
+  },
+
+ "contact_page": {
+    "hero_badge": "Get In Touch",
+    "hero_title_1": "We'd Love to Hear",
+    "hero_title_2": "From You",
+    "hero_desc": "Whether it's a partnership proposal, a copyright concern, or just a kind word — our inbox is always open.",
+    "opt1_title": "General Inquiries",
+    "opt1_desc": "Questions about the platform, partnerships, or media requests.",
+    "opt2_title": "Copyright & Takedowns",
+    "opt2_desc": "Report content that violates your copyright or intellectual property.",
+    "opt3_title": "Support & Bugs",
+    "opt3_desc": "Found a bug or need help with the platform? Let us know.",
+    "form_title": "Send a Message",
+    "form_subtitle": "We typically respond within 24–48 hours.",
+    "label_name": "Your Name",
+    "placeholder_name": "John Doe",
+    "label_email": "Email Address",
+    "placeholder_email": "john@example.com",
+    "label_subject": "Subject",
+    "placeholder_subject": "Partnership / Bug Report / General",
+    "label_message": "Message",
+    "placeholder_message": "Tell us how we can help you...",
+    "btn_send": "Send Message",
+    "btn_sending": "Sending...",
+    "success_title": "Message Sent!",
+    "success_desc": "We'll get back to you as soon as possible."
+  },
+   "privacy_page": {
+    "hero_badge": "Legal",
+    "hero_title": "Privacy Policy",
+    "hero_desc": "We believe in radical transparency. Here's exactly what data we collect, why we collect it, and how we protect it.",
+    "last_updated_label": "Last Updated",
+    "last_updated_date": "January 1, 2025",
+    "toc_label": "Contents",
+    "tldr": "CryptoNews collects minimal data, never sells it, uses it only to improve your experience, and you can request deletion at any time. We're an independent platform with no investors or advertisers — your trust is our only asset.",
+    "s1_title": "1. Information We Collect",
+    "s1_content": "We collect minimal data necessary to operate CryptoNews. This includes:\n\n• Usage Data: Pages visited, time spent, browser type, device type, and IP address (anonymized).\n• Preferences: Language selection and reading preferences stored in your browser locally.\n• Voluntary Data: If you contact us, we collect your name and email address solely to respond to your inquiry.\n\nWe do NOT collect passwords, payment information, or any sensitive personal data.",
+    "s2_title": "2. How We Use Your Information",
+    "s2_content": "The information we collect is used strictly to:\n\n• Deliver and improve the CryptoNews platform and user experience.\n• Analyze aggregate traffic patterns to optimize content delivery.\n• Respond to support requests or inquiries you send us.\n• Ensure platform security and prevent abuse.\n\nWe do NOT sell, rent, or trade your personal information to any third parties for marketing purposes.",
+    "s3_title": "3. Cookies & Local Storage",
+    "s3_content": "CryptoNews uses minimal cookies and local storage for:\n\n• Language preference (locale) — stored locally in your browser.\n• Session analytics — anonymized and aggregated, never linked to you personally.\n\nYou may disable cookies via your browser settings at any time.",
+    "s4_title": "4. Third-Party Services",
+    "s4_content": "CryptoNews may use the following third-party services:\n\n• Hosting & CDN providers for content delivery.\n• Analytics tools (anonymized) to understand platform usage.\n• News source APIs for aggregating cryptocurrency news content.\n\nEach third-party provider has their own privacy policy. We do not share personally identifiable information with these providers.",
+    "s5_title": "5. Copyright & Content",
+    "s5_content": "CryptoNews aggregates news from various public sources. All original content belongs to their respective owners. We link back to original sources and do not claim ownership of third-party articles.\n\nIf you believe your copyrighted content has been used improperly, please contact us at copyright@cryptonews.com and we will address your concern promptly — typically within 48 hours.",
+    "s6_title": "6. Your Rights",
+    "s6_content": "You have the right to:\n\n• Access any personal data we hold about you.\n• Request deletion of your data from our systems.\n• Opt-out of any analytics or tracking at any time.\n• Contact us with any privacy-related concerns.\n\nTo exercise any of these rights, contact us at support@cryptonews.com. We will respond within 7 business days.",
+    "s7_title": "7. Data Security",
+    "s7_content": "We take reasonable technical and organizational measures to protect any data we hold. CryptoNews uses HTTPS encryption for all data in transit.\n\nHowever, no system is 100% secure. We encourage you to use strong passwords and to contact us immediately if you suspect any unauthorized access.",
+    "s8_title": "8. Children's Privacy",
+    "s8_content": "CryptoNews is not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal data, please contact us and we will delete it immediately.",
+    "s9_title": "9. Changes to This Policy",
+    "s9_content": "We may update this Privacy Policy from time to time. We will indicate the Last Updated date at the top of this page. Continued use of CryptoNews after any changes constitutes your acceptance of the updated policy.",
+    "s10_title": "10. Contact Us",
+    "s10_content": "If you have any questions regarding this Privacy Policy:\n\nEmail: privacy@cryptonews.com\nResponse time: Within 48 hours\n\nWe take your privacy seriously.",
+    "cta_title": "Still Have Questions?",
+    "cta_desc": "Our privacy policy is meant to be read and understood. If anything is unclear, please reach out.",
+    "cta_btn": "Contact Us"
+  },
+
+  
+  "filters": {
+    "all": "All",
+    "ongoing": "Ongoing",
+    "upcoming": "Upcoming",
+    "ended": "Ended"
+  },
+  "errors": {
+    "not_found_title": "Article Not Found",
+    "not_found_desc": "This page may have been removed or the link is incorrect.",
+    "back_to_home": "Back to Home"
+  }
+,
+
+  "whale_tracker": {
+    "title": "Crypto Whale Tracker",
+    "description": "Real-time large transaction monitor across Bitcoin, Ethereum & 50+ blockchains.",
+    "show_more": "Show more events",
+    "detection_info": "Detection Info",
+    "node_scan": "Advanced Node Scan",
+    "engine_desc": "Our proprietary Whale Monitoring engine uses real-time node data to track large-scale movements.",
+    "monitor_wallet": "Monitor This Wallet",
+    "all_alerts": "All Whale Alerts",
+    "tx_flow": "Transaction Flow",
+    "tx_hash": "Transaction Hash",
+    "transaction": "Transaction",
+    "back_to_tracker": "Back to Tracker"
+  },
+  "launchpad": {
+    "title": "Crypto Launchpad & Token Sales",
+    "description": "Discover and track the most promising blockchain startups in Active stage.",
+    "ico_title": "ICO Launchpad",
+    "submit_project": "Submit Project",
+    "category": "Category",
+    "platform": "Platform",
+    "search_placeholder": "Search ICO Projects",
+    "about": "About Project",
+    "funding": "Funding Rounds",
+    "stats": "Investment Stats",
+    "show_more_coins": "Show More Coins",
+    "all": "All",
+    "coins": "Coins",
+    "tokens": "Tokens",
+    "explore_desc": "Explore all cryptocurrencies, tokens, and blockchain projects."
+  }
+,
+  "about_page": {
+    "hero_badge": "Our Story",
+    "hero_title_1": "The Voice of the",
+    "hero_title_2": "Crypto World",
+    "hero_desc": "CryptoNews was born from a simple idea — everyone deserves access to fast, accurate, and unbiased cryptocurrency news. No paywalls. No bias. Just the truth about the decentralized world shaping our future.",
+    "stat_readers": "Daily Readers",
+    "stat_languages": "Languages",
+    "stat_news": "News Daily",
+    "stat_uptime": "Uptime",
+    "mission_badge": "Our Mission",
+    "mission_title": "Democratizing Access to Crypto Information",
+    "mission_desc1": "We aggregate and translate cryptocurrency news from the world's top sources, making it accessible in over 12 languages. Whether you're in Karachi, Moscow, or São Paulo — you deserve to understand the financial revolution happening around you.",
+    "mission_desc2": "Built by a single developer with zero funding, CryptoNews proves that passion and technology can build something truly global. Every feature, every translation, every update — handcrafted with care.",
+    "quote": "\"Fast. Accurate. Global. That's the CryptoNews promise.\"",
+    "quote_author": "The Developer",
+    "quote_role": "Founder, CryptoNews",
+    "values_badge": "Core Values",
+    "values_title": "What We Stand For",
+    "val1_title": "Real-Time Coverage",
+    "val1_desc": "Breaking crypto news delivered within minutes of happening — no delays, no filters.",
+    "val2_title": "Global Reach",
+    "val2_desc": "Available in 12+ languages so every reader gets crypto news in their native tongue.",
+    "val3_title": "Built by a Student",
+    "val3_desc": "This platform was built solo with zero funding — powered by passion and late nights.",
+    "val4_title": "No Bias, No Ads",
+    "val4_desc": "Independent journalism. We report facts, not sponsored narratives or paid promotions.",
+    "cta_title": "Support Independent Journalism",
+    "cta_desc": "Running CryptoNews costs real money. If this platform has helped you, consider supporting it so we can keep the servers running and content flowing.",
+    "cta_btn1": "Contact Us",
+    "cta_btn2": "Read Latest News"
+  
+},
+  "header": {
+    "news": "News",
+    "events": "Events",
+    "market": "Market",
+    "ico": "ICO",
+    "whales_tracking": "Whales Tracking",
+    "new_listing": "New Listing"
+  },
+ "news": {
+  "title":"News",
+    "all": "All",
+    "bitcoin": "Bitcoin",
+    "ethereum": "Ethereum",
+    "blockchain": "Blockchain",
+    "defi": "DeFi",
+    "nft": "NFTs",
+    "cryptocurrency": "Cryptocurrency",
+    "altcoin": "Altcoin",
+    "staking": "Staking",
+    "dao": "DAO",
+    "mining": "Mining"
+  },
+  "banner":{
+      "support": "Support the Project",
+      "tap_to_copy": "Tap to copy address",
+      "help_badge": "Help the Project",
+        "donate": "Donate to Support" ,
+  "donate_disc":"I’m a student developing this platform with zero funding. Your support helps me manage server costs, improve features, and continue delivering reliable updates every day.",
+  "thanks":"Thank you for supporting independent journalism."
+  },
+  "on_page":{
+"top_stories": "Top Stories",
+"market_events": "Market Events",
+"view_more": "View More"
+  },
+"news_slug":{
+  "read_original": "Read the original story",
+"visit_source": "Visit Source",
+"trending_icos": "Trending ICOs",
+"published": "Published",
+"source": "Source"
+},
+"events": {
+      "title": "Web3 & Fintech Events",
+      "all_events": "All Events",
+      "subtitle": "Find the latest global conferences.",
+      "create_event": "Create an Event",
+      "filter_all": "All",
+      "filter_ongoing": "Ongoing",
+      "filter_upcoming": "Upcoming",
+      "filter_ended": "Ended",
+      "btn_details": "Details",
+      "btn_register": "Register"
+    },
+"seo": {
+  "title": "Crypto News Today | Latest Bitcoin & Altcoin Market Updates",
+  "description": "Stay updated with real-time crypto news, market analysis, and blockchain events. Your global source for Bitcoin, Ethereum, and DeFi updates."
+},
+  "about": {
+    "title": "About Us",
+    "about": "About",
+    "about_app": "About App",
+    "contact": "Contact",
+    "glossary": "Glossary"
+  },
+  "policies": {
+    "title": "Policies",
+    "privacy_policy": "Privacy Policy",
+    "copyright": "For Copyright Holders",
+    "sitemap": "Sitemap"
+  },
+  "contact": "Contact",
+  "copyright": "CryptoNews"
+
+
+}
