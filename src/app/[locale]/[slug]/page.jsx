@@ -18,7 +18,7 @@ export const revalidate = false;
 const BASE_URL = "https://cryptonewstrend.com";
 const SITE_NAME = "CryptoNewsTrend";
 const TWITTER_HANDLE = "@cryptonews90841"; // ✅ FIX: Real handle
-const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh"];
+const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-cn"];
 
 // ─────────────────────────────────────────────
 // HELPER: Safe ISO date — Google News ke liye zaroori

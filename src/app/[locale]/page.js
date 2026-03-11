@@ -13,7 +13,7 @@ import ArticlefirstPage from "../../../components/Data/article_firstPage";
 import MobileSupportButton from "../../../components/Right_side/MobileSupportButton";
 
 const BASE_URL = "https://cryptonewstrend.com";
-const SUPPORTED_LOCALES = ['en', 'ur', 'es', 'fr', 'de', 'ar', 'zh'];
+const SUPPORTED_LOCALES = ['en', 'ur', 'es', 'fr', 'de', 'ar', 'zh-cn'];
 
 // ✅ 1. PAGE-LEVEL METADATA (layout.js wali override karegi yahan se)
 export async function generateMetadata({ params }) {

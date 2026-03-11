@@ -12,7 +12,7 @@ import Image from 'next/image';
 const BASE_URL  = "https://cryptonewstrend.com";
 const SITE_NAME = "CryptoNewsTrend";
 const TWITTER_HANDLE   = "@cryptonews90841";
-const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh"];
+const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-cn"];
 
 // ─────────────────────────────────────────────
 // ✅ generateMetadata — SEO
