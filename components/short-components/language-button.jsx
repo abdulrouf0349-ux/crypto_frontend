@@ -10,7 +10,7 @@ const languageList = [
   { code: 'es',    name: 'ES' },
   { code: 'fr',    name: 'FR' },
   { code: 'de',    name: 'DE' },
-  { code: 'zh-cn', name: 'ZH' },
+  { code: 'zh-CN', name: 'ZH' },
 ];
 
 // ✅ All valid locale codes

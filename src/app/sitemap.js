@@ -7,7 +7,7 @@ import { fetchAllIcoProjects } from '../../apis/page_news/events';
 import { fetchAllEvents } from '../../apis/page_news/events';
 const SITE_URL = 'https://cryptonewstrend.com';
 const BASE_API = process.env.NEXT_PUBLIC_API_BASE || 'http://46.62.244.169';
-const LOCALES  = ['en', 'ur', 'ar', 'de', 'fr', 'ru', 'zh-cn', 'es'];
+const LOCALES  = ['en', 'ur', 'ar', 'de', 'fr', 'ru', 'zh-CN', 'es'];
 
 const NEWS_CATEGORIES = [
   'bitcoin','ethereum','blockchain','defi',

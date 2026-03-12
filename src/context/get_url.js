@@ -4,7 +4,7 @@ export const getPathDetails = (pathname) => {
     const segments = pathname.split('/').filter(Boolean);
     
     // ZAROORI: 'en' ko yahan add karein
-    const supportedLangs = ['en', 'ur', 'de', 'ru', 'es', 'fr', 'zh-cn'];
+    const supportedLangs = ['en', 'ur', 'de', 'ru', 'es', 'fr', 'zh-CN'];
 
     let locale = 'en';
     let remainingSegments = segments;

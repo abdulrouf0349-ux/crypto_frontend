@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 
-let locales = ['de','ru','ar','zh-cn','en', 'es', 'fr', 'ur'];
+let locales = ['de','ru','ar','zh-CN','en', 'es', 'fr', 'ur'];
 let defaultLocale = 'en';
 
 function getLocale(request) {
@@ -42,6 +42,7 @@ export function proxy(request) {
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|images|assets|svg|sitemap.xml|robots.txt).*)',
+    // '/((?!api|_next/static|_next/image|favicon.ico|manifest.json|images|assets|svg|sitemap.xml|robots.txt).|.*\\.[\\w]+$).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|manifest.json|robots.txt|sitemap.xml|.*\\.[\\w]+$).*)',
   ],
 };

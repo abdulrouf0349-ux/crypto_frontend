@@ -16,7 +16,7 @@ const Lang_Btn_mobile = () => {
     { code: 'es', name: 'ES' },
     { code: 'fr', name: 'FR' },
     { code: 'de', name: 'DE' },
-    { code: 'zh-cn', name: 'ZH' },
+    { code: 'zh-CN', name: 'ZH' },
   ];
 
   // Update selected language based on pathname
@@ -30,17 +30,21 @@ const Lang_Btn_mobile = () => {
 
   const toggleList = () => setIsOpen(!isOpen);
 
-  const switchLocale = (newLocale) => {
-    setSelectedLanguage(newLocale.toUpperCase());
-    const pathParts = pathname.split('/');
-    if (pathParts[1] && pathParts[1].length === 2) {
-      pathParts[1] = newLocale;
-    } else {
-      pathParts.splice(1, 0, newLocale);
-    }
-    router.push(pathParts.join('/'));
-    setIsOpen(false);
-  };
+ const switchLocale = (newLocale) => {
+  const pathParts = pathname.split('/');
+  
+  // ✅ FIX: Length check karne ke bajaye list se check karein
+  // pathParts[1] wo pehla segment hai jo locale ho sakta hai (e.g., 'en' or 'zh-CN')
+  if (LOCALE_CODES.includes(pathParts[1])) {
+    pathParts[1] = newLocale;          // Purane locale ko naye se badal do
+  } else {
+    pathParts.splice(1, 0, newLocale); // Agar locale nahi tha, toh insert karo
+  }
+
+  const targetPath = pathParts.join('/') || '/';
+  router.push(targetPath);
+  setIsOpen(false);
+};
 
 // Lang_Btn_mobile component ka return part:
 return (
