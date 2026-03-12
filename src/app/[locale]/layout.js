@@ -170,7 +170,22 @@ export default async function RootLayout({ children, params }) {
       <html lang={locale}>
 
       <head>
-        {/* ✅ FIX 9 & 10: Site-level schemas inject */}
+       <meta name="google-site-verification" content="G-6QD0N2CR34" />
+        {/* 2. Google Tag (gtag.js) - Script 1 (Load script) */}
+        <Script 
+          src="https://www.googletagmanager.com/gtag/js?id=G-6QD0N2CR34" 
+          strategy="afterInteractive" 
+        />
+        
+        {/* 3. Google Tag (gtag.js) - Script 2 (Initialize) */}
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-6QD0N2CR34');
+          `}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
