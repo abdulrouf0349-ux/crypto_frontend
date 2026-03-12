@@ -2,6 +2,8 @@ import "../globals.css";
 import { Header } from "../../../components/common-components/header";
 import Footer from "../../../components/common-components/footer";
 import { Inter } from "next/font/google";
+import Script from 'next/script';
+
 import { getDictionary } from "../../../i18n/getDictionary";
 import ClientLayout from "@/context/LocaleContext";
 
