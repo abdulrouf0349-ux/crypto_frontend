@@ -87,7 +87,7 @@ export default function ArticleSlugClient({
               {dict?.home || 'Home'}
             </Link>
             <span aria-hidden="true">/</span>
-            <Link href={`/${locale}/article`} className="hover:text-indigo-600 transition-colors">
+            <Link href={`/${locale}/articles`} className="hover:text-indigo-600 transition-colors">
               Articles
             </Link>
             <span aria-hidden="true">/</span>
