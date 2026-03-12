@@ -155,22 +155,189 @@ export default function ArticleSlugClient({
         </figure>
 
         {/* Article Body — HTML from Django RichText */}
-        <div
-          className="
-            prose prose-slate max-w-none
-            prose-headings:font-black prose-headings:tracking-tight
-            prose-h2:text-2xl prose-h3:text-xl
-            prose-p:text-slate-700 prose-p:leading-relaxed prose-p:text-base md:prose-p:text-lg
-            prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline
-            prose-img:rounded-xl prose-img:shadow-lg
-            prose-blockquote:border-indigo-400 prose-blockquote:bg-indigo-50 prose-blockquote:rounded-xl prose-blockquote:py-1
-            prose-strong:text-slate-900
-            prose-ul:list-disc prose-ol:list-decimal
-            prose-li:text-slate-700
-            prose-code:bg-slate-100 prose-code:px-1.5 prose-code:rounded prose-code:text-sm
-          "
-          dangerouslySetInnerHTML={{ __html: article.content || '' }}
-        />
+   <div className="article-content-area max-w-none w-full">
+  <style jsx global>{`
+    /* 1. Base Text, Paragraphs & Spacing */
+    .article-content-area p {
+      line-height: 2.2 !important;
+      font-size: 18px !important;
+      color: #334155 !important;
+      margin-bottom: 28px !important;
+    }
+
+    /* 2. Headings (H1 - H4) */
+    .article-content-area h1, .article-content-area h2 {
+      font-size: 2.4rem !important;
+      font-weight: 900 !important;
+      color: #0f172a !important;
+      margin-top: 55px !important;
+      margin-bottom: 25px !important;
+      line-height: 1.3 !important;
+      letter-spacing: -0.02em !important;
+    }
+    .article-content-area h3 {
+      font-size: 1.8rem !important;
+      font-weight: 800 !important;
+      margin-top: 40px !important;
+      margin-bottom: 18px !important;
+    }
+.article-content-area mark {
+      background-color: #fef08a !important; /* Soft Yellow Highlight */
+      color: #1e1b4b !important;
+      padding: 2px 6px !important;
+      border-radius: 4px !important;
+      font-weight: 600 !important;
+    }
+    
+    .article-content-area code {
+      background-color: #f1f5f9 !important;
+      color: #e11d48 !important; /* Rose color for code */
+      padding: 3px 8px !important;
+      border-radius: 6px !important;
+      font-family: 'Courier New', monospace !important;
+      font-size: 16px !important;
+    }
+
+    .article-content-area time {
+      color: #64748b !important;
+      font-size: 14px !important;
+      font-weight: 600 !important;
+      text-transform: uppercase !important;
+    }
+
+    /* 3. Interactive Tags (FAQs ke liye best) */
+    .article-content-area details {
+      background: #f8fafc !important;
+      padding: 15px !important;
+      border-radius: 12px !important;
+      border: 1px solid #e2e8f0 !important;
+      margin-bottom: 20px !important;
+    }
+    .article-content-area summary {
+      font-weight: 800 !important;
+      cursor: pointer !important;
+      color: #4f46e5 !important;
+      outline: none !important;
+    }
+
+    /* 4. Formatting Extras */
+    .article-content-area del {
+      color: #94a3b8 !important;
+      text-decoration: line-through !important;
+    }
+    
+    .article-content-area ins {
+      color: #059669 !important;
+      text-decoration: underline !important;
+      background: #ecfdf5 !important;
+    }
+
+    /* 5. Subscript & Superscript (H2O ya 1st ke liye) */
+    .article-content-area sub, .article-content-area sup {
+      font-size: 12px !important;
+      color: #4f46e5 !important;
+    }
+
+    /* 6. Figure & Captions (Images ke sath text) */
+    .article-content-area figure {
+      margin: 40px 0 !important;
+      text-align: center !important;
+    }
+    .article-content-area figcaption {
+      font-size: 14px !important;
+      color: #64748b !important;
+      margin-top: 10px !important;
+      font-style: italic !important;
+    }
+    /* 3. Links (<a> Tag) - Super VIP Style */
+    .article-content-area a {
+      color: #4f46e5 !important; /* Indigo color */
+      text-decoration: none !important;
+      font-weight: 700 !important;
+      border-bottom: 2px solid #e0e7ff !important;
+      transition: all 0.2s ease !important;
+    }
+    .article-content-area a:hover {
+      background-color: #f5f3ff !important;
+      border-bottom-color: #4f46e5 !important;
+    }
+
+    /* 4. Images & Captions */
+    .article-content-area img {
+      width: 100% !important;
+      height: auto !important;
+      border-radius: 20px !important;
+      margin: 40px 0 !important;
+      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1) !important;
+    }
+
+    /* 5. Lists (ul, ol, li) */
+    .article-content-area ul, .article-content-area ol {
+      margin-bottom: 30px !important;
+      padding-left: 28px !important;
+    }
+    .article-content-area li {
+      line-height: 2 !important;
+      font-size: 18px !important;
+      color: #334155 !important;
+      margin-bottom: 12px !important;
+    }
+
+    /* 6. Tables (Market Rates) */
+    .article-content-area table {
+      width: 100% !important;
+      border-collapse: separate !important;
+      border-spacing: 0 !important;
+      margin: 35px 0 !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 12px !important;
+      overflow: hidden !important;
+    }
+    .article-content-area th {
+      background-color: #f8fafc !important;
+      padding: 16px !important;
+      font-weight: 800 !important;
+      border-bottom: 2px solid #e2e8f0 !important;
+    }
+    .article-content-area td {
+      padding: 16px !important;
+      border-bottom: 1px solid #f1f5f9 !important;
+    }
+
+    /* 7. Blockquotes & Horizontal Lines */
+    .article-content-area blockquote {
+      border-left: 6px solid #4f46e5 !important;
+      background: #f8fafc !important;
+      padding: 25px 30px !important;
+      margin: 40px 0 !important;
+      font-style: italic !important;
+      border-radius: 0 15px 15px 0 !important;
+    }
+    .article-content-area hr {
+      border: 0 !important;
+      border-top: 2px solid #f1f5f9 !important;
+      margin: 50px 0 !important;
+    }
+
+    /* 8. Bold / Strong Fix */
+    .article-content-area strong {
+      font-weight: 900 !important;
+      color: #1e1b4b !important;
+    }
+  `}</style>
+
+  <div
+    dangerouslySetInnerHTML={{ 
+      __html: article.content 
+        ? article.content
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/&nbsp;/g, ' ') 
+        : '' 
+    }} 
+  />
+</div>
 
         {/* ── Category + Share Footer ── */}
         <div className="mt-12 pt-8 border-t border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -187,7 +354,7 @@ export default function ArticleSlugClient({
         <div className="mt-10 flex justify-center">
           <Link
             href={`/${locale}/article`}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white font-black rounded-xl hover:bg-indigo-600 transition-all active:scale-95"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 !text-white font-black rounded-xl hover:bg-indigo-600 transition-all active:scale-95"
           >
             <FiArrowLeft size={16} aria-hidden="true" />
             Back to Articles
