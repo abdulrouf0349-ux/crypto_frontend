@@ -18,6 +18,7 @@ const Lang_Btn_mobile = () => {
     { code: 'de', name: 'DE' },
     { code: 'zh-CN', name: 'ZH' },
   ];
+const LOCALE_CODES = languageList.map(l => l.code);
 
   // Update selected language based on pathname
   useEffect(() => {
