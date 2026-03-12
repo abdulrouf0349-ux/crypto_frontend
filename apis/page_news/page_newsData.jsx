@@ -1,7 +1,7 @@
 import { toApiLocale } from "@/context/locales";
 
 const Page_NewsData = async (page = 1,locale) => {
-  const baseUrl = "http://46.62.244.169/api/getdata";
+  const baseUrl = "https://crytponews.fun/api/getdata";
                       const apiLocale = toApiLocale(locale);
 
   const apiUrl =

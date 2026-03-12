@@ -9,7 +9,7 @@ import { fetchAllArticles } from "../../../../../apis/page_news/events";
 // CONSTANTS
 // ─────────────────────────────────────────────
 const BASE_URL          = "https://cryptonewstrend.com";
-const DJANGO_URL        = "http://46.62.244.169";
+const DJANGO_URL        = "https://crytponews.fun";
 const SITE_NAME         = "CryptoNewsTrend";
 const TWITTER_HANDLE    = "@cryptonews90841";
 const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-CN"];

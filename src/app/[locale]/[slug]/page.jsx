@@ -165,7 +165,7 @@ export async function generateStaticParams() {
     for (let page = 1; page <= 3; page++) {
       try {
         const res = await fetch(
-          `http://46.62.244.169/api/getdata${locale === 'en' ? '' : '/' + locale}/?page=${page}`,
+          `https://crytponews.fun/api/getdata${locale === 'en' ? '' : '/' + locale}/?page=${page}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "http://46.62.244.169";
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "https://crytponews.fun";
 
 const getNewsById = async (locale = 'en', Title) => {
   try {

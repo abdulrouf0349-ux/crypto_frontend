@@ -1,6 +1,6 @@
 import { toApiLocale } from "@/context/locales";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "http://46.62.244.169";
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "https://crytponews.fun";
 
 
 export const fetchAllEvents = async (page = 1, locale) => {
@@ -8,7 +8,7 @@ export const fetchAllEvents = async (page = 1, locale) => {
     const apiLocale = toApiLocale(locale);
 
     const response = await fetch(
-      `http://46.62.244.169/api/get-events/${apiLocale}/?page=${page}`,
+      `https://crytponews.fun/api/get-events/${apiLocale}/?page=${page}`,
       {
      next: { 
   revalidate: 43200, // ✅ 12 hours
@@ -41,7 +41,7 @@ export const fetchAllEvents = async (page = 1, locale) => {
 export const fetchAllIcoProjects = async (locale = 'en', status = 'Active', page = 1) => {
       const apiLocale = toApiLocale(locale);
 
-  const API_URL = `http://46.62.244.169/api/ico_data/${apiLocale}/?status=${status}&page=${page}`;
+  const API_URL = `https://crytponews.fun/api/ico_data/${apiLocale}/?status=${status}&page=${page}`;
 
   try {
     const response = await fetch(API_URL, {
@@ -74,7 +74,7 @@ export const fetchIcoBySlug = async (slug, locale = 'en') => {
   try {
           const apiLocale = toApiLocale(locale);
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "http://46.62.244.169";
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "https://crytponews.fun";
 
     const response = await fetch(
       `${BASE_URL}/api/get_slug_ico/${apiLocale}/${slug}/`,  // ✅ GET — slug URL mein
@@ -112,11 +112,11 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "http://46.62.244.169";
 
 async function fetchEventDetails(eventSlug, locale) {
   try {
-    const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "http://46.62.244.169";
+    const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "https://crytponews.fun";
           const apiLocale = toApiLocale(locale);
 
     const response = await fetch(
-      `http://46.62.244.169/api/get_slug_event/${apiLocale}/${eventSlug}/`,
+      `https://crytponews.fun/api/get_slug_event/${apiLocale}/${eventSlug}/`,
       {
         next: {
           revalidate: false,
@@ -146,7 +146,7 @@ async function getAlertDetailsByHash(hash, locale = 'en') {
   try {
               const apiLocale = toApiLocale(locale);
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "http://46.62.244.169";
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "https://crytponews.fun";
 
     const response = await fetch(
       `${BASE_URL}/api/get_whales_slug/${apiLocale}/${hash}/`,  // ✅ GET — URL mein
@@ -182,7 +182,7 @@ export async function fetchAllArticles(locale = 'en', page = 1, category = null)
 
     const params = new URLSearchParams({ page: String(page) });
     if (category) params.append('category', category);
-    const BASE_API = process.env.NEXT_PUBLIC_API_BASE || "http://46.62.244.169";
+    const BASE_API = process.env.NEXT_PUBLIC_API_BASE || "https://crytponews.fun";
 
     const url = `${BASE_API}/api/get_all_articles/${apiLocale}?${params.toString()}`;
 
@@ -228,7 +228,7 @@ async function getArticleBySlug(slug, locale) {
 
                   const apiLocale = toApiLocale(locale);
 
-    const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "http://46.62.244.169";
+    const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "https://crytponews.fun";
 
     const response = await fetch(
       `${BASE_URL}/api/get_article_by_slug/${apiLocale}/${slug}/`, // ✅ locale nahi

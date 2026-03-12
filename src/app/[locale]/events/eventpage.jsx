@@ -14,7 +14,7 @@ const EventsPage = () => {
   const [allEvents, setAllEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeStatus, setActiveStatus] = useState('All');
+  const [activeStatus, setActiveStatus] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const { dict, locale } = useLocale();
 
@@ -53,7 +53,7 @@ const EventsPage = () => {
 
   useEffect(() => {
     let result = allEvents;
-    if (activeStatus !== 'All') {
+    if (activeStatus !== 'all') {
       result = result.filter(event => event.status?.toLowerCase() === activeStatus.toLowerCase());
     }
     if (searchQuery) {

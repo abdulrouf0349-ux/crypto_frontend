@@ -4,7 +4,7 @@ export const fetchWhaleAlerts = async (page = 1, locale = 'en') => {
     // URL matching your Django view: api/whales_alert/<locale>/?page=<page>
                           const apiLocale = toApiLocale(locale);
     
-    const API_URL = `http://46.62.244.169/api/whales_alert/${apiLocale}/?page=${page}`; 
+    const API_URL = `https://crytponews.fun/api/whales_alert/${apiLocale}/?page=${page}`; 
     try {
 const response = await fetch(API_URL, { 
   next: { revalidate: 3600 } // 1 hour
@@ -33,7 +33,7 @@ async function fetchCoins(page = 1, search = '', type = 'all', locale = 'en') {
       apiLocale,
     });
 
-    const url = `http://46.62.244.169/api/coins?${params.toString()}`;
+    const url = `https://crytponews.fun/api/coins?${params.toString()}`;
 
     const res = await fetch(url, {
       next: {
@@ -61,7 +61,7 @@ async function fetchCoinDetail(slug, locale = 'en') {
 
 
     const res = await fetch(
-      `http://46.62.244.169/api/coins/${slug}/?locale=${apiLocale}`,
+      `https://crytponews.fun/api/coins/${slug}/?locale=${apiLocale}`,
       {
         next: {
           revalidate: false,                        // ✅ PERMANENT — coin details change nahi hoti

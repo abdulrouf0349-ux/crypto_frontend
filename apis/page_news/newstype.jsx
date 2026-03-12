@@ -5,7 +5,7 @@ const NewstypeApi = async (news_type, page, locale) => {
                       const apiLocale = toApiLocale(locale);
     
     const response = await fetch(
-      `http://46.62.244.169/api/get_news_type/${apiLocale}/?page=${page}`,
+      `https://crytponews.fun/api/get_news_type/${apiLocale}/?page=${page}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
