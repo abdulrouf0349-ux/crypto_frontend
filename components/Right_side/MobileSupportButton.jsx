@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import { Heart, Copy, Check, Mail, Wallet, X, Sparkles } from "lucide-react";
 
-const WALLET_ADDRESS = "0x742d35Cc6634C0532925a3b844Bc454e4438f44e";
-const SUPPORT_EMAIL = "abdulrouf@cryptonews.com";
+const WALLET_ADDRESS = "0x6aA99810cF60580621954F61108de33ad5422593";
+const SUPPORT_EMAIL = "cryptonewstrend1@gmail.com";
 
 export default function MobileSupportButton({ dict }) {
   const [isOpen, setIsOpen] = useState(false);
