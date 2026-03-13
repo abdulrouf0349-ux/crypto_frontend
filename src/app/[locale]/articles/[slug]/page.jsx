@@ -207,7 +207,7 @@ export default async function ArticleSlugPage({ params }) {
     "@type":    "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home",     item: `${BASE_URL}/${locale}` },
-      { "@type": "ListItem", position: 2, name: "Articles", item: `${BASE_URL}/${locale}/article` },
+      { "@type": "ListItem", position: 2, name: "Articles", item: `${BASE_URL}/${locale}/articles` },
       { "@type": "ListItem", position: 3, name: article?.title || slug, item: canonicalUrl },
     ],
   };
