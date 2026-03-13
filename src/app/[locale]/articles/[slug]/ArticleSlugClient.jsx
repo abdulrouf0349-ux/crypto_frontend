@@ -171,10 +171,28 @@ export default function ArticleSlugClient({
       font-weight: 900 !important;
       color: #0f172a !important;
       margin-top: 55px !important;
-      margin-bottom: 25px !important;
+      margin-bottom: 10px !important;
       line-height: 1.3 !important;
       letter-spacing: -0.02em !important;
     }
+      .article-content-area p:empty {
+  display: none !important;
+}
+  /* 1. Tamam faltu <br> tags ko hide karne ke liye */
+.article-content-area br {
+  display: none !important;
+}
+
+/* 2. Khali paragraphs jo space le rahe hain unhain khatam karein */
+.article-content-area p:empty {
+  display: none !important;
+}
+
+/* 3. Agar <p> ke andar sirf space ho to usay bhi control karein */
+.article-content-area p {
+  margin-top: 0 !important;
+  margin-bottom: 20px !important; /* Sirf nichli side par space rakhein */
+}
     .article-content-area h3 {
       font-size: 1.8rem !important;
       font-weight: 800 !important;
@@ -240,7 +258,7 @@ export default function ArticleSlugClient({
 
     /* 6. Figure & Captions (Images ke sath text) */
     .article-content-area figure {
-      margin: 40px 0 !important;
+      margin: 10px 0 !important;
       text-align: center !important;
     }
     .article-content-area figcaption {
@@ -288,7 +306,7 @@ export default function ArticleSlugClient({
       width: 100% !important;
       border-collapse: separate !important;
       border-spacing: 0 !important;
-      margin: 35px 0 !important;
+      margin: 3px 0 !important;
       border: 1px solid #e2e8f0 !important;
       border-radius: 12px !important;
       overflow: hidden !important;
