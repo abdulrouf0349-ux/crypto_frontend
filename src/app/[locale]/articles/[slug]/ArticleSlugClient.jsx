@@ -371,7 +371,7 @@ export default function ArticleSlugClient({
         {/* ── Back to Articles ── */}
         <div className="mt-10 flex justify-center">
           <Link
-            href={`/${locale}/article`}
+            href={`/${locale}/articles`}
             className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 !text-white font-black rounded-xl hover:bg-indigo-600 transition-all active:scale-95"
           >
             <FiArrowLeft size={16} aria-hidden="true" />
