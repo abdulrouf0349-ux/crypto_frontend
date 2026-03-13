@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import { Heart, Copy, Check, Mail, Wallet, X, Sparkles } from "lucide-react";
+import { Heart, Copy, Check, Send, Wallet, X, Sparkles } from "lucide-react";
 
 const WALLET_ADDRESS = "0x6aA99810cF60580621954F61108de33ad5422593";
-const SUPPORT_EMAIL = "cryptonewstrend1@gmail.com";
+const SUPPORT_EMAIL = "@cryptonewstrendhub";
 
 export default function MobileSupportButton({ dict }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -68,7 +68,7 @@ export default function MobileSupportButton({ dict }) {
             <div className="text-center mb-6 relative z-10">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Sparkles className="w-4 h-4 text-yellow-400" />
-                <h3 className="text-xl font-black text-white tracking-tight">
+                <h3 className="text-xl font-black !text-white tracking-tight">
                   {dict?.banner?.donate || "Please Support Us"}
                 </h3>
                 <Sparkles className="w-4 h-4 text-yellow-400" />
@@ -81,7 +81,7 @@ export default function MobileSupportButton({ dict }) {
             <div className="space-y-4 relative z-10">
               {/* Wallet Copy */}
               <div>
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1.5 mb-2 px-1">
+                <label className="text-[10px] font-black text-blue-500 uppercase tracking-widest flex items-center gap-1.5 mb-2 px-1">
                   <Wallet className="w-3 h-3" /> ERC20 Address
                 </label>
                 <div
@@ -90,7 +90,7 @@ export default function MobileSupportButton({ dict }) {
                   style={{ borderColor: copyWallet ? "rgba(99,102,241,0.6)" : undefined }}
                 >
                   <div className="flex justify-between items-center">
-                    <span className="text-[9px] text-slate-500 font-bold uppercase">
+                    <span className="text-[9px] text-blue-500 font-bold uppercase">
                       {dict?.banner?.tap_to_copy || "Tap to copy"}
                     </span>
                     {copyWallet ? (
@@ -108,6 +108,9 @@ export default function MobileSupportButton({ dict }) {
                     </span>
                   )}
                 </div>
+                    <label className="text-[10px] mt-5 md:text-[8px] font-black text-blue-400 uppercase tracking-widest flex items-center gap-1.5 mb-1">
+                                  <Send className="w-3 h-3" /> Telegram
+                                </label>
               </div>
 
               {/* Email Copy */}
@@ -116,11 +119,15 @@ export default function MobileSupportButton({ dict }) {
                 className="flex items-center justify-between bg-white/[0.04] border border-white/10 rounded-2xl p-4 cursor-pointer active:scale-[0.98] transition-all"
                 style={{ borderColor: copyEmail ? "rgba(59,130,246,0.6)" : undefined }}
               >
+            
+                              
+                
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-blue-500/15 rounded-xl">
-                    <Mail className="w-4 h-4 text-blue-400" />
+                    <Send className="w-4 h-4 text-blue-400" />
                   </div>
-                  <span className="text-[12px] text-slate-200 font-bold">{SUPPORT_EMAIL}</span>
+                  <span className="text-[12px] !text-blue-500  font-bold">{SUPPORT_EMAIL}</span>
+                  
                 </div>
                 {copyEmail ? (
                   <Check className="w-4 h-4 text-emerald-400" />

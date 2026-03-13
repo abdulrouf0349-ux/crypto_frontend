@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { FiMail, FiMessageSquare, FiSend, FiAlertCircle } from 'react-icons/fi';
 import { useLocale } from '@/context/LocaleContext';
+import { Send } from 'lucide-react';
 
 export default function ContactPage() {
   const { dict, locale } = useLocale();
@@ -15,22 +16,22 @@ export default function ContactPage() {
 
   const contactOptions = [
     {
-      icon:  <FiMail size={22} aria-hidden="true" />,
+      icon:  <Send size={22} aria-hidden="true" />,
       title: t.opt1_title || 'General Inquiries',
       desc:  t.opt1_desc  || 'Questions about the platform, partnerships, or media requests.',
-      value: 'cryptonews@support.com',
+      value: '@cryptonewstrendhub',
     },
     {
       icon:  <FiAlertCircle size={22} aria-hidden="true" />,
       title: t.opt2_title || 'Copyright & Takedowns',
       desc:  t.opt2_desc  || 'Report content that violates your copyright or intellectual property.',
-      value: 'copyright@cryptonews.com',
+      value: '@cryptonewstrendhub',
     },
     {
       icon:  <FiMessageSquare size={22} aria-hidden="true" />,
       title: t.opt3_title || 'Support & Bugs',
       desc:  t.opt3_desc  || 'Found a bug or need help with the platform? Let us know.',
-      value: 'support@cryptonews.com',
+      value: '@cryptonewstrendhub',
     },
   ];
 
@@ -133,116 +134,6 @@ export default function ContactPage() {
             <p className="text-slate-500 text-sm">{t.form_subtitle}</p>
           </div>
 
-          {sent ? (
-            <div
-              className="bg-emerald-50 border border-emerald-200 rounded-2xl p-10 text-center"
-              role="alert"
-              aria-live="polite"
-            >
-              <div className="text-5xl mb-4" aria-hidden="true">✅</div>
-              <h3 className="text-xl font-black mb-2 text-emerald-700">{t.success_title}</h3>
-              <p className="text-slate-500 text-sm">{t.success_desc}</p>
-            </div>
-          ) : (
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-5"
-              aria-label="Contact form"
-              noValidate
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <label
-                    htmlFor="contact-name"
-                    className="block text-xs font-black text-slate-600 mb-2 uppercase tracking-wider"
-                  >
-                    {t.label_name}
-                  </label>
-                  <input
-                    id="contact-name"
-                    type="text"
-                    name="name"
-                    required
-                    autoComplete="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    placeholder={t.placeholder_name}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-300 transition-all"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="contact-email"
-                    className="block text-xs font-black text-slate-600 mb-2 uppercase tracking-wider"
-                  >
-                    {t.label_email}
-                  </label>
-                  <input
-                    id="contact-email"
-                    type="email"
-                    name="email"
-                    required
-                    autoComplete="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    placeholder={t.placeholder_email}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-300 transition-all"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="contact-subject"
-                  className="block text-xs font-black text-slate-600 mb-2 uppercase tracking-wider"
-                >
-                  {t.label_subject}
-                </label>
-                <input
-                  id="contact-subject"
-                  type="text"
-                  name="subject"
-                  required
-                  value={form.subject}
-                  onChange={handleChange}
-                  placeholder={t.placeholder_subject}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-300 transition-all"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="contact-message"
-                  className="block text-xs font-black text-slate-600 mb-2 uppercase tracking-wider"
-                >
-                  {t.label_message}
-                </label>
-                <textarea
-                  id="contact-message"
-                  name="message"
-                  required
-                  rows={6}
-                  value={form.message}
-                  onChange={handleChange}
-                  placeholder={t.placeholder_message}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-300 transition-all resize-none"
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full flex items-center justify-center gap-3 px-8 py-4 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 disabled:opacity-60 disabled:cursor-not-allowed"
-                aria-label={loading ? t.btn_sending : t.btn_send}
-              >
-                {loading ? (
-                  <span className="animate-pulse">{t.btn_sending}</span>
-                ) : (
-                  <><FiSend size={16} aria-hidden="true" />{t.btn_send}</>
-                )}
-              </button>
-            </form>
-          )}
         </div>
       </section>
 

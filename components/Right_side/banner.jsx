@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import { Heart, Copy, Check, Mail, Terminal, Wallet, Sparkles } from "lucide-react";
+import { Heart, Copy, Check, Send, Terminal, Wallet, Sparkles } from "lucide-react";
 
 const WALLET_ADDRESS = "0x6aA99810cF60580621954F61108de33ad5422593";                     
-const SUPPORT_EMAIL = "cryptonewstrend1@gmail.com"; 
+const SUPPORT_EMAIL = "@cryptonewstrendhub"; 
 
 export default function DonateBanner({ dict, locale }) {
   const [copyFeedback, setCopyFeedback] = useState(false);
@@ -60,7 +60,7 @@ export default function DonateBanner({ dict, locale }) {
             {/* Wallet Section */}
             <div className="group">
               <div className="flex justify-between items-center mb-2 px-1">
-                <label className="text-[10px] md:text-[8px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+                <label className="text-[10px] md:text-[8px] font-black text-blue-400 uppercase tracking-widest flex items-center gap-1.5">
                   <Wallet className="w-3 h-3" /> ERC20 Address
                 </label>
                 {copyFeedback && <span className="text-[10px] text-emerald-400 font-black uppercase animate-bounce">Copied!</span>}
@@ -81,15 +81,19 @@ export default function DonateBanner({ dict, locale }) {
 
             {/* Email Section */}
             <div className="group">
+              <label className="text-[10px] md:text-[8px] font-black text-blue-300 uppercase tracking-widest flex items-center gap-1.5 mb-1">
+                  <Send className="w-3 h-3" /> Telegram
+                </label>
               <div 
                 onClick={() => copyToClipboard(SUPPORT_EMAIL, setEmailFeedback)}
                 className="flex items-center justify-between bg-white/[0.04] border border-white/10 rounded-2xl p-4 cursor-pointer hover:border-blue-500/50 active:scale-[0.98] transition-all"
               >
+                
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-blue-500/15 rounded-xl">
-                    <Mail className="w-4 h-4 text-blue-400" />
+                    <Send className="w-4 h-4 text-blue-400" />
                   </div>
-                  <span className="text-[13px] md:text-[11px] text-slate-200 font-bold">{SUPPORT_EMAIL}</span>
+                  <span className="text-[13px] md:text-[11px] text-blue-400 font-bold">{SUPPORT_EMAIL}</span>
                 </div>
                 {emailFeedback ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-slate-500" />}
               </div>
