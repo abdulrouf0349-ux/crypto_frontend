@@ -169,6 +169,11 @@ export default async function Page({ params }) {
         validFrom:       new Date().toISOString().split("T")[0],
       },
     }),
+      performer: {
+    "@type": "Organization",
+    name:     event.organized_by || event.speaker || SITE_NAME,
+    url:      event.website_link || BASE_URL,
+  },
     publisher: {
       "@type": "Organization",
       name:     SITE_NAME,

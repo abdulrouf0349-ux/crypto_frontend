@@ -12,7 +12,7 @@ export default function News_TypeButtonClient({ dict, locale }) {
     { id: 3, key: 'ethereum', name: 'Ethereum' },
     { id: 4, key: 'blockchain', name: 'Blockchain' },
     { id: 5, key: 'defi', name: 'DeFi' },
-    { id: 6, key: 'nft', name: 'NFTs' },
+    { id: 6, key: 'nfts', name: 'NFTs' },
     { id: 7, key: 'cryptocurrency', name: 'Cryptocurrency' },
     { id: 8, key: 'altcoin', name: 'Altcoin' },
     { id: 9, key: 'staking', name: 'Staking' },

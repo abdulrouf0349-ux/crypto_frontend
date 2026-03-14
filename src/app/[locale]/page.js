@@ -111,18 +111,7 @@ export default async function Page({ params }) {
   };
 
   // ✅ Schema 3: BreadcrumbList — Homepage breadcrumb
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${BASE_URL}/${locale}`,
-      },
-    ],
-  };
+
 
   return (
     <>
@@ -135,11 +124,7 @@ export default async function Page({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-
+      
       <Banner />
       <News_TypeButtonServer dict={dict} locale={locale} />
 
