@@ -59,7 +59,7 @@ export async function generateMetadata({ params }) {
     : metaDescription;
 
   const image        = article?.image || `${BASE_URL}/og-image.png`;
-  const canonicalUrl = `${BASE_URL}/${locale}/news/${slug}`;
+  const canonicalUrl = `${BASE_URL}/${locale}/${slug}`;
 
   // ✅ FIX: Safe ISO date — "2 hours ago" Google reject karta hai
   const publishedTime = toISODate(article?.created_time ?? article?.publishedAt ?? article?.time);
@@ -70,7 +70,7 @@ const modifiedTime = toISODate(
 
   // ✅ Hreflang — sabhi locales ke liye
   const alternateLanguages = SUPPORTED_LOCALES.reduce((acc, lang) => {
-    acc[lang] = `${BASE_URL}/${lang}/news/${slug}`;
+    acc[lang] = `${BASE_URL}/${lang}/${slug}`;
     return acc;
   }, {});
 
@@ -323,15 +323,10 @@ export default async function DiscriptionPage({ params }) {
         name: "Home",
         item: `${BASE_URL}/${locale}`,
       },
+    
       {
         "@type": "ListItem",
         position: 2,
-        name: "News",
-        item: `${BASE_URL}/${locale}/news`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
         name: article?.title,
         item: canonicalUrl,
       },
