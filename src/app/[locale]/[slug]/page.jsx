@@ -222,7 +222,7 @@ export default async function DiscriptionPage({ params }) {
 
  if (!article) return notFound();
 
-  const canonicalUrl   = `${BASE_URL}/${locale}/news/${slug}`;
+  const canonicalUrl   = `${BASE_URL}/${locale}/${slug}`;
   const authorName     = article?.author || "CryptoNewsTrend Editorial";
 
   // ✅ FIX: Safe ISO dates

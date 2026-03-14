@@ -18,7 +18,7 @@ const EventNews = async ({ locale, dict }) => {
       </div>
 
       {serverData.map((item, index) => (
-        <Link href={`/${locale}/${item?.slug}`} key={index} className="group block">
+        <Link href={`/${locale}/events/${item?.slug}`} key={index} className="group block">
           <div className='flex flex-row max-sm:flex-col gap-4 p-2 max-sm:px-4 transition-all duration-300 hover:bg-blue-50/50 rounded-xl'>
             <div className="relative flex-shrink-0 w-[100px] h-[72px] max-sm:w-full max-sm:h-[180px] overflow-hidden rounded-lg bg-gray-100 shadow-sm">
               <Image 
