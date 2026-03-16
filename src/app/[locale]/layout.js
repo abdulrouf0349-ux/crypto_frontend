@@ -3,6 +3,7 @@ import { Header } from "../../../components/common-components/header";
 import Footer from "../../../components/common-components/footer";
 import { Inter } from "next/font/google";
 import Script from 'next/script';
+import { getRssMetadata } from "@/context/rss-links";
 
 import { getDictionary } from "../../../i18n/getDictionary";
 import ClientLayout from "@/context/LocaleContext";
@@ -31,11 +32,13 @@ const buildAlternateLanguages = (path = "") => {
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   const dict = await getDictionary(locale);
+  const rss = getRssMetadata(locale);  // ← yeh add karo
 
   return {
     // ✅ FIX 2: metadataBase — absolute URL base (Next.js requirement)
     metadataBase: new URL(BASE_URL),
 
+  
     // ✅ Title Template
     title: {
       default: dict.seo?.title || `Latest Crypto News | ${SITE_NAME}`,
@@ -47,10 +50,11 @@ export async function generateMetadata({ params }) {
     // ✅ FIX 3: keywords — layout level pe generic, page level pe override hogi
     keywords: "cryptocurrency, crypto news, bitcoin, ethereum, blockchain, defi, nft, altcoin",
 
-    // ✅ FIX 1: x-default ke saath hreflang
-    alternates: {
+
+      alternates: {
       canonical: `${BASE_URL}/${locale}`,
       languages: buildAlternateLanguages(),
+      ...rss.alternates,  // ← RSS types yahan merge ho jaenge
     },
 
     // ✅ Open Graph
