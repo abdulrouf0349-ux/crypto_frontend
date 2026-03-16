@@ -3,14 +3,7 @@
 const nextConfig = {
   reactStrictMode: true,
 
-  async rewrites() {
-    return [
-      {
-        source: '/rss/:path*',
-        destination: 'https://crytponews.fun/rss/:path*', // tumhara backend
-      },
-    ];
-  },
+
   images: {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
