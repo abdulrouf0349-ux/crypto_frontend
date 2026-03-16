@@ -4,7 +4,7 @@
 // Example:     /rss/en/news/   /rss/ur/articles/
 // ──────────────────────────────────────────────────────────────
 
-const API_BASE = 'https://crytponews.fun';
+const API_BASE = 'https://cryptonewstrend.com';
 
 // ── 1. Get RSS metadata for layout.js (generateMetadata) ─────
 export function getRssMetadata(locale = 'en') {
