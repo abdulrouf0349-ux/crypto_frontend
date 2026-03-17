@@ -1,87 +1,69 @@
-// rss-links.js  — Next.js RSS <link> tags helper
-// ──────────────────────────────────────────────────────────────
-// URL format:  /rss/<lang>/<feed-type>/
-// Example:     /rss/en/news/   /rss/ur/articles/
-// ──────────────────────────────────────────────────────────────
+// src/context/rss-links.js  ← YEH FILE UPDATE KARO
+// ─────────────────────────────────────────────────────────────
 
-const API_BASE = 'https://crytponews.fun';
+const SITE_URL = 'https://cryptonewstrend.com';
 
-// ── 1. Get RSS metadata for layout.js (generateMetadata) ─────
 export function getRssMetadata(locale = 'en') {
-  const lang = locale;
-
   return {
     alternates: {
       types: {
         'application/rss+xml': [
-          { url: `${API_BASE}/rss/${lang}/feed/`,          title: `All Updates [${lang.toUpperCase()}]` },
-          { url: `${API_BASE}/rss/${lang}/news/`,          title: `Latest News [${lang.toUpperCase()}]` },
-          { url: `${API_BASE}/rss/${lang}/articles/`,      title: `Articles [${lang.toUpperCase()}]` },
-          { url: `${API_BASE}/rss/${lang}/events/`,        title: `Events [${lang.toUpperCase()}]` },
-          { url: `${API_BASE}/rss/${lang}/ico/`,           title: `ICO Projects [${lang.toUpperCase()}]` },
-          { url: `${API_BASE}/rss/${lang}/crypto-whales/`, title: `Whale Alerts [${lang.toUpperCase()}]` },
+          { url: `${SITE_URL}/rss/${locale}/feed/`,          title: `All Updates [${locale.toUpperCase()}]`  },
+          { url: `${SITE_URL}/rss/${locale}/news/`,          title: `Latest News [${locale.toUpperCase()}]`  },
+          { url: `${SITE_URL}/rss/${locale}/articles/`,      title: `Articles [${locale.toUpperCase()}]`     },
+          { url: `${SITE_URL}/rss/${locale}/events/`,        title: `Events [${locale.toUpperCase()}]`       },
+          { url: `${SITE_URL}/rss/${locale}/ico/`,           title: `ICO Projects [${locale.toUpperCase()}]` },
+          { url: `${SITE_URL}/rss/${locale}/crypto-whales/`, title: `Whale Alerts [${locale.toUpperCase()}]` },
         ],
       },
     },
   };
 }
 
-
-// ── 2. All RSS feed URLs (for footer, RSS page, etc.) ────────
 export function getAllRssFeeds(locale = 'en') {
   return [
     {
       type:  'master',
       label: 'All Updates',
-      url:   `${API_BASE}/rss/${locale}/feed/`,
+      url:   `${SITE_URL}/rss/${locale}/feed/`,
     },
     {
       type:  'news',
       label: 'Latest News',
-      url:   `${API_BASE}/rss/${locale}/news/`,
+      url:   `${SITE_URL}/rss/${locale}/news/`,
     },
     {
       type:  'articles',
       label: 'Articles',
-      url:   `${API_BASE}/rss/${locale}/articles/`,
+      url:   `${SITE_URL}/rss/${locale}/articles/`,
     },
     {
       type:  'events',
       label: 'Crypto Events',
-      url:   `${API_BASE}/rss/${locale}/events/`,
+      url:   `${SITE_URL}/rss/${locale}/events/`,
     },
     {
       type:  'ico',
       label: 'ICO / IDO Projects',
-      url:   `${API_BASE}/rss/${locale}/ico/`,
+      url:   `${SITE_URL}/rss/${locale}/ico/`,
       filters: [
-        { label: 'Active ICOs',   url: `${API_BASE}/rss/${locale}/ico/?status=active`   },
-        { label: 'Upcoming ICOs', url: `${API_BASE}/rss/${locale}/ico/?status=upcoming` },
-        { label: 'Ended ICOs',    url: `${API_BASE}/rss/${locale}/ico/?status=ended`    },
+        { label: 'Active ICOs',   url: `${SITE_URL}/rss/${locale}/ico/?status=active`   },
+        { label: 'Upcoming ICOs', url: `${SITE_URL}/rss/${locale}/ico/?status=upcoming` },
+        { label: 'Ended ICOs',    url: `${SITE_URL}/rss/${locale}/ico/?status=ended`    },
       ],
     },
     {
       type:  'whales',
       label: 'Whale Alerts',
-      url:   `${API_BASE}/rss/${locale}/crypto-whales/`,
+      url:   `${SITE_URL}/rss/${locale}/crypto-whales/`,
       filters: [
-        { label: 'Ethereum Whales', url: `${API_BASE}/rss/${locale}/crypto-whales/?chain=ethereum` },
-        { label: 'Bitcoin Whales',  url: `${API_BASE}/rss/${locale}/crypto-whales/?chain=bitcoin`  },
-        { label: 'Tron Whales',     url: `${API_BASE}/rss/${locale}/crypto-whales/?chain=tron`     },
+        { label: 'Ethereum Whales', url: `${SITE_URL}/rss/${locale}/crypto-whales/?chain=ethereum` },
+        { label: 'Bitcoin Whales',  url: `${SITE_URL}/rss/${locale}/crypto-whales/?chain=bitcoin`  },
+        { label: 'Tron Whales',     url: `${SITE_URL}/rss/${locale}/crypto-whales/?chain=tron`     },
       ],
     },
   ];
 }
-
-
-// ── 3. RssLinkTags component (put in <head> via layout) ───────
-// Usage in app/[locale]/layout.js:
-//
-//   import { RssLinkTags } from '@/utils/rss-links';
-//   ...
-//   <head>
-//     <RssLinkTags locale={locale} />
-//   </head>
 
 export function RssLinkTags({ locale = 'en' }) {
   const feeds = getAllRssFeeds(locale);
@@ -99,4 +81,3 @@ export function RssLinkTags({ locale = 'en' }) {
     </>
   );
 }
-
