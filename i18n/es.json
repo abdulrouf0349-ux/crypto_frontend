@@ -18,6 +18,10 @@
     "name": "CryptoNews",
     "description": "Su autoridad global para noticias de criptomonedas en tiempo real, actualizaciones de blockchain y análisis de expertos. Manténgase informado con el pulso del mundo cripto en CryptoNews."
   },
+  "coin_ai": {
+    "terminal_title": "Terminal de Inteligencia Cripto",
+    "coin_analysis": "Análisis de Monedas"
+  },
   "social": {
     "facebook": "Facebook",
     "twitter": "Twitter",

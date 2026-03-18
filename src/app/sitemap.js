@@ -29,6 +29,7 @@ function getStaticUrls() {
     { path: '/about-us',     priority: 0.5,  changeFrequency: 'monthly'},
     { path: '/contact-us',   priority: 0.5,  changeFrequency: 'monthly'},
     { path: '/privacy-policy',priority: 0.4, changeFrequency: 'monthly'},
+    { path: '/coin-analysis',priority: 0.4, changeFrequency: 'monthly'},
   ];
 
   return LOCALES.flatMap(locale =>

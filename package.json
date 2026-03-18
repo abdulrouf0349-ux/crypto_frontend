@@ -13,6 +13,7 @@
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.0",
+    "@xenova/transformers": "^2.17.2",
     "axios": "^1.13.5",
     "cheerio": "^1.2.0",
     "i18next": "^25.6.3",

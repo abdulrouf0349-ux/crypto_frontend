@@ -128,7 +128,10 @@
     "back_to_home": "ہوم پیج پر واپس جائیں"
   }
 ,
-
+"coin_ai": {
+    "terminal_title": "کرپٹو انٹیلیجنس ٹرمینل",
+    "coin_analysis": "کوائن کا تجزیہ"
+  },
 
   "whale_tracker": {
     "title": "کرپٹو وہیل ٹریکر",

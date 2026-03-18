@@ -56,6 +56,10 @@
     "cta_btn1": "تواصل معنا",
     "cta_btn2": "اقرأ آخر الأخبار"
   },
+  "coin_ai": {
+    "terminal_title": "محطة استخبارات التشفير",
+    "coin_analysis": "تحليل العملات"
+  },
     "contact_page": {
     "hero_badge": "تواصل معنا",
     "hero_title_1": "يسعدنا",

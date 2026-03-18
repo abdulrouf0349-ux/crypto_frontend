@@ -11,6 +11,7 @@ import SliderSection from "../../../components/Data/slider_server";
 import MainNews from "../../../components/Data/main_news";
 import ArticlefirstPage from "../../../components/Data/article_firstPage";
 import MobileSupportButton from "../../../components/Right_side/MobileSupportButton";
+import CoinAnalysisFloat from "../../../components/Data/CoinAnalysisFloat";
 
 const BASE_URL = "https://cryptonewstrend.com";
 const SUPPORTED_LOCALES = ['en', 'ur', 'es', 'fr', 'de', 'ar', 'zh-CN'];
@@ -161,7 +162,7 @@ export default async function Page({ params }) {
         </Suspense>
       </div>
       <MobileSupportButton dict={dict} />
-
+<CoinAnalysisFloat locale={locale} />
     </>
   );
 }

@@ -25,7 +25,10 @@
     "instagram": "Instagram",
     "telegram": "Telegram"
   },
-
+"coin_ai": {
+    "terminal_title": "CRYPTO INTELLIGENCE TERMINAL",
+    "coin_analysis": "Coin Analysis"
+  },
  "contact_page": {
     "hero_badge": "Get In Touch",
     "hero_title_1": "We'd Love to Hear",

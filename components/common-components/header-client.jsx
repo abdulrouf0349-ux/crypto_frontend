@@ -32,7 +32,7 @@ export const HeaderClient = ({ dict, locale }) => {
       // Case B: News Slug (e.g., /en/bitcoin-news-2026)
       // Agar second part exist karta hai par wo hamare baaki sections mein se nahi hai, 
       // toh iska matlab hai ye news article ka slug hai.
-      const otherSections = ['events', 'crypto-whales', 'ico', 'market'];
+      const otherSections = ['events', 'crypto-whales', 'ico', 'market','coin-analysis'];
       const isNewsSlug = secondPart && !otherSections.includes(secondPart);
 
       // Case C: Agar URL mein /news/ folder bhi ho (backup ke liye)
@@ -57,6 +57,7 @@ export const HeaderClient = ({ dict, locale }) => {
     { href: "/events", label: dict.header.events },
     { href: "/crypto-whales", label: dict.header.whales_tracking },
     { href: "/ico", label:dict.header.ico },
+    { href: "/coin-analysis",label: dict.coin_ai.coin_analysis },
   ];
 
   return (

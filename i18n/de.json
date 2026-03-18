@@ -27,7 +27,10 @@
     "telegram": "Telegram"
   },
 
-  
+  "coin_ai": {
+    "terminal_title": "Krypto-Intelligence-Terminal",
+    "coin_analysis": "Münzanalyse"
+  },
   "header": {
     "news": "Nachrichten",
     "ico": "ICO",
