@@ -173,7 +173,7 @@ export default async function RootLayout({ children, params }) {
   // ✅ FIX 11: RTL dir attribute — Urdu/Arabic ke liye sahi direction
 
   return (
-      <html lang={locale}>
+      <html lang={locale} className="dark">
 
       <head>
        <meta name="google-site-verification" content="G-6QD0N2CR34" />
@@ -201,8 +201,8 @@ export default async function RootLayout({ children, params }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body className={`${inter.variable} antialiased`}>
-        <Header dict={dict} locale={locale} />
+<body className={`${inter.variable} antialiased bg-white text-black`}>
+          <Header dict={dict} locale={locale} />
         <ClientLayout dict={dict} locale={locale}>
           {children}
         </ClientLayout>

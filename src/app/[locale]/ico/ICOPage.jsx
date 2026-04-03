@@ -267,7 +267,7 @@ const ICOPage = () => {
                     Details
                   </Link>
                   <a
-                    href={ico.detail_link}
+                    href={`/${locale}/ico/${ico.slug}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-indigo-600 text-white px-5 py-2 rounded-lg text-[12px] font-black hover:bg-indigo-700 shadow-sm transition-colors"

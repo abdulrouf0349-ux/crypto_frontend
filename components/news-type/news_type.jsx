@@ -87,7 +87,7 @@ const intelArticles = Array.isArray(articlesData) ? articlesData.slice(0, 8) : [
       </div>
 
       {/* Intel Articles Section - FIXED MARGINS FOR MOBILE */}
-      <div className="mt-12 pt-10 border-t border-slate-100 bg-slate-50/30 pb-10">
+      <div className="mt-12 pt-10 border-t border-slate-100  pb-10">
         <div className="max-w-[1400px] mx-auto px-4 lg:px-28">
           <h3 className="text-xl md:text-2xl font-black uppercase  tracking-tighter mb-8 flex items-center gap-3">
             <span className="w-2 h-8 bg-indigo-600 rounded-full"></span>
