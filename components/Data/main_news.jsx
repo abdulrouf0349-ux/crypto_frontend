@@ -29,13 +29,13 @@ export default async function MainNews({ locale, dict }) {
             <div className="flex flex-col justify-between py-1">
               <div>
                 {/* ✅ Title dark mode */}
-                <h2 className="text-lg leading-snug font-bold text-slate-600 dark:text-gray-200 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200 line-clamp-2">
+                <h2 className="text-lg leading-snug font-bold !text-slate-600 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200 line-clamp-2">
                   {newsItem?.title}
                 </h2>
                 <div className="flex items-center gap-3 mt-3">
                   {/* ✅ Domain badge dark mode */}
                   <span className="text-[11px] font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-0.5 rounded">
-                    {newsItem?.domain || "Crypto"}
+                    {newsItem?.domains || "cryptpnewstrend.com"}
                   </span>
                   {/* ✅ Time dark mode */}
                   <span className="text-[11px] font-medium text-slate-400 dark:text-gray-500">

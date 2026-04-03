@@ -1,51 +1,45 @@
 @import "tailwindcss";
-@variant dark (&:where(.dark, .dark *), @media (prefers-color-scheme: dark));
 
 :root {
-  /* Soft Professional Colors */
   --background: #ffffff;
-  --foreground: #2f3c42; /* Aapka signature slate color */
+  --foreground: #2f3c42;
   --accent: #37474f;
-  
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  /* Global Font: Inter (Professional standard) */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #111827;
     --foreground: #f1f5f9;
+    --accent: #e2e8f0;
   }
 }
 
-/* Global Styles for Uniformity */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans); /* Sab jagah same font */
-  font-size: 16px; /* Base font size for the whole page */
+  font-family: var(--font-sans);
+  font-size: 16px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Heading uniformity */
-
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: -0.02em;
 }
-/* Consistent link styling */
+
 a {
   text-decoration: none;
   color: inherit;
 }
-/* globals.css */
+
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

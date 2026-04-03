@@ -173,7 +173,7 @@ export default async function RootLayout({ children, params }) {
   // ✅ FIX 11: RTL dir attribute — Urdu/Arabic ke liye sahi direction
 
   return (
-      <html lang={locale} className="dark">
+      <html lang={locale} >
 
       <head>
        <meta name="google-site-verification" content="G-6QD0N2CR34" />

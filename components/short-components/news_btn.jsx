@@ -1,5 +1,5 @@
-'use client';
 
+'use client'
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -22,7 +22,7 @@ export default function News_TypeButtonClient({ dict, locale }) {
 
   return (
     // ✅ bg-white → dark mode support
-    <nav className="w-full bg-white dark:bg-gray-900 border-b border-slate-100 dark:border-gray-700 sticky top-0 z-50 shadow-sm">
+    <nav className="w-full bg-slate-100 text-white border-slate-100 bg dark:border-gray-700 sticky top-0 z-50 shadow-sm">
       <div className="max-w-[1440px] mx-auto">
         <ul className="flex items-center lg:justify-center justify-start gap-3 overflow-x-auto no-scrollbar py-4 px-4 lg:px-28 scroll-smooth font-sans">
           {blockchainData.map((item) => {
@@ -40,7 +40,7 @@ export default function News_TypeButtonClient({ dict, locale }) {
                     isSelected
                       ? 'bg-[#4f39f6] !text-white shadow-[0_8px_20px_-6px_rgba(79,57,246,0.45)] scale-105'
                       // ✅ inactive — dark mode colors add
-                      : 'bg-slate-50 dark:bg-gray-800 text-slate-600 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-gray-700 border border-slate-200 dark:border-gray-600'
+                      : 'bg-slate-50  !text-black dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-gray-700 border border-slate-200 dark:border-gray-600'
                   }`}
                 >
                   {dict?.news?.[item.key] || item.name}

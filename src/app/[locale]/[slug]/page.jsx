@@ -82,7 +82,7 @@ const modifiedTime = toISODate(
     description: metaDescription,
 
     // ✅ Clean keywords
-    keywords: `cryptocurrency, blockchain, bitcoin, ethereum, ${article?.domain || 'crypto'}, crypto news, ${article?.category || 'digital assets'}`,
+    keywords: `cryptocurrency, blockchain, bitcoin, ethereum, ${article?.domain || 'cryptonewstrend'}, crypto news, ${article?.category || 'digital assets'}`,
 
     // ✅ Canonical + Hreflang
     alternates: {
@@ -122,7 +122,7 @@ const modifiedTime = toISODate(
           "blockchain",
           "bitcoin",
           "crypto news",
-          article?.domain || "crypto",
+          article?.domains || "www.cryptonewstrend.com",
         ].filter(Boolean),
       },
     },
@@ -403,7 +403,7 @@ export default async function DiscriptionPage({ params }) {
             >
               <Link href={`/${locale}/`} className="opacity-60 hover:cursor-pointer">{dict.header.news}</Link>
               <span className="text-slate-200">/</span>
-              <span className="bg-indigo-50 px-3 py-1 rounded-full">{article?.domain || 'Insights'}</span>
+              <span className="bg-indigo-50 px-3 py-1 rounded-full">{article?.domains || 'cryptonewstrend.com'}</span>
             </nav>
 
             <h1 className="text-slate-900 text-2xl md:text-5xl leading-tight md:leading-[1.1] font-black tracking-tight max-w-5xl mb-8 md:mb-10">
@@ -417,7 +417,7 @@ export default async function DiscriptionPage({ params }) {
                   <span className="text-[9px] uppercase font-black text-slate-400 tracking-widest">{dict?.news_slug?.source}</span>
                   <div className="flex items-center gap-1.5 text-slate-900">
                     <FiGlobe className="text-indigo-600 w-3 h-3 md:w-4 md:h-4" />
-                    <span className="text-xs md:text-sm font-bold">{article?.domain}</span>
+                    <span className="text-xs md:text-sm font-bold">cryptonewstrend.com</span>
                   </div>
                 </div>
                 <div className="h-6 w-[1px] bg-slate-200" />
@@ -476,7 +476,7 @@ export default async function DiscriptionPage({ params }) {
               </div>
 
               {/* Source Card */}
-              <div className="mt-10 group bg-slate-50 rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-8 border border-slate-100 transition-all duration-500 hover:bg-white hover:shadow-2xl hover:shadow-indigo-100/50">
+              {/* <div className="mt-10 group bg-slate-50 rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-8 border border-slate-100 transition-all duration-500 hover:bg-white hover:shadow-2xl hover:shadow-indigo-100/50">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-8">
                   <div className="space-y-2">
                     <h3 className="text-slate-900 font-black text-lg md:text-xl tracking-tight">
@@ -496,7 +496,7 @@ export default async function DiscriptionPage({ params }) {
                     <FiArrowUpRight className="text-xl" />
                   </a>
                 </div>
-              </div>
+              </div> */}
 
             </div>
 

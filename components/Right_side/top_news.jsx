@@ -28,7 +28,7 @@ const TopNews = ({ locale, dict }) => {
     <div className='w-full mt-10 space-y-2'>
       <div className="flex items-center gap-2 px-2 max-sm:px-4 mb-5">
         <div className="h-5 w-1 bg-blue-600 rounded-full"></div>
-        <h3 className="text-[13px] font-black uppercase tracking-[0.15em] text-[#37474f] dark:text-gray-300">
+        <h3 className="text-[13px] font-black uppercase tracking-[0.15em] !text-[#37474f] dark:text-gray-300">
           {dict?.on_page.top_stories || "Top Stories"}
         </h3>
       </div>
@@ -48,12 +48,13 @@ const TopNews = ({ locale, dict }) => {
             </div>
 
             <div className='flex flex-col justify-between py-0.5 flex-1'>
-              <h4 className='line-clamp-2 text-[13px] max-sm:text-[16px] leading-[1.4] font-bold text-[#37474f] dark:text-gray-200 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors duration-200'>
+              <h4 className='line-clamp-2 text-[13px] max-sm:text-[16px] leading-[1.4] font-bold !text-[#37474f] dark:text-gray-200 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors duration-200'>
                 {item?.title}
               </h4>
               <div className='flex items-center gap-3 mt-2 md:mt-1.5'>
                 <span className='text-[10px] max-sm:text-[11px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded'>
-                  {item?.domain}
+                  {/* {item?.domain} */}
+                  cryptonewstrend
                 </span>
                 <span className='text-[10px] max-sm:text-[11px] text-slate-400 dark:text-gray-500 font-medium'>
                   {item?.time}

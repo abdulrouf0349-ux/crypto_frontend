@@ -11,7 +11,7 @@ const EventNews = async ({ locale, dict }) => {
     <div className='w-full mt-6 space-y-2'>
       <div className="flex items-center gap-2 px-2 mb-4">
         <div className="h-5 w-1 bg-blue-600 rounded-full"></div>
-        <h3 className="text-[13px] font-black uppercase tracking-[0.15em] text-[#37474f] dark:text-gray-300">
+        <h3 className="text-[13px] font-black uppercase tracking-[0.15em] !text-[#37474f] dark:text-gray-300">
           {dict?.on_page.market_events || "Market Events"}
         </h3>
       </div>
@@ -31,7 +31,7 @@ const EventNews = async ({ locale, dict }) => {
             </div>
 
             <div className='flex flex-col justify-between py-0.5 flex-1'>
-              <h4 className='line-clamp-2 text-[12px] max-sm:text-[14px] leading-[1.4] font-bold text-[#37474f] dark:text-gray-200 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors duration-200'>
+              <h4 className='line-clamp-2 text-[12px] max-sm:text-[14px] leading-[1.4] font-bold !text-[#37474f] dark:text-gray-200 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors duration-200'>
                 {item?.title}
               </h4>
               <div className='flex flex-col gap-1.5 mt-2'>

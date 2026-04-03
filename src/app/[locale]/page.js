@@ -129,11 +129,11 @@ export default async function Page({ params }) {
       <Banner />
       <News_TypeButtonServer dict={dict} locale={locale} />
 
-      <div className="sm:px-6 lg:px-28">
+      <div className="sm:px-6 lg:px-28 !bg-white">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
           {/* LEFT COLUMN */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-6 ">
             <Suspense fallback={<Loading />}>
               <SliderSection locale={locale} />
             </Suspense>

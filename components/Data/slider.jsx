@@ -63,7 +63,7 @@ export default function Slider({ serverData }) {
           </div>
 
           {/* Text is now Pure White with a Text-Shadow for extra safety */}
-          <h2 className="text-white bg-white font-extrabold text-md sm:text-3xl lg:text-3xl leading-tight tracking-tight mb-6 max-w-4xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+          <h2 className="text-black bg-white font-extrabold text-md sm:text-3xl lg:text-3xl leading-tight tracking-tight mb-6 max-w-4xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
             {slide.title}
           </h2>
           
