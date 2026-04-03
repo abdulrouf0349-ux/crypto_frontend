@@ -38,7 +38,10 @@ const TopNews = ({ locale, dict }) => {
           <div className='flex flex-row max-sm:flex-col gap-4 p-2 max-sm:px-4 transition-all duration-300 hover:bg-blue-50/50 dark:hover:bg-gray-800 rounded-xl border-b border-slate-50 dark:border-gray-700 max-sm:pb-6'>
             <div className="relative flex-shrink-0 w-[100px] h-[72px] max-sm:w-full max-sm:h-[200px] overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700 shadow-sm">
               <Image
-                src={item?.image || "/images/bitcoin.jpg"}
+                src={(item?.image || item?.image_main || "/images/bitcoin.jpg").replace(
+      'cryptonews.fun', 
+      'cryptonewstrend.com' // Yahan apna sahi domain name likhein jo aap chahte hain
+    )}  
                 fill
                 alt={item?.title}
                 unoptimized

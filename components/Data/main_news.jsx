@@ -16,8 +16,10 @@ export default async function MainNews({ locale, dict }) {
             {/* Image */}
             <div className="relative flex-shrink-0 w-[160px] h-[122px] max-sm:w-full max-sm:h-[200px]">
               <Image
-                src={newsItem?.image || newsItem?.image_main || "/images/bitcoin.jpg"}
-                alt={newsItem?.title || "news"}
+src={(newsItem?.image || newsItem?.image_main || "/images/bitcoin.jpg").replace(
+      'cryptonews.fun', 
+      'cryptonewstrend.com' // Yahan apna sahi domain name likhein jo aap chahte hain
+    )}                alt={newsItem?.title || "news"}
                 className="rounded-lg object-cover shadow-sm group-hover:shadow-md transition-all duration-300"
                 fill
                 sizes="(max-width: 640px) 100vw, 160px"

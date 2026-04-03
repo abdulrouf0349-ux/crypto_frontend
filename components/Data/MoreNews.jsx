@@ -28,8 +28,10 @@ export default function MoreNews({ total_pages, serverData, locale, dict }) {
             <div className="flex flex-row max-sm:flex-col gap-3 sm:gap-6 py-5 px-3 max-sm:px-4 transition-all duration-300 hover:bg-slate-50 dark:hover:bg-gray-800 border-b border-slate-100 dark:border-gray-700 rounded-xl">
               <div className="relative flex-shrink-0 w-[160px] h-[122px] max-sm:w-full max-sm:h-[200px]">
                 <Image
-                  src={newsItem?.image || newsItem?.image_main || "/images/bitcoin.jpg"}
-                  alt={newsItem?.title || "news"}
+src={(newsItem?.image || newsItem?.image_main || "/images/bitcoin.jpg").replace(
+      'cryptonews.fun', 
+      'cryptonewstrend.com' // Yahan apna sahi domain name likhein jo aap chahte hain
+    )}                    alt={newsItem?.title || "news"}
                   className="rounded-lg object-cover"
                   fill
                   unoptimized

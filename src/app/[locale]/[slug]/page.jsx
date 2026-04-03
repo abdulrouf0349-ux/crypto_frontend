@@ -453,7 +453,10 @@ export default async function DiscriptionPage({ params }) {
               {/* Featured Image */}
               <figure className="relative aspect-[16/9] md:aspect-[21/10] w-full overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] shadow-xl md:shadow-2xl shadow-indigo-100/50 mb-8 md:mb-16 border border-slate-100">
                 <Image
-                  src={article?.image || "/images/bitcoin.jpg"}
+                  src={(article?.image || article?.image_main || "/images/bitcoin.jpg").replace(
+      'cryptonews.fun', 
+      'cryptonewstrend.com' // Yahan apna sahi domain name likhein jo aap chahte hain
+    )}  
                   alt={article?.title}
                   fill
                   priority

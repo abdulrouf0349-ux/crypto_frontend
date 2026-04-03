@@ -49,8 +49,10 @@ export default function Slider({ serverData }) {
                   
                   {/* IMAGE */}
                   <img
-                    src={slide?.image || slide?.image_main || "images/bitcoin.jpg"}
-                    alt={slide.title}
+src={(slide?.image || slide?.image_main || "/images/bitcoin.jpg").replace(
+      'cryptonews.fun', 
+      'cryptonewstrend.com' // Yahan apna sahi domain name likhein jo aap chahte hain
+    )}                      alt={slide.title}
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
