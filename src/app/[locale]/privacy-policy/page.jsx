@@ -1,176 +1,190 @@
-// app/[locale]/about-us/page.jsx
+// app/[locale]/privacy-policy/page.jsx
+import PrivacyPolicyPage from "./privayPage";
 
-import AboutPage from "./aboutPAge";
+const BASE_URL          = "https://cryptonewstrend.com";
+const SITE_NAME         = "CryptoNews Trend";  // ✅ consistent name
+const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-CN"];
+const LAST_MODIFIED     = "2025-01-15"; // ✅ actual date, dynamic nahi
 
-const SITE_NAME = 'CryptoNews Trend'; // ✅ FIX 1
-const BASE_URL  = 'https://cryptonewstrend.com';
-
-const SUPPORTED_LOCALES = ['en', 'ur', 'ar', 'ru', 'es', 'fr', 'de', 'zh-CN'];
-
-// ✅ FIX 4: zh-Hans correct hreflang
-const LOCALE_TO_HREFLANG = {
-  'en': 'en', 'ur': 'ur', 'ar': 'ar', 'de': 'de',
-  'fr': 'fr', 'ru': 'ru', 'zh-CN': 'zh-Hans', 'es': 'es',
-};
-
-// ✅ FIX 3: OG locale correct format
-const OG_LOCALE_MAP = {
-  'en': 'en_US', 'ur': 'ur_PK', 'ar': 'ar_AR', 'de': 'de_DE',
-  'fr': 'fr_FR', 'ru': 'ru_RU', 'zh-CN': 'zh_CN', 'es': 'es_ES',
-};
-
-// ✅ FIX 9: CryptoWhales → CryptoNews Trend
 const META = {
   en: {
-    title:       'About Us — Trusted Crypto News & Insights',
-    description: 'Learn about CryptoNews Trend — your trusted source for real-time cryptocurrency news, blockchain insights, and market analysis in 8+ languages.',
-    keywords:    'about CryptoNews Trend, crypto news platform, blockchain news, cryptocurrency insights, crypto media',
+    title:       `Privacy Policy | ${SITE_NAME}`,
+    description: "Read CryptoNews Trend's Privacy Policy to understand how we collect, use, and protect your personal data. Your privacy is our priority.",
+    keywords:    "privacy policy, data protection, personal data, cookies policy, GDPR, CryptoNews privacy",
   },
   ur: {
-    title:       'ہمارے بارے میں — قابل اعتماد کرپٹو خبریں',
-    description: 'CryptoNews Trend کے بارے میں جانیں — کریپٹو کرنسی خبروں، بلاک چین اور مارکیٹ تجزیے کا آپ کا قابل اعتماد ذریعہ۔',
-    keywords:    'کرپٹو خبریں, بلاک چین, کریپٹو کرنسی',
+    title:       `پرائیویسی پالیسی | ${SITE_NAME}`,
+    description: "CryptoNews Trend کی پرائیویسی پالیسی پڑھیں تاکہ آپ سمجھ سکیں کہ ہم آپ کا ذاتی ڈیٹا کیسے جمع، استعمال اور محفوظ کرتے ہیں۔",
+    keywords:    "پرائیویسی پالیسی, ڈیٹا پروٹیکشن, کوکیز, ذاتی معلومات",
   },
   ar: {
-    title:       'من نحن — أخبار العملات المشفرة الموثوقة',
-    description: 'تعرف على CryptoNews Trend — مصدرك الموثوق لأخبار العملات المشفرة وتحليلات السوق.',
-    keywords:    'أخبار العملات المشفرة, بلوكتشين, تحليل السوق',
-  },
-  ru: {
-    title:       'О нас — Криптовалютные новости',
-    description: 'Узнайте о CryptoNews Trend — надёжном источнике новостей о криптовалютах и блокчейне.',
-    keywords:    'крипто новости, блокчейн, криптовалюта',
+    title:       `سياسة الخصوصية | ${SITE_NAME}`,
+    description: "اقرأ سياسة الخصوصية الخاصة بـ CryptoNews Trend لفهم كيفية جمع بياناتك الشخصية واستخدامها وحمايتها.",
+    keywords:    "سياسة الخصوصية, حماية البيانات, ملفات تعريف الارتباط, GDPR",
   },
   es: {
-    title:       'Sobre Nosotros — Noticias Cripto de Confianza',
-    description: 'Conoce CryptoNews Trend — tu fuente confiable de noticias sobre criptomonedas y blockchain.',
-    keywords:    'noticias cripto, blockchain, criptomonedas',
+    title:       `Política de Privacidad | ${SITE_NAME}`,
+    description: "Lea la Política de Privacidad de CryptoNews Trend para entender cómo recopilamos, usamos y protegemos sus datos personales.",
+    keywords:    "política de privacidad, protección de datos, cookies, GDPR, privacidad cripto",
   },
   fr: {
-    title:       'À Propos — Actualités Crypto de Confiance',
-    description: 'Découvrez CryptoNews Trend — votre source fiable d\'actualités crypto et d\'analyses blockchain.',
-    keywords:    'actualités crypto, blockchain, cryptomonnaie',
+    title:       `Politique de Confidentialité | ${SITE_NAME}`,
+    description: "Lisez la Politique de Confidentialité de CryptoNews Trend pour comprendre comment nous collectons, utilisons et protégeons vos données personnelles.",
+    keywords:    "politique de confidentialité, protection des données, cookies, RGPD",
   },
   de: {
-    title:       'Über Uns — Vertrauenswürdige Krypto-Nachrichten',
-    description: 'Erfahren Sie mehr über CryptoNews Trend — Ihre vertrauenswürdige Quelle für Krypto-Nachrichten.',
-    keywords:    'Krypto Nachrichten, Blockchain, Kryptowährung',
+    title:       `Datenschutzrichtlinie | ${SITE_NAME}`,
+    description: "Lesen Sie die Datenschutzrichtlinie von CryptoNews Trend, um zu verstehen, wie wir Ihre persönlichen Daten erfassen, verwenden und schützen.",
+    keywords:    "Datenschutzrichtlinie, Datenschutz, Cookies, DSGVO, Krypto Datenschutz",
   },
   'zh-CN': {
-    title:       '关于我们 — 值得信赖的加密货币新闻',
-    description: '了解 CryptoNews Trend — 您值得信赖的加密货币新闻、区块链资讯和市场分析来源。',
-    keywords:    '加密货币新闻, 区块链, 比特币, 数字货币, 市场分析',
+    title:       `隐私政策 | ${SITE_NAME}`,
+    description: "阅读 CryptoNews Trend 的隐私政策，了解我们如何收集、使用和保护您的个人数据。您的隐私是我们的首要任务。",
+    keywords:    "隐私政策, 数据保护, Cookie政策, GDPR, 个人数据",
   },
 };
 
-const getLocaleMeta = (locale) => META[locale] || META['en'];
-
-// ── generateMetadata ─────────────────────────────────────────
+// ─────────────────────────────────────────────
+// generateMetadata  ✅ other:{} NAHI hai ab
+// ─────────────────────────────────────────────
 export async function generateMetadata({ params }) {
-  const { locale } = await params;
-  const meta       = getLocaleMeta(locale);
-  const pageUrl    = `${BASE_URL}/${locale}/about-us`;
+  const { locale }   = await params;
+  const meta         = META[locale] || META['en'];
+  const canonicalUrl = `${BASE_URL}/${locale}/privacy-policy`;
+  const pageImage    = `${BASE_URL}/og-image.jpg`;
 
-  // ✅ FIX 4+5: zh-Hans + x-default
   const alternateLanguages = SUPPORTED_LOCALES.reduce((acc, lang) => {
-    const hreflang = LOCALE_TO_HREFLANG[lang] || lang;
-    acc[hreflang]  = `${BASE_URL}/${lang}/about-us`;
+    acc[lang] = `${BASE_URL}/${lang}/privacy-policy`;
     return acc;
   }, {});
-  alternateLanguages['x-default'] = `${BASE_URL}/en/about-us`; // ✅ FIX 5
 
   return {
-    // ✅ FIX 2: SITE_NAME mat lagao — layout template auto lagaega
     title:       meta.title,
     description: meta.description,
     keywords:    meta.keywords,
-
     alternates: {
-      canonical: pageUrl,
-      languages: alternateLanguages, // ✅ zh-Hans + x-default
+      canonical: canonicalUrl,
+      languages: alternateLanguages,
     },
-
     openGraph: {
-      title:       `${meta.title} | ${SITE_NAME}`, // ✅ OG mein manually
+      title:       meta.title,
       description: meta.description,
-      url:         pageUrl,
-      siteName:    SITE_NAME,                          // ✅ FIX 1
-      locale:      OG_LOCALE_MAP[locale] || 'en_US',   // ✅ FIX 3
-      alternateLocale: SUPPORTED_LOCALES               // ✅ FIX 7
-        .filter(l => l !== locale)
-        .map(l => OG_LOCALE_MAP[l] || l),
-      type:        'website',
+      url:         canonicalUrl,
+      siteName:    SITE_NAME,
       images: [{
-        url:    `${BASE_URL}/og-image.png`,
+        url:    pageImage,
         width:  1200,
         height: 630,
-        alt:    `${SITE_NAME} About Us`,
+        alt:    `${SITE_NAME} Privacy Policy`,
       }],
+      locale,
+      type: "website",
     },
-
     twitter: {
-      card:        'summary_large_image',
-      site:        '@cryptonews90841', // ✅ FIX 8
-      creator:     '@cryptonews90841', // ✅ FIX 8
-      title:       `${meta.title} | ${SITE_NAME}`,
+      card:        "summary_large_image",
+      site:        "@cryptonews90841",
+      title:       meta.title,
       description: meta.description,
-      images:      [`${BASE_URL}/og-image.png`],
+      images:      [pageImage],
     },
-
     robots: {
       index:  true,
       follow: true,
       googleBot: {
         index:               true,
         follow:              true,
-        'max-snippet':       -1,
-        'max-image-preview': 'large',
+        "max-image-preview": "large",
+        "max-snippet":       -1,
       },
     },
-    // ✅ FIX 6: other property hatao — schema script tag se handle hoga
+    // ✅ other:{} block removed — JSON-LD sirf page component mein
   };
 }
 
-// ── Page ─────────────────────────────────────────────────────
-export default async function AboutServerPage({ params }) {
-  const { locale } = await params;
-  const meta       = getLocaleMeta(locale);
-  const pageUrl    = `${BASE_URL}/${locale}/about-us`;
+// ─────────────────────────────────────────────
+// PAGE COMPONENT
+// ─────────────────────────────────────────────
+export default async function Page({ params }) {
+  const { locale }   = await params;
+  const meta         = META[locale] || META['en'];
+  const canonicalUrl = `${BASE_URL}/${locale}/privacy-policy`;
 
-  // ✅ FIX 6: Schema sirf yahan script tag mein — "other" se nahi
-  const jsonLd = {
-    '@context':  'https://schema.org',
-    '@type':     'AboutPage',
-    name:         meta.title,
-    description:  meta.description,
-    url:          pageUrl,
-    inLanguage:   locale,
+  // Schema 1: WebPage
+  const webPageSchema = {
+    '@context':   'https://schema.org',
+    '@type':      'WebPage',
+    name:          meta.title,
+    description:   meta.description,
+    url:           canonicalUrl,
+    inLanguage:    locale,
+    dateModified:  LAST_MODIFIED, // ✅ static date
     publisher: {
       '@type': 'Organization',
-      name:    SITE_NAME, // ✅ "CryptoNews Trend"
-      url:     BASE_URL,
-      logo: {
-        '@type': 'ImageObject',
-        url:     `${BASE_URL}/logo.png`,
+      name:     SITE_NAME,
+      url:      BASE_URL,
+      logo:    { '@type': 'ImageObject', url: `${BASE_URL}/logo.png` },
+    },
+  };
+
+  // Schema 2: BreadcrumbList
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type':    'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home',           item: `${BASE_URL}/${locale}` },
+      { '@type': 'ListItem', position: 2, name: 'Privacy Policy', item: canonicalUrl },
+    ],
+  };
+
+  // Schema 3: FAQPage
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type':    'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name:    'What personal data does CryptoNews collect?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text:    'CryptoNews collects basic usage data such as browser type, IP address, and pages visited to improve user experience. We do not sell personal data to third parties.',
+        },
       },
-    },
-    mainEntity: {
-      '@type':       'Organization',
-      name:           SITE_NAME,
-      url:            BASE_URL,
-      foundingDate:  '2023',
-      numberOfEmployees: { '@type': 'QuantitativeValue', value: '10' },
-      areaServed:    'Worldwide',
-    },
+      {
+        '@type': 'Question',
+        name:    'Does CryptoNews use cookies?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text:    'Yes, we use cookies to enhance your browsing experience, analyze site traffic, and personalize content. You can manage cookie preferences through your browser settings.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name:    'How can I request deletion of my data?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text:    'You can request deletion of your personal data by contacting us through our Contact page. We will process your request within 30 days in compliance with applicable privacy laws.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name:    'Is CryptoNews GDPR compliant?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text:    'Yes, CryptoNews Trend complies with GDPR and other applicable data protection regulations. We are committed to protecting the privacy rights of all our users.',
+        },
+      },
+    ],
   };
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <AboutPage />
+      <script type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }} />
+      <script type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <PrivacyPolicyPage />
     </>
   );
 }
