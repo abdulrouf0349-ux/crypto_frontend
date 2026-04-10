@@ -25,10 +25,10 @@ const TopNews = ({ locale, dict }) => {
   }, [locale]);
 
   return (
-    <div className='w-full mt-10 space-y-2'>
+    <div className='w-full mt-10 space-y-2 '>
       <div className="flex items-center gap-2 px-2 max-sm:px-4 mb-5">
         <div className="h-5 w-1 bg-blue-600 rounded-full"></div>
-        <h3 className="text-[13px] font-black uppercase tracking-[0.15em] !text-[#37474f] dark:text-gray-300">
+        <h3 className="text-[16px] font-bold uppercase tracking-[0.15em] !text-[#37474f] ">
           {dict?.on_page.top_stories || "Top Stories"}
         </h3>
       </div>

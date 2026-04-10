@@ -22,7 +22,7 @@ export default function News_TypeButtonClient({ dict, locale }) {
 
   return (
     // ✅ bg-white → dark mode support
-    <nav className="w-full bg-slate-100 text-white border-slate-100 bg dark:border-gray-700 sticky top-0 z-50 shadow-sm">
+    <nav className="w-full !bg-slate-100 text-white border-slate-100 bg  sticky top-0 z-50 shadow-sm">
       <div className="max-w-[1440px] mx-auto">
         <ul className="flex items-center lg:justify-center justify-start gap-3 overflow-x-auto no-scrollbar py-4 px-4 lg:px-28 scroll-smooth font-sans">
           {blockchainData.map((item) => {

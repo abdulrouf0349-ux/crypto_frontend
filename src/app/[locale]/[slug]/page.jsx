@@ -370,7 +370,11 @@ export default async function DiscriptionPage({ params }) {
       // Add more social links here
     ],
   };
+const descriptionStyle = {
 
+  color: '#252525',          // Dark grey/black color
+  fontFamily: 'Noto Sans, sans-serif' // Screenshot mein yehi font use ho raha hai
+};
   return (
     <>
       {/* ✅ All Structured Data */}
@@ -409,7 +413,6 @@ export default async function DiscriptionPage({ params }) {
             <h1 className="text-slate-900 text-2xl md:text-5xl leading-tight md:leading-[1.1] font-black tracking-tight max-w-5xl mb-8 md:mb-10">
               {article?.title}
             </h1>
-
             {/* Metadata Bar */}
             <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-slate-100">
               <div className="flex items-center gap-4 md:gap-8">
@@ -444,78 +447,54 @@ export default async function DiscriptionPage({ params }) {
         </header>
 
         {/* Main Content Grid */}
-        <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 py-4">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+      <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 py-4" style={{ fontFamily: "'Noto Sans', sans-serif" }}>
+  <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
 
-            {/* LEFT: Article Content */}
-            <div className="lg:col-span-8 flex flex-col min-w-0">
+    {/* LEFT: Article Content */}
+    <div className="lg:col-span-8 flex flex-col min-w-0">
 
-              {/* Featured Image */}
-              <figure className="relative aspect-[16/9] md:aspect-[21/10] w-full overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] shadow-xl md:shadow-2xl shadow-indigo-100/50 mb-8 md:mb-16 border border-slate-100">
-                <Image
-                  src={(article?.image || article?.image_main || "/images/bitcoin.jpg").replace(
-      'cryptonews.fun', 
-      'cryptonewstrend.com' // Yahan apna sahi domain name likhein jo aap chahte hain
-    )}  
-                  alt={article?.title}
-                  fill
-                  priority
-                  className="object-cover transition-transform duration-1000 hover:scale-105"
-                  unoptimized
-                />
-              </figure>
+      {/* Featured Image */}
+      <figure className="relative aspect-[16/9] md:aspect-[21/10] w-full overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] shadow-xl md:shadow-2xl shadow-indigo-100/50 mb-8 md:mb-16 border border-slate-100">
+        <Image
+          src={article?.image || "/images/bitcoin.jpg"}
+          alt={article?.title}
+          fill
+          priority
+          className="object-cover transition-transform duration-1000 hover:scale-105"
+          unoptimized
+        />
+      </figure>
 
-              {/* Article Body */}
-              <div className="max-w-none">
-                <div className="text-slate-800 text-[18px] md:text-[21px] leading-relaxed md:leading-[1.9] font-medium tracking-tight space-y-8 md:space-y-10">
-                  {article?.description?.split('\n').map((para, index) => (
-                    para.trim() && (
-                      <p key={index} className="first-letter:text-4xl md:first-letter:text-5xl first-letter:font-black first-letter:text-indigo-600 first-letter:mr-2 md:first-letter:mr-3 first-letter:float-left">
-                        {para}
-                      </p>
-                    )
-                  ))}
-                </div>
-              </div>
+      {/* Article Body */}
+      <div className="max-w-none">
+        {/* leading-[1.2] used for line-height 12 style */}
+        <div className="text-slate-800 text-[16px] md:text-[21px] font-medium tracking-tight space-y-8 md:space-y-10 leading-[1.2]">
+          {article?.description?.split('\n').map((para, index) => (
+            para.trim() && (
+                   <p key={index} style={descriptionStyle} className='font-medium'>
+  {para}
+</p>
+            )
+          ))}
+        </div>
+  
+      </div>
 
-              {/* Source Card */}
-              {/* <div className="mt-10 group bg-slate-50 rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-8 border border-slate-100 transition-all duration-500 hover:bg-white hover:shadow-2xl hover:shadow-indigo-100/50">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-8">
-                  <div className="space-y-2">
-                    <h3 className="text-slate-900 font-black text-lg md:text-xl tracking-tight">
-                      {dict?.news_slug?.read_original}
-                    </h3>
-                    <p className="text-slate-500 text-xs md:text-sm font-medium opacity-70 break-all md:truncate max-w-full md:max-w-md italic">
-                      {article?.link}
-                    </p>
-                  </div>
-                  <a
-                    href={article?.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-3 bg-indigo-600 text-white px-6 py-4 md:px-5 md:py-3 rounded-xl md:rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#4f39f6] transition-all shadow-lg active:scale-95"
-                  >
-                    {dict?.news_slug?.visit_source}
-                    <FiArrowUpRight className="text-xl" />
-                  </a>
-                </div>
-              </div> */}
+    </div>
 
-            </div>
+    {/* RIGHT: Sidebar */}
+    <aside className="lg:col-span-4 mt-10 lg:mt-0" aria-label="Sidebar">
+      <div className="lg:sticky lg:top-32 space-y-10">
+        <DonateBanner locale={locale} dict={dict} />
+        <div className="bg-slate-50/50 rounded-[1.5rem] md:rounded-[2.5rem] p-5 md:p-6 border border-slate-100 shadow-sm">
+          <TopNews serverData={topNewsData} locale={locale} dict={dict} />
+          <IcoSidebar icoData={icoData1} />
+        </div>
+      </div>
+    </aside>
 
-            {/* RIGHT: Sidebar */}
-            <aside className="lg:col-span-4 mt-10 lg:mt-0" aria-label="Sidebar">
-              <div className="lg:sticky lg:top-32 space-y-10">
-                <DonateBanner locale={locale} dict={dict} />
-                <div className="bg-slate-50/50 rounded-[1.5rem] md:rounded-[2.5rem] p-5 md:p-6 border border-slate-100 shadow-sm">
-                  <TopNews serverData={topNewsData} locale={locale} dict={dict} />
-                  <IcoSidebar icoData={icoData1} />
-                </div>
-              </div>
-            </aside>
-
-          </div>
-        </main>
+  </div>
+</main>
       </article>
     </>
   );

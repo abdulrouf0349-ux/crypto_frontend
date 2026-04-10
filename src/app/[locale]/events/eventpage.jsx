@@ -20,12 +20,13 @@ const EventsPage = () => {
 
   // Pagination State
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
 
-  const loadData = async (pageNum = 1) => {
+const loadData = async (pageNum = 1) => {
     const response = await fetchAllEvents(pageNum, locale);
+  console.log('Fetching events:', page, locale);
 
-    if (response && response.data) {
+    if (response && response.data && response.data.length > 0) {
       if (pageNum === 1) {
         setAllEvents(response.data);
         setFilteredEvents(response.data);
@@ -34,9 +35,13 @@ const EventsPage = () => {
         setFilteredEvents(prev => [...prev, ...response.data]);
       }
 
-      if (response.metadata) {
+      if (response.metadata && response.metadata.total_pages) {
         setHasMore(pageNum < response.metadata.total_pages);
+      } else {
+        setHasMore(false);
       }
+    } else {
+      setHasMore(false); // ← data nahi aaya to button hide karo
     }
     setLoading(false);
   };
@@ -213,18 +218,18 @@ const EventsPage = () => {
           </div>
         )}
 
-        {/* ✅ Load More */}
-        {hasMore && (
-          <div className="mt-12 flex justify-center">
-            <button
-              onClick={handleMoreEvents}
-              aria-label="Load more crypto events"
-              className="px-8 py-3 bg-gray-900 text-white font-bold rounded-xl hover:bg-indigo-600 transition-all active:scale-95 shadow-lg w-full md:w-auto"
-            >
-              {dict.launchpad.show_more_coins}
-            </button>
-          </div>
-        )}
+      {/* ✅ Load More — sirf tab show karo jab filtered data bhi ho */}
+{hasMore && filteredEvents.length > 0 && (
+  <div className="mt-12 flex justify-center">
+    <button
+      onClick={handleMoreEvents}
+      aria-label="Load more crypto events"
+      className="px-8 py-3 bg-gray-900 text-white font-bold rounded-xl hover:bg-indigo-600 transition-all active:scale-95 shadow-lg w-full md:w-auto"
+    >
+      {dict.launchpad.show_more_coins}
+    </button>
+  </div>
+)}
       </main>
     </div>
   );

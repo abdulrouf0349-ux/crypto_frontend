@@ -14,7 +14,7 @@ import MobileSupportButton from "../../../components/Right_side/MobileSupportBut
 import CoinAnalysisFloat from "../../../components/Data/CoinAnalysisFloat";
 
 const BASE_URL = "https://cryptonewstrend.com";
-const SUPPORTED_LOCALES = ['en', 'ur', 'es', 'fr', 'de', 'ar', 'zh-CN'];
+const SUPPORTED_LOCALES = ['en', 'ur', 'es', 'fr', 'de', 'ar','ru', 'zh-CN'];
 
 // ✅ 1. PAGE-LEVEL METADATA (layout.js wali override karegi yahan se)
 export async function generateMetadata({ params }) {
@@ -22,9 +22,11 @@ export async function generateMetadata({ params }) {
   const dict = await getDictionary(locale);
 
   const alternateLanguages = SUPPORTED_LOCALES.reduce((acc, lang) => {
-    acc[lang] = `${BASE_URL}/${lang}`;
+    const hreflang = lang === 'zh-CN' ? 'zh-Hans' : lang;
+    acc[hreflang] = `${BASE_URL}/${lang}`;
     return acc;
   }, {});
+  alternateLanguages["x-default"] = `${BASE_URL}/en`;
 
   return {
     // layout.js ke title template se milkar banega: "Latest Crypto News | CryptoNews"
@@ -125,7 +127,7 @@ export default async function Page({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
-      
+      <h1 className="sr-only">{dict.seo?.title || "Latest Cryptocurrency News and Trends"}</h1>
       <Banner />
       <News_TypeButtonServer dict={dict} locale={locale} />
 

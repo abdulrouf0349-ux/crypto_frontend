@@ -140,7 +140,7 @@ export default function ArticleSlugClient({
       </header>
 
       {/* ── Main Content ────────────────────────────────────── */}
-      <main className="max-w-5xl mx-auto px-4 md:px-6 lg:px-8 py-10 md:py-16">
+      <main className="max-w-5xl mx-auto px-4 md:px-6 lg:px-8 py-10 md:py-16 !bg-white">
 
         {/* Featured Image */}
         <figure className="relative aspect-[16/9] md:aspect-[21/9] w-full overflow-hidden rounded-2xl md:rounded-3xl shadow-2xl shadow-indigo-100/40 mb-10 md:mb-16 border border-slate-100">
@@ -159,6 +159,7 @@ export default function ArticleSlugClient({
   <style jsx global>{`
     /* 1. Base Text, Paragraphs & Spacing */
     .article-content-area p {
+    background-color: white !important;
       line-height: 2.2 !important;
       font-size: 18px !important;
       color: #334155 !important;
@@ -176,6 +177,7 @@ export default function ArticleSlugClient({
       letter-spacing: -0.02em !important;
     }
       .article-content-area p:empty {
+      background-color: white !important;
   display: none !important;
 }
   /* 1. Tamam faltu <br> tags ko hide karne ke liye */
@@ -197,6 +199,8 @@ export default function ArticleSlugClient({
       font-size: 1.8rem !important;
       font-weight: 800 !important;
       margin-top: 40px !important;
+        color: #0f172a !important;   /* ← yeh add karo */
+
       margin-bottom: 18px !important;
     }
 .article-content-area mark {
@@ -236,12 +240,14 @@ export default function ArticleSlugClient({
       cursor: pointer !important;
       color: #4f46e5 !important;
       outline: none !important;
+      background-color: white !important;
     }
 
     /* 4. Formatting Extras */
     .article-content-area del {
       color: #94a3b8 !important;
       text-decoration: line-through !important;
+      background-color: white !important;
     }
     
     .article-content-area ins {
@@ -293,6 +299,7 @@ export default function ArticleSlugClient({
     .article-content-area ul, .article-content-area ol {
       margin-bottom: 30px !important;
       padding-left: 28px !important;
+      background-color: white !important;
     }
     .article-content-area li {
       line-height: 2 !important;
@@ -311,16 +318,19 @@ export default function ArticleSlugClient({
       border-radius: 12px !important;
       overflow: hidden !important;
     }
-    .article-content-area th {
-      background-color: #f8fafc !important;
-      padding: 16px !important;
-      font-weight: 800 !important;
-      border-bottom: 2px solid #e2e8f0 !important;
-    }
-    .article-content-area td {
-      padding: 16px !important;
-      border-bottom: 1px solid #f1f5f9 !important;
-    }
+.article-content-area th {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;        /* ← yeh add karo */
+  padding: 16px !important;
+  font-weight: 800 !important;
+  border-bottom: 2px solid #e2e8f0 !important;
+}
+
+.article-content-area td {
+  padding: 16px !important;
+  color: #334155 !important;        /* ← yeh add karo */
+  border-bottom: 1px solid #f1f5f9 !important;
+}
 
     /* 7. Blockquotes & Horizontal Lines */
     .article-content-area blockquote {

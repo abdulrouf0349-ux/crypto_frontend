@@ -1,10 +1,11 @@
+// app/[locale]/layout.js
+
 import "../globals.css";
 import { Header } from "../../../components/common-components/header";
 import Footer from "../../../components/common-components/footer";
 import { Inter } from "next/font/google";
 import Script from 'next/script';
 import { getRssMetadata } from "@/context/rss-links";
-
 import { getDictionary } from "../../../i18n/getDictionary";
 import ClientLayout from "@/context/LocaleContext";
 
@@ -14,176 +15,180 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const BASE_URL = "https://cryptonewstrend.com";
-const SITE_NAME = "CryptoNews";
-const SUPPORTED_LOCALES = ['en', 'ur', 'es', 'fr', 'de', 'ar', 'zh-CN'];
+const BASE_URL  = "https://cryptonewstrend.com";
+const SITE_NAME = "CryptoNews Trend";
+
+export const SUPPORTED_LOCALES = ['en', 'ur', 'ar', 'de', 'fr', 'ru', 'zh-CN', 'es'];
 const RTL_LOCALES = ['ar', 'ur'];
 
-// ✅ FIX 1: x-default hreflang add kiya — Google multilingual best practice
+const LOCALE_TO_HREFLANG = {
+  'en':    'en',
+  'ur':    'ur',
+  'ar':    'ar',
+  'de':    'de',
+  'fr':    'fr',
+  'ru':    'ru',
+  'zh-CN': 'zh-Hans',
+  'es':    'es',
+};
+
+const OG_LOCALE_MAP = {
+  'en':    'en_US',
+  'ur':    'ur_PK',
+  'ar':    'ar_AR',
+  'de':    'de_DE',
+  'fr':    'fr_FR',
+  'ru':    'ru_RU',
+  'zh-CN': 'zh_CN',
+  'es':    'es_ES',
+};
+
 const buildAlternateLanguages = (path = "") => {
-  const langs = SUPPORTED_LOCALES.reduce((acc, lang) => {
-    acc[lang] = `${BASE_URL}/${lang}${path}`;
+  const finalPath = path && !path.startsWith('/') ? `/${path}` : path;
+  const langs = SUPPORTED_LOCALES.reduce((acc, locale) => {
+    const hreflang = LOCALE_TO_HREFLANG[locale] || locale;
+    acc[hreflang] = `${BASE_URL}/${locale}${finalPath}`;
     return acc;
   }, {});
-  langs["x-default"] = `${BASE_URL}/en${path}`; // x-default = fallback language
+  langs["x-default"] = `${BASE_URL}/en${finalPath}`;
   return langs;
 };
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   const dict = await getDictionary(locale);
-  const rss = getRssMetadata(locale);  // ← yeh add karo
+  const rss  = getRssMetadata(locale);
+  const currentPath = "";
 
   return {
-    // ✅ FIX 2: metadataBase — absolute URL base (Next.js requirement)
     metadataBase: new URL(BASE_URL),
 
-  
-    // ✅ Title Template
+    // ✅ FIX 1: TITLE — template se sirf %s aayega, SITE_NAME auto lagega
+    // Page files mein SIRF yeh likho: title: "Page Name"
+    // Output banega: "Page Name | CryptoNews Trend" — ek baar
     title: {
-      default: dict.seo?.title || `Latest Crypto News | ${SITE_NAME}`,
-      template: `%s | ${SITE_NAME}`,
+      default:  `Latest Crypto News | ${SITE_NAME}`,
+      template: `%s | ${SITE_NAME}`,   // ← page title yahan inject hoga
     },
 
-    description: dict.seo?.description || "Stay updated with the latest cryptocurrency trends, market events, and blockchain news.",
+    description:
+      dict.seo?.description ||
+      "Stay updated with the latest cryptocurrency trends, market events, and blockchain news.",
 
-    // ✅ FIX 3: keywords — layout level pe generic, page level pe override hogi
-    keywords: "cryptocurrency, crypto news, bitcoin, ethereum, blockchain, defi, nft, altcoin",
+    keywords:
+      dict.seo?.keywords ||
+      "cryptocurrency, crypto news, bitcoin, ethereum, blockchain, defi, nft, altcoin",
 
-
-      alternates: {
-      canonical: `${BASE_URL}/${locale}`,
-      languages: buildAlternateLanguages(),
-      ...rss.alternates,  // ← RSS types yahan merge ho jaenge
+    alternates: {
+      canonical: `${BASE_URL}/${locale}${currentPath}`,
+      languages: buildAlternateLanguages(currentPath),
+      ...rss.alternates,
     },
 
-    // ✅ Open Graph
     openGraph: {
-      title: dict.seo?.title || `Latest Crypto News | ${SITE_NAME}`,
+      title:       dict.seo?.title || `Latest Crypto News | ${SITE_NAME}`,
       description: dict.seo?.description || "Stay updated with the latest cryptocurrency trends.",
-      url: `${BASE_URL}/${locale}`,
-      siteName: SITE_NAME,
-      images: [
-        {
-          url: `${BASE_URL}/og-image.png`,
-          width: 1280,   // ✅ FIX 4: tumhari actual image size ke mutabiq update kiya
-          height: 720,
-          alt: `${SITE_NAME} - Latest Crypto Updates`,
-        },
-      ],
-      locale,
+      url:         `${BASE_URL}/${locale}`,
+      siteName:    SITE_NAME,
+      images: [{
+        url:    `${BASE_URL}/og-image.png`,
+        width:  1280,
+        height: 720,
+        alt:    `${SITE_NAME} - Latest Crypto Updates`,
+      }],
+      locale:          OG_LOCALE_MAP[locale] || 'en_US',
+      alternateLocale: SUPPORTED_LOCALES
+        .filter(l => l !== locale)
+        .map(l => OG_LOCALE_MAP[l] || l),
       type: "website",
     },
 
-    // ✅ Twitter Card
     twitter: {
-      card: "summary_large_image",
-      site: "@cryptonews90841",
-      creator: "@cryptonews90841",
-      title: dict.seo?.title || `Latest Crypto News | ${SITE_NAME}`,
+      card:        "summary_large_image",
+      site:        "@cryptonews90841",
+      creator:     "@cryptonews90841",
+      title:       dict.seo?.title || `Latest Crypto News | ${SITE_NAME}`,
       description: dict.seo?.description || "Stay updated with the latest cryptocurrency trends.",
-      images: [`${BASE_URL}/og-image.png`],
+      images:      [`${BASE_URL}/og-image.png`],
     },
 
-    // ✅ Robots
     robots: {
-      index: true,
+      index:  true,
       follow: true,
       googleBot: {
-        index: true,
-        follow: true,
+        index:               true,
+        follow:              true,
         "max-video-preview": -1,
         "max-image-preview": "large",
-        "max-snippet": -1,
+        "max-snippet":       -1,
       },
     },
 
-    // ✅ Google Search Console verification
+    // ✅ FIX 2: GOOGLE VERIFICATION
+    // G-6QD0N2CR34 = Analytics ID hai — verification kaam nahi karta
+    // Steps: Search Console → Settings → Ownership Verification
+    //        → HTML Tag → content="..." woh value copy karo yahan
     verification: {
-      google: "",
+      google: "G-6QD0N2CR34",
     },
 
-    // ✅ FIX 5: Icons — multiple sizes add kiye (Google/Apple ke liye)
     icons: {
       icon: [
         { url: "/favicon.ico" },
         { url: "/icon-16x16.png", sizes: "16x16", type: "image/png" },
         { url: "/icon-32x32.png", sizes: "32x32", type: "image/png" },
       ],
-      apple: [
-        { url: "/apple-touch-icon.png", sizes: "180x180" },
-      ],
+      apple:    [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
       shortcut: "/favicon.ico",
     },
 
-    // ✅ FIX 6: manifest — PWA + mobile home screen support
-    manifest: "/manifest.json",
-
-    // ✅ FIX 7: category + classification — Google News category hint
-    category: "technology",
-
-    // ✅ FIX 8: formatDetection — mobile par auto phone/email link banana band
-    formatDetection: {
-      telephone: false,
-      email: false,
-      address: false,
-    },
+    manifest:        "/manifest.json",
+    category:        "technology",
+    formatDetection: { telephone: false, email: false, address: false },
   };
 }
 
-// ✅ FIX 9: WebSite schema — sitelinks searchbox ke liye (Google par search box aata hai)
 const websiteSchema = {
   "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: SITE_NAME,
-  url: BASE_URL,
+  "@type":    "WebSite",
+  name:        SITE_NAME,
+  url:         BASE_URL,
   potentialAction: {
-    "@type": "SearchAction",
+    "@type":  "SearchAction",
     target: {
-      "@type": "EntryPoint",
-      urlTemplate: `${BASE_URL}/search?q={search_term_string}`,
+      "@type":      "EntryPoint",
+      urlTemplate:  `${BASE_URL}/search?q={search_term_string}`,
     },
     "query-input": "required name=search_term_string",
   },
 };
 
-// ✅ FIX 10: Organization schema — Google Knowledge Panel ke liye
 const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: SITE_NAME,
-  url: BASE_URL,
+  "@type":    "Organization",
+  name:        SITE_NAME,
+  url:         BASE_URL,
   logo: {
-    "@type": "ImageObject",
-    url: `${BASE_URL}/logo.png`,
-    width: 200,
-    height: 60,
+    "@type":  "ImageObject",
+    url:      `${BASE_URL}/logo.png`,
+    width:    200,
+    height:   60,
   },
-  sameAs: [
-    "https://twitter.com/yourhandle",
-    "https://t.me/yourchannel",
-    // ✅ Apne social links yahan add karo
-  ],
+  sameAs: ["https://twitter.com/cryptonews90841"],
 };
 
 export default async function RootLayout({ children, params }) {
   const { locale } = await params;
   const dict = await getDictionary(locale);
-
-  // ✅ FIX 11: RTL dir attribute — Urdu/Arabic ke liye sahi direction
+  const dir  = RTL_LOCALES.includes(locale) ? "rtl" : "ltr";
 
   return (
-      <html lang={locale} >
-
+    <html lang={locale} dir={dir}>
       <head>
-       <meta name="google-site-verification" content="G-6QD0N2CR34" />
-        {/* 2. Google Tag (gtag.js) - Script 1 (Load script) */}
-        <Script 
-          src="https://www.googletagmanager.com/gtag/js?id=G-6QD0N2CR34" 
-          strategy="afterInteractive" 
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-6QD0N2CR34"
+          strategy="afterInteractive"
         />
-        
-        {/* 3. Google Tag (gtag.js) - Script 2 (Initialize) */}
         <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -201,8 +206,8 @@ export default async function RootLayout({ children, params }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-<body className={`${inter.variable} antialiased bg-white text-black`}>
-          <Header dict={dict} locale={locale} />
+      <body className={`${inter.variable} antialiased bg-white text-black`}>
+        <Header dict={dict} locale={locale} />
         <ClientLayout dict={dict} locale={locale}>
           {children}
         </ClientLayout>

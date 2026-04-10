@@ -160,7 +160,7 @@ const EventDetailsPage = ({initialData}) => {
 
             {/* Description */}
             <div className="">
-                <h1 className='my-5'>Description</h1>
+                <span className='my-5'>Description</span>
               <p className="text-slate-600 py-10 leading-relaxed text-base leading-7">
                 {event.description}
               </p>

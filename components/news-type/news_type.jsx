@@ -55,8 +55,8 @@ const intelArticles = Array.isArray(articlesData) ? articlesData.slice(0, 8) : [
   };
 
   return (
-    <div className="overflow-x-hidden">
-      <div className="bg-[#eee9e9] w-full h-[100px] md:h-[150px]"></div>
+    <div className="overflow-x-hidden !bg-white">
+      <div className="!bg-[#eee9e9] w-full h-[100px] md:h-[150px]"></div>
       
       <News_TypeButtonServer locale={locale} dict={dict}/>
 
@@ -99,7 +99,7 @@ const intelArticles = Array.isArray(articlesData) ? articlesData.slice(0, 8) : [
               <a 
                 href={`/${locale}/articles//${art.slug}`} 
                 key={i} 
-                className="group bg-white p-4 rounded-[1.5rem] md:rounded-[2rem] border border-slate-100 hover:border-indigo-100 transition-all shadow-sm hover:shadow-xl flex flex-col"
+                className="group !bg-white p-4 rounded-[1.5rem] md:rounded-[2rem] border border-slate-100 hover:border-indigo-100 transition-all shadow-sm hover:shadow-xl flex flex-col"
               >
                 <div className="relative aspect-video rounded-xl overflow-hidden mb-4">
                   <img 
