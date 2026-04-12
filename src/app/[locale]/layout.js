@@ -189,6 +189,11 @@ export default async function RootLayout({ children, params }) {
           src="https://www.googletagmanager.com/gtag/js?id=G-6QD0N2CR34"
           strategy="afterInteractive"
         />
+        <Script 
+          src="https://analytics.ahrefs.com/analytics.js" 
+          data-key="sCppueE/dYI+MsZvOgZmFg" 
+          strategy="afterInteractive" 
+        />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
