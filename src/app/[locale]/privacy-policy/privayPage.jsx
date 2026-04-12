@@ -146,7 +146,7 @@ export default function PrivacyPolicyPage() {
               <h3 className="text-xl font-black mb-3">{t.cta_title}</h3>
               <p className="text-slate-400 text-sm mb-6">{t.cta_desc}</p>
               <Link
-                href={`/${locale}/contact`}
+                href={`/${locale}/contact-us`}
                 className="inline-block px-8 py-3 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-500 transition-all"
               >
                 {t.cta_btn}

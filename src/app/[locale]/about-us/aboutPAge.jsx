@@ -162,7 +162,7 @@ export default function AboutPage() {
         <p className="text-slate-500 mb-8 max-w-xl mx-auto">{t.cta_desc}</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
-            href={`/${locale}/contact`}
+            href={`/${locale}/contact-us`}
             className="px-8 py-3.5 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100"
           >
             {t.cta_btn1}
