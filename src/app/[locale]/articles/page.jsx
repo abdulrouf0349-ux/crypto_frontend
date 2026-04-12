@@ -9,63 +9,94 @@ import Image from 'next/image';
 // ─────────────────────────────────────────────
 // CONSTANTS
 // ─────────────────────────────────────────────
-const BASE_URL  = "https://cryptonewstrend.com";
-const SITE_NAME = "CryptoNewsTrend";
-const TWITTER_HANDLE   = "@cryptonews90841";
-const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-CN"];
+// app/[locale]/articles/page.jsx
 
 // ─────────────────────────────────────────────
-// ✅ generateMetadata — SEO
+// CONSTANTS
+// ─────────────────────────────────────────────
+const BASE_URL          = "https://cryptonewstrend.com";
+const SITE_NAME         = "CryptoNews Trend"; // ✅ FIX 2
+const TWITTER_HANDLE    = "@cryptonews90841";
+
+// ✅ FIX 4: ru add kiya
+const SUPPORTED_LOCALES = ["en", "ur", "es", "ru", "fr", "de", "ar", "zh-CN"];
+
+// ✅ FIX 5: zh-Hans correct hreflang
+const LOCALE_TO_HREFLANG = {
+  "en": "en", "ur": "ur", "ar": "ar", "de": "de",
+  "fr": "fr", "ru": "ru", "zh-CN": "zh-Hans", "es": "es",
+};
+
+// ✅ FIX 3: OG locale correct format
+const OG_LOCALE_MAP = {
+  "en": "en_US", "ur": "ur_PK", "ar": "ar_AR", "de": "de_DE",
+  "fr": "fr_FR", "ru": "ru_RU", "zh-CN": "zh_CN", "es": "es_ES",
+};
+
+// ─────────────────────────────────────────────
+// generateMetadata
 // ─────────────────────────────────────────────
 export async function generateMetadata({ params }) {
-  const { locale } = await params;
-
-  const title       = `Crypto Articles | Blockchain Insights | ${SITE_NAME}`;
-  const description = "Read the latest crypto articles, blockchain analysis, DeFi guides and expert insights on CryptoNewsTrend.";
+  const { locale }   = await params;
   const canonicalUrl = `${BASE_URL}/${locale}/articles`;
 
+  // ✅ FIX 1: SITE_NAME mat lagao title mein — layout template auto lagaega
+  const title       = "Crypto Articles | Blockchain Insights";
+  const description = "Read the latest crypto articles, blockchain analysis, DeFi guides and expert insights on CryptoNews Trend.";
+
+  // ✅ FIX 5+6: zh-Hans + x-default + ru
   const alternateLanguages = SUPPORTED_LOCALES.reduce((acc, lang) => {
-    acc[lang] = `${BASE_URL}/${lang}/articles`;
+    const hreflang = LOCALE_TO_HREFLANG[lang] || lang;
+    acc[hreflang]  = `${BASE_URL}/${lang}/articles`;
     return acc;
   }, {});
+  alternateLanguages["x-default"] = `${BASE_URL}/en/articles`; // ✅ FIX 6
 
   return {
-    title,
+    title,       // ✅ layout: "Crypto Articles | Blockchain Insights | CryptoNews Trend"
     description,
     keywords: "crypto articles, blockchain insights, defi guides, bitcoin analysis, ethereum news, crypto education",
 
     alternates: {
       canonical: canonicalUrl,
-      languages: alternateLanguages,
+      languages: alternateLanguages, // ✅ zh-Hans, ru, x-default
     },
 
     openGraph: {
-      title,
+      title:       `${title} | ${SITE_NAME}`, // ✅ OG mein manually
       description,
-      url: canonicalUrl,
-      siteName: SITE_NAME,
-      images: [{ url: `${BASE_URL}/og-image.png`, width: 1200, height: 630, alt: title }],
-      locale,
-      type: "website",
+      url:         canonicalUrl,
+      siteName:    SITE_NAME,                          // ✅ FIX 2
+      locale:      OG_LOCALE_MAP[locale] || "en_US",   // ✅ FIX 3
+      alternateLocale: SUPPORTED_LOCALES               // ✅ FIX 7
+        .filter(l => l !== locale)
+        .map(l => OG_LOCALE_MAP[l] || l),
+      type:        "website",
+      images: [{
+        url:    `${BASE_URL}/og-image.png`,
+        width:  1200,
+        height: 630,
+        alt:    `${SITE_NAME} — Crypto Articles`,
+      }],
     },
 
     twitter: {
-      card: "summary_large_image",
-      site: TWITTER_HANDLE,
-      creator: TWITTER_HANDLE,
-      title,
+      card:        "summary_large_image",
+      site:        TWITTER_HANDLE,
+      creator:     TWITTER_HANDLE,
+      title:       `${title} | ${SITE_NAME}`,
       description,
-      images: [`${BASE_URL}/og-image.png`],
+      images:      [`${BASE_URL}/og-image.png`],
     },
 
     robots: {
-      index: true,
+      index:  true,
       follow: true,
       googleBot: {
-        index: true,
-        follow: true,
+        index:               true,
+        follow:              true,
         "max-image-preview": "large",
-        "max-snippet": -1,
+        "max-snippet":       -1,
       },
     },
   };
