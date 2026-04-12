@@ -11,6 +11,8 @@ import {
 import { fetchIcoBySlug } from '../../../../../apis/page_news/events';
 import { notFound } from 'next/navigation'
 import { useLocale } from '@/context/LocaleContext';
+import MobileSupportButton from '../../../../../components/Right_side/MobileSupportButton';
+import CoinAnalysisFloat from '../../../../../components/Data/CoinAnalysisFloat';
 
 const ICODetailsPage = ({initialData}) => {
   const { locale, slug } = useParams();
@@ -61,6 +63,7 @@ const ICODetailsPage = ({initialData}) => {
   const ov = p.overview_data || {};
 
   return (
+    <>
     <div className="min-h-screen bg-white font-sans text-slate-900">
 
       {/* ── Sticky Top Bar ───────────────────────────────────────── */}
@@ -397,6 +400,9 @@ const ICODetailsPage = ({initialData}) => {
         </div>
       </main>
     </div>
+    <MobileSupportButton dict={dict} />
+                        <CoinAnalysisFloat locale={locale} />  
+                      </>
   );
 };
 

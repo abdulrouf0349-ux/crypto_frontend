@@ -33,7 +33,7 @@ function buildIcoMeta(project, slug, locale) {
 
   // ✅ FIX 1: SITE_NAME mat lagao — layout template auto lagaega
   const title = p.name
-    ? `${p.name}${p.ticker ? ` (${p.ticker})` : ''} ICO — ${p.status_time || p.status || 'Details'}`
+    ? `${p.name}${p.ticker ? ` (${p.ticker})` : ''} ICO ${p.status_time || p.status || 'Details'}`
     : `ICO Project Details`;
 
   // ✅ FIX 10: word boundary pe cut karo

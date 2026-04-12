@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { FiMail, FiMessageSquare, FiSend, FiAlertCircle } from 'react-icons/fi';
 import { useLocale } from '@/context/LocaleContext';
 import { Send } from 'lucide-react';
+import MobileSupportButton from '../../../../components/Right_side/MobileSupportButton';
+import CoinAnalysisFloat from '../../../../components/Data/CoinAnalysisFloat';
 
 export default function ContactPage() {
   const { dict, locale } = useLocale();
@@ -46,7 +48,8 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans overflow-x-hidden">
+    <>
+     <div className="min-h-screen bg-white text-slate-900 font-sans overflow-x-hidden">
 
       {/* ── Breadcrumb ── */}
       <nav
@@ -138,5 +141,9 @@ export default function ContactPage() {
       </section>
 
     </div>
+     <MobileSupportButton dict={dict} />
+                    <CoinAnalysisFloat locale={locale} /> 
+    </>
+   
   );
 }

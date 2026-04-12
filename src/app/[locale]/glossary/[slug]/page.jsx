@@ -33,7 +33,7 @@ function buildCoinMeta(coin, slug, locale) {
   const symbol = coin?.symbol?.toUpperCase() || '';
 
   // ✅ FIX 11: word boundary pe cut karo
-  const rawDesc  = coin?.description || `Learn about ${name} (${symbol}) — explore its description, tags, official links, and blockchain details in our crypto glossary.`;
+  const rawDesc  = coin?.description || `Learn about ${name} (${symbol}) explore its description, tags, official links, and blockchain details in our crypto glossary.`;
   const clean    = rawDesc.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
   const description = clean.length <= 160
     ? clean
@@ -88,7 +88,7 @@ export async function generateMetadata({ params }) {
 
   return {
     // ✅ FIX 1: SITE_NAME mat lagao — layout template auto lagaega
-    title:       `${name} (${symbol}) — Coin Glossary`,
+    title:       `${name} (${symbol}) Coin Glossary`,
     description, // ✅ word boundary
     keywords,
 
@@ -119,7 +119,7 @@ export async function generateMetadata({ params }) {
       card:        'summary_large_image',
       site:        '@cryptonews90841',
       creator:     '@cryptonews90841', // ✅ FIX 10
-      title:       `${name} (${symbol}) — Coin Glossary | ${SITE_NAME}`,
+      title:       `${name} (${symbol}) Coin Glossary | ${SITE_NAME}`,
       description,
       images:      image ? [image] : [],
     },
@@ -199,7 +199,7 @@ export default async function CoinSlugPage({ params }) {
   const webPageSchema = {
     '@context':    'https://schema.org',
     '@type':       'WebPage',
-    name:           `${name} (${symbol}) — Coin Glossary`,
+    name:           `${name} (${symbol}) Coin Glossary`,
     description,
     url:            canonicalUrl,
     inLanguage:     locale,

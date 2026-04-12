@@ -1,4 +1,3 @@
-// app/[locale]/rss/page.js
 import { getAllRssFeeds } from "@/context/rss-links";
 
 export const metadata = {
@@ -8,7 +7,20 @@ export const metadata = {
 
 export default async function RssPage({ params }) {
   const { locale } = await params;
-  const feeds = getAllRssFeeds(locale);
+  const rawFeeds = getAllRssFeeds(locale);
+
+  // ✅ NAYA LOGIC: English ke liye URL se /en saaf kar do taaki Google aur Users ko clean URL mile
+  const feeds = rawFeeds.map(feed => {
+    const cleanUrl = locale === 'en' ? feed.url.replace('/en/', '/').replace('/en', '/') : feed.url;
+    
+    // Filters ke URLs ko bhi clean karo agar locale 'en' hai
+    const cleanFilters = feed.filters?.map(f => ({
+      ...f,
+      url: locale === 'en' ? f.url.replace('/en/', '/').replace('/en', '/') : f.url
+    }));
+
+    return { ...feed, url: cleanUrl, filters: cleanFilters };
+  });
 
   const icons = {
     master:   "📡",

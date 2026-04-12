@@ -10,6 +10,8 @@ import {
 import { useLocale } from '@/context/LocaleContext';
 import { fetchCoinDetail } from '../../../../../apis/cryptowhales';
 import { notFound } from 'next/navigation';
+import MobileSupportButton from '../../../../../components/Right_side/MobileSupportButton';
+import CoinAnalysisFloat from '../../../../../components/Data/CoinAnalysisFloat';
 const LINK_ICONS = {
   website:    <FiGlobe />,
   explorer:   <FiExternalLink />,
@@ -155,6 +157,7 @@ export default function CoinSlugClient({ slug, locale, initialCoin }) {
   ].filter(Boolean);
 
   return (
+    <>
     <div className="min-h-screen bg-white text-slate-900 font-sans overflow-x-hidden">
 
       <nav
@@ -351,5 +354,8 @@ export default function CoinSlugClient({ slug, locale, initialCoin }) {
         </div>
       </div>
     </div>
+    <MobileSupportButton dict={dict} />
+                        <CoinAnalysisFloat locale={locale} />  
+                        </>
   );
 }

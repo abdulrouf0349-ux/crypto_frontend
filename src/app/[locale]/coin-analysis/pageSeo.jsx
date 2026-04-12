@@ -4,6 +4,8 @@
 import { useState, useEffect } from 'react';
 import ChartModal from './chart';
 import { useLocale } from '@/context/LocaleContext';
+import MobileSupportButton from '../../../../components/Right_side/MobileSupportButton';
+import CoinAnalysisFloat from '../../../../components/Data/CoinAnalysisFloat';
 
 const fmtPrice = (n) => {
   if (!n && n !== 0) return '—';
@@ -119,7 +121,10 @@ export default function CoinAnalysisPage() {
   const sig = coin ? (SIG_MAP[coin.analysis?.signal] || SIG_MAP.HOLD) : null;
 
   return (
-    <div className="min-h-screen bg-[#060912] text-slate-300">
+
+    <>
+    
+      <div className="min-h-screen bg-[#060912] text-slate-300">
 
       {/* ── HEADER ── */}
       <div className="bg-[#08091a] border-b border-[#0f1628] px-4 py-8 sm:py-12 text-center">
@@ -421,5 +426,8 @@ export default function CoinAnalysisPage() {
         <ChartModal coin={coin} levels={coin.analysis?.levels} onClose={() => setShowChart(false)} />
       )}
     </div>
+ <MobileSupportButton dict={dict} />
+    </>
+  
   );
 }

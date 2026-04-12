@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { FiSearch, FiTrendingUp } from 'react-icons/fi';
 import { useLocale } from '@/context/LocaleContext';
 import { fetchCoins } from '../../../../apis/cryptowhales';
+import MobileSupportButton from '../../../../components/Right_side/MobileSupportButton';
+import CoinAnalysisFloat from '../../../../components/Data/CoinAnalysisFloat';
 
 const TYPES = ['all', 'coins', 'tokens'];
 
@@ -215,7 +217,7 @@ export default function CoinsPage() {
                     key={coin.uuid || coin.id}
                     href={`/${locale}/glossary/${slug}`}
                     className="group bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-indigo-100 transition-all duration-300 p-5 flex flex-col items-center text-center"
-                    aria-label={`${displayName} (${symbol})${rank ? ` — Rank #${rank}` : ''}`}
+                    aria-label={`${displayName} (${symbol})${rank ? ` Rank #${rank}` : ''}`}
                     title={descPreview}
                     // Subtle left-border accent using inline style from coin color
                     style={accentColor ? { borderLeftColor: accentColor, borderLeftWidth: '3px' } : {}}
@@ -287,6 +289,8 @@ export default function CoinsPage() {
           )}
         </main>
       </div>
+      <MobileSupportButton dict={dict} />
+                          <CoinAnalysisFloat locale={locale} />  
     </>
   );
 }

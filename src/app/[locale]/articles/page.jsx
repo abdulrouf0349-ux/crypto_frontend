@@ -5,6 +5,8 @@ import { fetchAllArticles } from '../../../../apis/page_news/events';
 import { getDictionary } from '../../../../i18n/getDictionary';
 import Link from 'next/link';
 import Image from 'next/image';
+import MobileSupportButton from '../../../../components/Right_side/MobileSupportButton';
+import CoinAnalysisFloat from '../../../../components/Data/CoinAnalysisFloat';
 
 // ─────────────────────────────────────────────
 // CONSTANTS
@@ -76,7 +78,7 @@ export async function generateMetadata({ params }) {
         url:    `${BASE_URL}/og-image.png`,
         width:  1200,
         height: 630,
-        alt:    `${SITE_NAME} — Crypto Articles`,
+        alt:    `${SITE_NAME} Crypto Articles`,
       }],
     },
 
@@ -229,6 +231,8 @@ export default async function ArticlesPage({ params, searchParams }) {
 
         </div>
       </main>
+       <MobileSupportButton dict={dict} />
+                <CoinAnalysisFloat locale={locale} />  
     </>
   );
 }
@@ -238,6 +242,8 @@ export default async function ArticlesPage({ params, searchParams }) {
 // ─────────────────────────────────────────────
 function ArticleCard({ article, locale }) {
   return (
+
+    <>
     <Link
       href={`/${locale}/articles/${article?.slug}`}
       className="group flex flex-col bg-white rounded-[1.5rem] border border-slate-100 overflow-hidden hover:shadow-2xl hover:shadow-indigo-100/50 hover:-translate-y-1 transition-all duration-300"
@@ -294,5 +300,8 @@ function ArticleCard({ article, locale }) {
 
       </div>
     </Link>
+   
+    </>
+    
   );
 }

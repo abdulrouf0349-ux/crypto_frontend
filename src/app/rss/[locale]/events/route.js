@@ -1,5 +1,3 @@
-// src/app/rss/[locale]/events/route.js
-
 import { buildRss, clean, SITE_URL } from '../../../../../utils/rss-helper';
 import { fetchAllEvents } from '../../../../../apis/page_news/events';
 
@@ -21,7 +19,8 @@ export async function GET(request, { params }) {
 
     const items = allEvents.slice(0, 50).map(item => ({
       title:       clean(item.detail_title || item.title),
-      link:        `${SITE_URL}/${locale}/events/${item.slug}`,
+      // ✅ English ke liye /en hata diya, baaki ke liye rehne diya
+      link:        `${SITE_URL}${locale === 'en' ? '' : '/' + locale}/events/${item.slug}`,
       description: [
         item.location     ? `📍 ${clean(item.location)}`     : '',
         item.organized_by ? `🏢 ${clean(item.organized_by)}` : '',
@@ -33,7 +32,8 @@ export async function GET(request, { params }) {
 
     return buildRss({
       title:       `CryptoNewsTrend — Crypto Events [${locale.toUpperCase()}]`,
-      link:        `${SITE_URL}/${locale}/events`,
+      // ✅ Main link ko bhi clean kiya
+      link:        `${SITE_URL}${locale === 'en' ? '' : '/' + locale}/events`,
       description: `Upcoming crypto events in ${locale.toUpperCase()}`,
       items,
     });

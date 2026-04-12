@@ -9,6 +9,8 @@ import {
 import { fetchWhaleAlerts } from '../../../../apis/cryptowhales';
 import Link from 'next/link';
 import { useLocale } from '@/context/LocaleContext';
+import MobileSupportButton from '../../../../components/Right_side/MobileSupportButton';
+import CoinAnalysisFloat from '../../../../components/Data/CoinAnalysisFloat';
 
 // ── Alert type config ──────────────────────────────────────────
 const ALERT_STYLE = {
@@ -298,7 +300,9 @@ const WhaleTracker = () => {
   );
 
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden">
+
+    <>
+   <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden">
 
       {/* Breadcrumb */}
       <nav aria-label="Breadcrumb" className="max-w-[1400px] mx-auto px-4 max-sm:px-3 lg:px-28 py-4 text-sm text-slate-500 flex items-center gap-2">
@@ -433,6 +437,13 @@ const WhaleTracker = () => {
         )}
       </main>
     </div>
+
+     <MobileSupportButton dict={dict} />
+                    <CoinAnalysisFloat locale={locale} />  
+    
+    
+    </>
+    
   );
 };
 

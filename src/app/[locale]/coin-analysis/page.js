@@ -1,5 +1,7 @@
 // app/[locale]/coin-analysis/page.js
 
+import CoinAnalysisFloat from '../../../../components/Data/CoinAnalysisFloat';
+import MobileSupportButton from '../../../../components/Right_side/MobileSupportButton';
 import CoinAnalysisPage from './pageSeo';
 
 const BASE_URL  = 'https://cryptonewstrend.com';
@@ -27,7 +29,7 @@ export async function generateMetadata({ params, searchParams }) {
   // ✅ FIX 1: SITE_NAME mat lagao title mein — layout template auto lagaega
   const title = coinName
     ? `${coinName} Price Prediction & AI Buy/Sell Signal`
-    : `AI Crypto Coin Analysis — Buy/Sell/Hold Signal`;
+    : `AI Crypto Coin Analysis Buy/Sell/Hold Signal`;
 
   const description = coinName
     ? `Get real-time ${coinName} price analysis with AI-powered buy/sell signals, RSI, MACD, support/resistance levels, and FinBERT sentiment analysis. Is ${coinName} a buy or sell right now?`
@@ -109,7 +111,7 @@ export default async function Page({ params, searchParams }) {
     '@type':      'WebPage',
     name:          coinName
       ? `${coinName} AI Price Analysis & Buy/Sell Signal`
-      : 'AI Crypto Analysis Tool — Buy/Sell/Hold Signals',
+      : 'AI Crypto Analysis Tool Buy/Sell/Hold Signals',
     description:   coinName
       ? `Real-time ${coinName} analysis with AI buy/sell signals, RSI, MACD, support/resistance levels`
       : 'Free AI-powered crypto analysis. Get buy/sell/hold signals for 1000+ coins using FinBERT, RSI, MACD.',
@@ -224,6 +226,7 @@ export default async function Page({ params, searchParams }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <CoinAnalysisPage locale={locale} initialCoin={coinName} />
+      
     </>
   );
 }

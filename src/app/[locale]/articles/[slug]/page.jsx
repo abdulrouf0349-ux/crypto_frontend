@@ -5,6 +5,8 @@ import { getArticleBySlug } from "../../../../../apis/page_news/events";
 export const dynamicParams = true;
 export const revalidate = false;
 import { fetchAllArticles } from "../../../../../apis/page_news/events";
+import MobileSupportButton from "../../../../../components/Right_side/MobileSupportButton";
+import CoinAnalysisFloat from "../../../../../components/Data/CoinAnalysisFloat";
 // ─────────────────────────────────────────────
 // CONSTANTS
 // ─────────────────────────────────────────────
@@ -50,7 +52,7 @@ export async function generateMetadata({ params }) {
   const title       = article.title;
   const description = article.meta_description
     ? article.meta_description.slice(0, 160).trim()
-    : `Read ${article.title} on ${SITE_NAME} — your trusted source for crypto news and blockchain insights.`;
+    : `Read ${article.title} on ${SITE_NAME} your trusted source for crypto news and blockchain insights.`;
 
   const image        = article.main_image || `${BASE_URL}/og-image.png`;
   const canonicalUrl = `${BASE_URL}/${locale}/articles/${slug}`;
@@ -245,6 +247,9 @@ export default async function ArticleSlugPage({ params }) {
         canonicalUrl={canonicalUrl}
         publishedTime={publishedTime}
       />
+       <MobileSupportButton dict={dict} />
+                      <CoinAnalysisFloat locale={locale} /> 
     </>
+
   );
 }

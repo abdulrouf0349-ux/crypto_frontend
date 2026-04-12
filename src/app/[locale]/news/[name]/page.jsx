@@ -3,6 +3,8 @@ import NewsTypedata from "../../../../../components/news-type/news_type";
 import NewstypeApi from "../../../../../apis/page_news/newstype";
 import Page_NewsData from "../../../../../apis/page_news/page_newsData";
 import { getDictionary } from "../../../../../i18n/getDictionary";
+import MobileSupportButton from "../../../../../components/Right_side/MobileSupportButton";
+import CoinAnalysisFloat from "../../../../../components/Data/CoinAnalysisFloat";
 
 export const dynamicParams = false;
 export const revalidate = 3600;
@@ -360,6 +362,8 @@ export default async function Main({ params }) {
         current_page={current_page}
         pageTitle={title}       
       />
+      <MobileSupportButton dict={dict} />
+                          <CoinAnalysisFloat locale={locale} />  
     </>
   );
 }

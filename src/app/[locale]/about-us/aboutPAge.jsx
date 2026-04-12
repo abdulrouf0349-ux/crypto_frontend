@@ -2,6 +2,8 @@
 // app/[locale]/about/AboutPage.jsx  ← CLIENT COMPONENT
 import Link from 'next/link';
 import { useLocale } from '@/context/LocaleContext';
+import MobileSupportButton from '../../../../components/Right_side/MobileSupportButton';
+import CoinAnalysisFloat from '../../../../components/Data/CoinAnalysisFloat';
 
 export default function AboutPage() {
   const { dict, locale } = useLocale();
@@ -22,7 +24,8 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans overflow-x-hidden">
+    <>
+      <div className="min-h-screen bg-white text-slate-900 font-sans overflow-x-hidden">
 
       {/* ── Breadcrumb ── */}
       <nav
@@ -177,5 +180,9 @@ export default function AboutPage() {
       </section>
 
     </div>
+        <MobileSupportButton dict={dict} />
+            <CoinAnalysisFloat locale={locale} />  
+    </>
+  
   );
 }

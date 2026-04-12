@@ -29,7 +29,7 @@ export default function MobileSupportButton({ dict }) {
         style={{ boxShadow: "0 8px 32px rgba(99,102,241,0.35)" }}
       >
         <Heart className="w-4 h-4 text-red-400 fill-red-400 animate-pulse" />
-        <span className="text-[12px] font-black uppercase tracking-widest text-indigo-100">
+        <span className="text-[8px] font-black uppercase tracking-widest text-indigo-100">
           {dict?.banner?.support || "Support"}
         </span>
       </button>

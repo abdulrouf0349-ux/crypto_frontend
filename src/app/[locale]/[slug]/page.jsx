@@ -10,6 +10,8 @@ import IcoSidebar from '../../../../components/Right_side/ico_page';
 import { fetchAllIcoProjects } from '../../../../apis/page_news/events';
 import Link from 'next/link';
 import { notFound } from 'next/navigation'
+import MobileSupportButton from '../../../../components/Right_side/MobileSupportButton';
+import CoinAnalysisFloat from '../../../../components/Data/CoinAnalysisFloat';
 export const dynamicParams = true;
 export const revalidate = false;
 // ─────────────────────────────────────────────
@@ -448,13 +450,13 @@ const descriptionStyle = {
 
         {/* Main Content Grid */}
       <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 py-4" style={{ fontFamily: "'Noto Sans', sans-serif" }}>
-  <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+  <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-10">
 
     {/* LEFT: Article Content */}
     <div className="lg:col-span-8 flex flex-col min-w-0">
 
       {/* Featured Image */}
-      <figure className="relative aspect-[16/9] md:aspect-[21/10] w-full overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] shadow-xl md:shadow-2xl shadow-indigo-100/50 mb-8 md:mb-16 border border-slate-100">
+      <figure className="relative aspect-[16/9] md:aspect-[21/10] w-full overflow-hidden  shadow-xl md:shadow-2xl shadow-indigo-100/50 mb-8 md:mb-16 border border-slate-100">
         <Image
           src={article?.image || "/images/bitcoin.jpg"}
           alt={article?.title}
@@ -468,7 +470,7 @@ const descriptionStyle = {
       {/* Article Body */}
       <div className="max-w-none">
         {/* leading-[1.2] used for line-height 12 style */}
-        <div className="text-slate-800 text-[16px] md:text-[21px] font-medium tracking-tight space-y-8 md:space-y-10 leading-[1.2]">
+        <div className="text-slate-800 text-[16px] md:text-[18px] font-medium tracking-wide space-y-8 md:space-y-10 leading-[1.2]">
           {article?.description?.split('\n').map((para, index) => (
             para.trim() && (
                    <p key={index} style={descriptionStyle} className='font-medium'>
@@ -486,7 +488,7 @@ const descriptionStyle = {
     <aside className="lg:col-span-4 mt-10 lg:mt-0" aria-label="Sidebar">
       <div className="lg:sticky lg:top-32 space-y-10">
         <DonateBanner locale={locale} dict={dict} />
-        <div className="bg-slate-50/50 rounded-[1.5rem] md:rounded-[2.5rem] p-5 md:p-6 border border-slate-100 shadow-sm">
+        <div className=" rounded-[1.5rem] md:rounded-[2.5rem] p-5 md:p-6 ">
           <TopNews serverData={topNewsData} locale={locale} dict={dict} />
           <IcoSidebar icoData={icoData1} />
         </div>
@@ -496,6 +498,8 @@ const descriptionStyle = {
   </div>
 </main>
       </article>
+          <MobileSupportButton dict={dict} />
+      <CoinAnalysisFloat locale={locale} />
     </>
   );
 }

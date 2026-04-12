@@ -9,6 +9,8 @@ import Image from 'next/image';
 import { fetchAllEvents } from '../../../../apis/page_news/events';
 import Link from 'next/link';
 import { useLocale } from '@/context/LocaleContext';
+import MobileSupportButton from '../../../../components/Right_side/MobileSupportButton';
+import CoinAnalysisFloat from '../../../../components/Data/CoinAnalysisFloat';
 
 const EventsPage = () => {
   const [allEvents, setAllEvents] = useState([]);
@@ -84,6 +86,7 @@ const loadData = async (pageNum = 1) => {
   );
 
   return (
+    <>
     <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden">
 
       {/* --- Breadcrumb --- */}
@@ -232,6 +235,10 @@ const loadData = async (pageNum = 1) => {
 )}
       </main>
     </div>
+
+  <MobileSupportButton dict={dict} />
+                      <CoinAnalysisFloat locale={locale} />  
+                      </>
   );
 };
 

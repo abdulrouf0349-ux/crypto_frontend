@@ -11,6 +11,8 @@ import { useParams } from 'next/navigation';
 import { fetchEventDetails } from '../../../../../apis/page_news/events';
 import { notFound } from 'next/navigation'
 import { useLocale } from '@/context/LocaleContext';
+import MobileSupportButton from '../../../../../components/Right_side/MobileSupportButton';
+import CoinAnalysisFloat from '../../../../../components/Data/CoinAnalysisFloat';
 
 const EventDetailsPage = ({initialData}) => {
     const {  dict } = useLocale();
@@ -42,6 +44,7 @@ const EventDetailsPage = ({initialData}) => {
 
 
   return (
+    <>
     <div className="min-h-screen bg-white font-sans text-slate-900">
 
       {/* Breadcrumb */}
@@ -280,6 +283,9 @@ const EventDetailsPage = ({initialData}) => {
         </div>
       </main>
     </div>
+   <MobileSupportButton dict={dict} />
+                       <CoinAnalysisFloat locale={locale} />   
+                       </>
   );
 };
 

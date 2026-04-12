@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { fetchAllIcoProjects } from '../../../../apis/page_news/events';
 import { useLocale } from '@/context/LocaleContext';
+import MobileSupportButton from '../../../../components/Right_side/MobileSupportButton';
+import CoinAnalysisFloat from '../../../../components/Data/CoinAnalysisFloat';
 
 const ICOPage = () => {
   const [icoData, setIcoData]         = useState([]);
@@ -60,6 +62,7 @@ const ICOPage = () => {
   );
 
   return (
+    <>
     <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden">
 
       {/* Breadcrumb */}
@@ -303,6 +306,9 @@ const ICOPage = () => {
         )}
       </main>
     </div>
+    <MobileSupportButton dict={dict} />
+                        <CoinAnalysisFloat locale={locale} />  
+    </>
   );
 };
 

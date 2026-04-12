@@ -11,6 +11,8 @@ import Link from 'next/link';
 import { getAlertDetailsByHash } from '../../../../../apis/page_news/events';
 import { useLocale } from '@/context/LocaleContext';
 import { notFound } from 'next/navigation'
+import MobileSupportButton from '../../../../../components/Right_side/MobileSupportButton';
+import CoinAnalysisFloat from '../../../../../components/Data/CoinAnalysisFloat';
 // ── Alert type config ──────────────────────────────────────────────────────
 const ALERT_STYLE = {
   Burn:    { bg: 'bg-red-50',     text: 'text-red-600',     border: 'border-red-100',     label: '🔥 Burn'     },
@@ -138,6 +140,7 @@ const WhaleDetailsSlug = ({initialData}) => {
   } catch (_) {}
 
   return (
+    <>
     <div className="min-h-screen bg-white font-sans text-slate-900 pb-20 overflow-x-hidden">
 
       {/* Breadcrumb */}
@@ -453,6 +456,10 @@ const WhaleDetailsSlug = ({initialData}) => {
         </div>
       </main>
     </div>
+
+    <MobileSupportButton dict={dict} />
+                        <CoinAnalysisFloat locale={locale} />  
+                        </>
   );
 };
 

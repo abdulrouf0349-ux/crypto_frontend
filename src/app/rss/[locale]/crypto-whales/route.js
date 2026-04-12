@@ -1,5 +1,3 @@
-// src/app/rss/[locale]/crypto-whales/route.js
-
 import { buildRss, clean, SITE_URL } from '../../../../../utils/rss-helper';
 import { fetchWhaleAlerts } from '../../../../../apis/cryptowhales';
 
@@ -32,7 +30,8 @@ export async function GET(request, { params }) {
 
     const items = whales.slice(0, 50).map(item => ({
       title:       `[${item.blockchain || ''}] ${clean(item.summary)}`,
-      link:        `${SITE_URL}/${locale}/crypto-whales/${item.hash}`,
+      // ✅ English ke liye /en hata diya
+      link:        `${SITE_URL}${locale === 'en' ? '' : '/' + locale}/crypto-whales/${item.hash}`,
       description: [
         clean(item.summary),
         item.amount_full     ? `💎 ${item.amount_full}`           : '',
@@ -46,7 +45,8 @@ export async function GET(request, { params }) {
     const chainLabel = chain ? ` [${chain.toUpperCase()}]` : '';
     return buildRss({
       title:       `CryptoNewsTrend — Whale Alerts${chainLabel} [${locale.toUpperCase()}]`,
-      link:        `${SITE_URL}/${locale}/crypto-whales`,
+      // ✅ Main feed link ko bhi clean kiya
+      link:        `${SITE_URL}${locale === 'en' ? '' : '/' + locale}/crypto-whales`,
       description: `Large crypto transactions in ${locale.toUpperCase()}`,
       items,
     });

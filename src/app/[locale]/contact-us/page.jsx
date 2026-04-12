@@ -12,7 +12,7 @@ const META = {
   },
   ur: {
     title:       'ہم سے رابطہ کریں | CryptoWhales',
-    description: 'CryptoWhales سے رابطہ کریں — عام سوالات، کاپی رائٹ مسائل یا تکنیکی مدد کے لیے۔ ہم 24 گھنٹوں میں جواب دیتے ہیں۔',
+    description: 'CryptoWhales سے رابطہ کریں  عام سوالات، کاپی رائٹ مسائل یا تکنیکی مدد کے لیے۔ ہم 24 گھنٹوں میں جواب دیتے ہیں۔',
     keywords:    'رابطہ, کرپٹو سپورٹ, مدد',
   },
   ar: {
@@ -132,7 +132,7 @@ export async function generateMetadata({ params }) {
         'max-image-preview': 'large',
       },
     },
-    // ✅ 'other' mein JSON-LD NAHI — sirf page component mein script tag
+    // ✅ 'other' mein JSON-LD NAHI  sirf page component mein script tag
   };
 }
 

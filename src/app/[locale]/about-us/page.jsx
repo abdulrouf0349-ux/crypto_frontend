@@ -1,5 +1,4 @@
 // app/[locale]/about-us/page.jsx
-
 import AboutPage from "./aboutPAge";
 
 const SITE_NAME = 'CryptoNews Trend'; // ✅ FIX 1
@@ -22,43 +21,43 @@ const OG_LOCALE_MAP = {
 // ✅ FIX 9: CryptoWhales → CryptoNews Trend
 const META = {
   en: {
-    title:       'About Us — Trusted Crypto News & Insights',
-    description: 'Learn about CryptoNews Trend — your trusted source for real-time cryptocurrency news, blockchain insights, and market analysis in 8+ languages.',
+    title:       'About Us Trusted Crypto News & Insights',
+    description: 'Learn about CryptoNews Trend your trusted source for real-time cryptocurrency news, blockchain insights, and market analysis in 8+ languages.',
     keywords:    'about CryptoNews Trend, crypto news platform, blockchain news, cryptocurrency insights, crypto media',
   },
   ur: {
-    title:       'ہمارے بارے میں — قابل اعتماد کرپٹو خبریں',
-    description: 'CryptoNews Trend کے بارے میں جانیں — کریپٹو کرنسی خبروں، بلاک چین اور مارکیٹ تجزیے کا آپ کا قابل اعتماد ذریعہ۔',
+    title:       'ہمارے بارے میں  قابل اعتماد کرپٹو خبریں',
+    description: 'CryptoNews Trend کے بارے میں جانیں  کریپٹو کرنسی خبروں، بلاک چین اور مارکیٹ تجزیے کا آپ کا قابل اعتماد ذریعہ۔',
     keywords:    'کرپٹو خبریں, بلاک چین, کریپٹو کرنسی',
   },
   ar: {
-    title:       'من نحن — أخبار العملات المشفرة الموثوقة',
-    description: 'تعرف على CryptoNews Trend — مصدرك الموثوق لأخبار العملات المشفرة وتحليلات السوق.',
+    title:       'من نحن  أخبار العملات المشفرة الموثوقة',
+    description: 'تعرف على CryptoNews Trend  مصدرك الموثوق لأخبار العملات المشفرة وتحليلات السوق.',
     keywords:    'أخبار العملات المشفرة, بلوكتشين, تحليل السوق',
   },
   ru: {
-    title:       'О нас — Криптовалютные новости',
-    description: 'Узнайте о CryptoNews Trend — надёжном источнике новостей о криптовалютах и блокчейне.',
+    title:       'О нас Криптовалютные новости',
+    description: 'Узнайте о CryptoNews Trend надёжном источнике новостей о криптовалютах и блокчейне.',
     keywords:    'крипто новости, блокчейн, криптовалюта',
   },
   es: {
-    title:       'Sobre Nosotros — Noticias Cripto de Confianza',
-    description: 'Conoce CryptoNews Trend — tu fuente confiable de noticias sobre criptomonedas y blockchain.',
+    title:       'Sobre Nosotros Noticias Cripto de Confianza',
+    description: 'Conoce CryptoNews Trend tu fuente confiable de noticias sobre criptomonedas y blockchain.',
     keywords:    'noticias cripto, blockchain, criptomonedas',
   },
   fr: {
-    title:       'À Propos — Actualités Crypto de Confiance',
-    description: 'Découvrez CryptoNews Trend — votre source fiable d\'actualités crypto et d\'analyses blockchain.',
+    title:       'À Propos Actualités Crypto de Confiance',
+    description: 'Découvrez CryptoNews Trend votre source fiable d\'actualités crypto et d\'analyses blockchain.',
     keywords:    'actualités crypto, blockchain, cryptomonnaie',
   },
   de: {
-    title:       'Über Uns — Vertrauenswürdige Krypto-Nachrichten',
-    description: 'Erfahren Sie mehr über CryptoNews Trend — Ihre vertrauenswürdige Quelle für Krypto-Nachrichten.',
+    title:       'Über Uns Vertrauenswürdige Krypto-Nachrichten',
+    description: 'Erfahren Sie mehr über CryptoNews Trend Ihre vertrauenswürdige Quelle für Krypto-Nachrichten.',
     keywords:    'Krypto Nachrichten, Blockchain, Kryptowährung',
   },
   'zh-CN': {
-    title:       '关于我们 — 值得信赖的加密货币新闻',
-    description: '了解 CryptoNews Trend — 您值得信赖的加密货币新闻、区块链资讯和市场分析来源。',
+    title:       '关于我们 值得信赖的加密货币新闻',
+    description: '了解 CryptoNews Trend 您值得信赖的加密货币新闻、区块链资讯和市场分析来源。',
     keywords:    '加密货币新闻, 区块链, 比特币, 数字货币, 市场分析',
   },
 };
@@ -80,7 +79,7 @@ export async function generateMetadata({ params }) {
   alternateLanguages['x-default'] = `${BASE_URL}/en/about-us`; // ✅ FIX 5
 
   return {
-    // ✅ FIX 2: SITE_NAME mat lagao — layout template auto lagaega
+    // ✅ FIX 2: SITE_NAME mat lagao  layout template auto lagaega
     title:       meta.title,
     description: meta.description,
     keywords:    meta.keywords,
@@ -127,7 +126,7 @@ export async function generateMetadata({ params }) {
         'max-image-preview': 'large',
       },
     },
-    // ✅ FIX 6: other property hatao — schema script tag se handle hoga
+    // ✅ FIX 6: other property hatao  schema script tag se handle hoga
   };
 }
 
@@ -137,7 +136,7 @@ export default async function AboutServerPage({ params }) {
   const meta       = getLocaleMeta(locale);
   const pageUrl    = `${BASE_URL}/${locale}/about-us`;
 
-  // ✅ FIX 6: Schema sirf yahan script tag mein — "other" se nahi
+  // ✅ FIX 6: Schema sirf yahan script tag mein  "other" se nahi
   const jsonLd = {
     '@context':  'https://schema.org',
     '@type':     'AboutPage',
@@ -171,6 +170,7 @@ export default async function AboutServerPage({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <AboutPage />
+ 
     </>
   );
 }

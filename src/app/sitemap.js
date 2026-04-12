@@ -344,11 +344,11 @@ function getStaticUrls() {
     { path: '/coin-analysis',    priority: 0.6,  changeFrequency: 'daily'   },
   ];
 
-  // ✅ Sab locales ke liye URLs banao — /en/en bug fix
   return LOCALES.flatMap(locale =>
     staticPaths.map(({ path, priority, changeFrequency }) => ({
-      url:             `${SITE_URL}/${locale}${path}`,
-      lastModified:    new Date(),
+      // ✅ English ke liye /en hata diya
+      url: `${SITE_URL}${locale === 'en' ? '' : '/' + locale}${path}`,
+      lastModified: new Date(),
       changeFrequency,
       priority,
     }))
@@ -359,13 +359,13 @@ function getStaticUrls() {
 // NEWS CATEGORY PAGES
 // ─────────────────────────────────────────────
 function getNewsCategoryUrls() {
-  // ✅ Sab locales ke liye category URLs
   return LOCALES.flatMap(locale =>
     NEWS_CATEGORIES.map(cat => ({
-      url:             `${SITE_URL}/${locale}/news/${cat}`,
-      lastModified:    new Date(),
+      // ✅ English ke liye /en hata diya
+      url: `${SITE_URL}${locale === 'en' ? '' : '/' + locale}/news/${cat}`,
+      lastModified: new Date(),
       changeFrequency: 'hourly',
-      priority:        0.8,
+      priority: 0.8,
     }))
   );
 }
@@ -375,41 +375,37 @@ function getNewsCategoryUrls() {
 // ─────────────────────────────────────────────
 async function getNewsSlugs() {
   const urls = [];
-
   for (const locale of LOCALES) {
     let page = 1, hasNext = true;
-
     while (hasNext) {
       try {
         const res = await fetch(
           `${BASE_API}/api/getdata${locale === 'en' ? '' : '/' + locale}/?page=${page}`,
           {
-            method:  'POST',
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body:    JSON.stringify({ news: 'all' }),
-            next:    { revalidate: 3600 },
+            body: JSON.stringify({ news: 'all' }),
+            next: { revalidate: 3600 },
           }
         );
         const data = await res.json();
-
         (data?.data || []).forEach(item => {
           if (item.slug) {
             urls.push({
-              url:             `${SITE_URL}/${locale}/${item.slug}`,
-              lastModified:    item.updated_at ? new Date(item.updated_at) : new Date(),
+              // ✅ English ke liye /en hata diya
+              url: `${SITE_URL}${locale === 'en' ? '' : '/' + locale}/${item.slug}`,
+              lastModified: item.updated_at ? new Date(item.updated_at) : new Date(),
               changeFrequency: 'weekly',
-              priority:        0.8,
+              priority: 0.8,
             });
           }
         });
-
         hasNext = data?.metadata?.has_next || false;
         page++;
         if (page > 50) break;
       } catch { break; }
     }
   }
-
   return urls;
 }
 
@@ -418,32 +414,28 @@ async function getNewsSlugs() {
 // ─────────────────────────────────────────────
 async function getEventSlugs() {
   const urls = [];
-
   for (const locale of LOCALES) {
     let page = 1, hasNext = true;
-
     while (hasNext) {
       try {
         const result = await fetchAllEvents(page, locale);
-
         (result?.data || []).forEach(item => {
           if (item.slug) {
             urls.push({
-              url:             `${SITE_URL}/${locale}/events/${item.slug}`,
-              lastModified:    item.updated_at ? new Date(item.updated_at) : new Date(),
+              // ✅ English ke liye /en hata diya
+              url: `${SITE_URL}${locale === 'en' ? '' : '/' + locale}/events/${item.slug}`,
+              lastModified: item.updated_at ? new Date(item.updated_at) : new Date(),
               changeFrequency: 'weekly',
-              priority:        0.7,
+              priority: 0.7,
             });
           }
         });
-
         hasNext = result?.metadata?.has_next || result?.has_next || false;
         page++;
         if (page > 30) break;
       } catch { break; }
     }
   }
-
   return urls;
 }
 
@@ -452,32 +444,28 @@ async function getEventSlugs() {
 // ─────────────────────────────────────────────
 async function getArticleSlugs() {
   const urls = [];
-
   for (const locale of LOCALES) {
     let page = 1, hasNext = true;
-
     while (hasNext) {
       try {
         const result = await fetchAllArticles(locale, page);
-
         (result?.data || []).forEach(item => {
           if (item.slug) {
             urls.push({
-              url:             `${SITE_URL}/${locale}/article/${item.slug}`,
-              lastModified:    item.updated_at ? new Date(item.updated_at) : new Date(),
+              // ✅ English ke liye /en hata diya
+              url: `${SITE_URL}${locale === 'en' ? '' : '/' + locale}/article/${item.slug}`,
+              lastModified: item.updated_at ? new Date(item.updated_at) : new Date(),
               changeFrequency: 'weekly',
-              priority:        0.8,
+              priority: 0.8,
             });
           }
         });
-
         hasNext = result?.has_next || false;
         page++;
         if (page > 30) break;
       } catch { break; }
     }
   }
-
   return urls;
 }
 
@@ -487,26 +475,23 @@ async function getArticleSlugs() {
 async function getIcoSlugs() {
   const urls = [];
   const STATUSES = ['Active', 'Upcoming', 'Ended'];
-
   for (const locale of LOCALES) {
     for (const status of STATUSES) {
       let page = 1, hasNext = true;
-
       while (hasNext) {
         try {
           const result = await fetchAllIcoProjects(locale, status, page);
-
           (result?.data || []).forEach(item => {
             if (item.slug) {
               urls.push({
-                url:             `${SITE_URL}/${locale}/ico/${item.slug}`,
-                lastModified:    item.updated_at ? new Date(item.updated_at) : new Date(),
+                // ✅ English ke liye /en hata diya
+                url: `${SITE_URL}${locale === 'en' ? '' : '/' + locale}/ico/${item.slug}`,
+                lastModified: item.updated_at ? new Date(item.updated_at) : new Date(),
                 changeFrequency: 'weekly',
-                priority:        0.7,
+                priority: 0.7,
               });
             }
           });
-
           hasNext = result?.has_next || false;
           page++;
           if (page > 20) break;
@@ -514,7 +499,6 @@ async function getIcoSlugs() {
       }
     }
   }
-
   return urls;
 }
 
@@ -523,32 +507,28 @@ async function getIcoSlugs() {
 // ─────────────────────────────────────────────
 async function getWhaleSlugs() {
   const urls = [];
-
   for (const locale of LOCALES) {
     let page = 1, hasNext = true;
-
     while (hasNext) {
       try {
         const result = await fetchWhaleAlerts(page, locale);
-
         (result?.data || []).forEach(item => {
           if (item.hash) {
             urls.push({
-              url:             `${SITE_URL}/${locale}/crypto-whales/${item.hash}`,
-              lastModified:    item.created_at ? new Date(item.created_at) : new Date(),
+              // ✅ English ke liye /en hata diya
+              url: `${SITE_URL}${locale === 'en' ? '' : '/' + locale}/crypto-whales/${item.hash}`,
+              lastModified: item.created_at ? new Date(item.created_at) : new Date(),
               changeFrequency: 'never',
-              priority:        0.6,
+              priority: 0.6,
             });
           }
         });
-
         hasNext = result?.metadata?.has_next || false;
         page++;
         if (page > 20) break;
       } catch { break; }
     }
   }
-
   return urls;
 }
 
@@ -557,32 +537,28 @@ async function getWhaleSlugs() {
 // ─────────────────────────────────────────────
 async function getCoinSlugs() {
   const urls = [];
-
   for (const locale of LOCALES) {
     let page = 1, hasNext = true;
-
     while (hasNext) {
       try {
         const result = await fetchCoins(page, '', 'all', locale);
-
         (result?.data || []).forEach(item => {
           if (item.slug) {
             urls.push({
-              url:             `${SITE_URL}/${locale}/glossary/${item.slug}`,
-              lastModified:    new Date(),
+              // ✅ English ke liye /en hata diya
+              url: `${SITE_URL}${locale === 'en' ? '' : '/' + locale}/glossary/${item.slug}`,
+              lastModified: new Date(),
               changeFrequency: 'monthly',
-              priority:        0.7,
+              priority: 0.7,
             });
           }
         });
-
         hasNext = result?.metadata?.has_next || false;
         page++;
         if (page > 50) break;
       } catch { break; }
     }
   }
-
   return urls;
 }
 
