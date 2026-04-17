@@ -5,7 +5,8 @@ export default function robots() {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/admin/', '/_next/'],
+        disallow: ['/api/', '/admin/'],
+        //         ↑ /_next/ hata diya — bas yahi tha!
       },
     ],
     sitemap: [
