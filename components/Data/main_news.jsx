@@ -6,6 +6,7 @@ import MoreNews from './MoreNews';
 export default async function MainNews({ locale, dict }) {
   const slider_Data = await Page_NewsData(1, locale);
   const initialNews = slider_Data?.results || [];
+  console.log(slider_Data,'kkkkkkkkkk')
 
   return (
     <div className="space-y-1">

@@ -2,7 +2,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-
+  experimental: {
+    staticPageGenerationTimeout: 300,
+  },
 
   images: {
     dangerouslyAllowSVG: true,
