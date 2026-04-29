@@ -68,11 +68,11 @@ export default function CoinSlugClient({ slug, locale, initialCoin }) {
         
         {/* ✅ Navigation (Accessibility Optimized) */}
         <nav className="max-w-[1400px] mx-auto px-4 lg:px-28 py-4 text-sm text-slate-500 flex items-center gap-2 flex-wrap" aria-label="Breadcrumb">
-          <Link href={`/${locale}`} className="hover:text-indigo-600 transition-colors font-medium">
+          <Link href={locale === 'en' ? '/' : `/${locale}`} className="hover:text-indigo-600 transition-colors font-medium">
             Home
           </Link>
           <span className="text-slate-300" aria-hidden="true">›</span>
-          <Link href={`/${locale}/glossary`} className="hover:text-indigo-600 transition-colors font-medium">
+          <Link href={locale === 'en' ? '/glossary' : `/${locale}/glossary`} className="hover:text-indigo-600 transition-colors font-medium">
             Coin Glossary
           </Link>
           <span className="text-slate-300" aria-hidden="true">›</span>
@@ -161,7 +161,8 @@ export default function CoinSlugClient({ slug, locale, initialCoin }) {
               </div>
 
               <Link 
-                href={`/${locale}/glossary`} 
+                href={locale === 'en' ? '/glossary' : `/${locale}/glossary`}
+
                 className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-slate-900 text-white rounded-2xl text-sm font-black hover:bg-indigo-600 transition-all shadow-lg shadow-slate-200"
               >
                 ← Return to Glossary

@@ -7,7 +7,7 @@ const SUPPORTED_LOCALES = ["en", "ur", "es", "ru", "fr", "de", "ar", "zh-CN"];
 
 const LOCALE_TO_HREFLANG = {
   "en": "en", "ur": "ur", "ar": "ar", "de": "de",
-  "fr": "fr", "ru": "ru", "zh-CN": "zh-CN", "es": "es",
+  "fr": "fr", "ru": "ru", "zh-CN": "zh-Hans", "es": "es",
 };
 
 const OG_LOCALE_MAP = {

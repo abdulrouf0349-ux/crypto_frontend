@@ -4,10 +4,32 @@ import Link from 'next/link';
 import Page_NewsData from '../../apis/page_news/page_newsData';
 import { useEffect, useState } from 'react';
 
-const TopNews = ({ locale, dict }) => {
-  const [slider_Data, setServerData] = useState([])
-  const [loading, setLoading] = useState(false)
-const formatNewsTime = (timeStr) => {
+
+// ✅
+const TopNews = ({ serverData = [], locale, dict }) => {
+  const [slider_Data, setSliderData] = useState(serverData.slice(5, 11));
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Sirf tab fetch karo jab parent ne data nahi diya
+    if (serverData && serverData.length > 0) {
+      setSliderData(serverData.slice(5, 11));
+      return;
+    }
+    const loadTopNews = async () => {
+      try {
+        setLoading(true);
+        const res = await Page_NewsData(1, locale);
+        setSliderData(res?.results?.slice(5, 11) || []);
+      } catch (error) {
+        console.error("Top News Fetch Error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadTopNews();
+  }, [locale, serverData]);
+  const formatNewsTime = (timeStr) => {
   if (!timeStr) return "";
   try {
     const date = new Date(timeStr);
@@ -23,21 +45,6 @@ const formatNewsTime = (timeStr) => {
     return timeStr;
   }
 };
-  useEffect(() => {
-    const loadTopNews = async () => {
-      try {
-        setLoading(true);
-        const slider_Data = await Page_NewsData(1, locale);
-        const slicedData = slider_Data?.results?.slice(5, 11) || [];
-        setServerData(slicedData);
-      } catch (error) {
-        console.error("Top News Fetch Error:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadTopNews();
-  }, [locale]);
 
   return (
     <div className='w-full mt-10 space-y-2 '>
@@ -49,7 +56,7 @@ const formatNewsTime = (timeStr) => {
       </div>
 
       {slider_Data?.map((item, index) => (
-        <Link href={`/${locale}/${item?.slug}`} key={index} className="group block">
+        <Link href={locale === 'en' ? `/${item?.slug}` : `/${locale}/${item?.slug}`} key={index} className="group block">
           <div className='flex flex-row max-sm:flex-col gap-4 p-2 max-sm:px-4 transition-all duration-300 hover:bg-blue-50/50 dark:hover:bg-gray-300 rounded-xl border-b border-slate-50 dark:border-gray-700 max-sm:pb-6'>
             <div className="relative flex-shrink-0 w-[100px] h-[72px] max-sm:w-full max-sm:h-[200px] overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700 shadow-sm">
               <Image

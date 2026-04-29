@@ -32,7 +32,7 @@ export default function AboutPage() {
         className="max-w-[1400px] mx-auto px-4 lg:px-28 py-4 text-sm text-slate-500 flex items-center gap-2"
         aria-label="Breadcrumb"
       >
-        <Link href={`/${locale}`} className="hover:text-indigo-600 transition-colors">
+        <Link href={locale === 'en' ? '/' : `/${locale}`} className="hover:text-indigo-600 transition-colors">
           {dict?.home || 'Home'}
         </Link>
         <span aria-hidden="true">&rsaquo;</span>
@@ -165,13 +165,13 @@ export default function AboutPage() {
         <p className="text-slate-500 mb-8 max-w-xl mx-auto">{t.cta_desc}</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
-            href={`/${locale}/contact-us`}
+            href={locale === 'en' ? '/contact-us' : `/${locale}/contact-us`}
             className="px-8 py-3.5 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100"
           >
             {t.cta_btn1}
           </Link>
           <Link
-            href={`/${locale}`}
+            href={locale === 'en' ? '/' : `/${locale}`}
             className="px-8 py-3.5 bg-slate-100 text-slate-900 font-black rounded-xl hover:bg-slate-200 transition-all"
           >
             {t.cta_btn2}

@@ -19,7 +19,7 @@ const IcoSidebar = ({ icoData, locale, dict }) => {
 
       {icoData?.slice(0, visibleItems).map((item, index) => {
         return (
-          <Link href={`/${locale}/ico/${item?.slug}`} key={index} className="group block">
+          <Link href={locale === 'en' ? `/ico/${item?.slug}` : `/${locale}/ico/${item?.slug}`} key={index} className="group block">
             {/* Change 1: max-sm:flex-col aur padding fix */}
             <div className='flex flex-row max-sm:flex-col gap-4 p-2 max-sm:px-4 transition-all duration-300 hover:bg-green-50/50 rounded-xl'>
               

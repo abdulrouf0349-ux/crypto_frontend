@@ -30,7 +30,7 @@ export default function ContactPage() {
       <div className="min-h-screen bg-white text-slate-900 font-sans">
         {/* Breadcrumb */}
         <nav className="max-w-[1400px] mx-auto px-4 lg:px-28 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-          <Link href={`/${locale}`} className="hover:text-indigo-600 transition-colors">{dict?.home || 'Home'}</Link>
+          <Link href={locale === 'en' ? '/' : `/${locale}`} className="hover:text-indigo-600 transition-colors">{dict?.home || 'Home'}</Link>
           <span aria-hidden="true">/</span>
           <span className="text-slate-900">{dict?.contact || 'Contact'}</span>
         </nav>

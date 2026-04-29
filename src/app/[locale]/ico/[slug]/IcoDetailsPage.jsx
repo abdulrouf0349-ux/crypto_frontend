@@ -23,6 +23,7 @@ const ICODetailsPage = ({initialData}) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (initialData) { setLoading(false); return; }
     const load = async () => {
       try {
         setLoading(true);
@@ -36,7 +37,6 @@ const ICODetailsPage = ({initialData}) => {
     };
     if (slug) load();
   }, [slug, locale]);
-  if (!project) return notFound();
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center">
@@ -118,9 +118,9 @@ const ICODetailsPage = ({initialData}) => {
         aria-label="Breadcrumb"
         className="max-w-6xl mx-auto px-4 py-3 text-xs text-slate-400 flex items-center gap-2"
       >
-        <Link href={`/${locale}`} className="hover:text-indigo-600">{dict.header.news}</Link>
+        <Link href={locale === 'en' ? '/' : `/${locale}`} className="hover:text-indigo-600">{dict.header.news}</Link>
         <span aria-hidden="true">&rsaquo;</span>
-        <Link href={`/${locale}/ico`} className="hover:text-indigo-600">{dict.launchpad.ico_title}</Link>
+        <Link href={locale === 'en' ? '/ico' : `/${locale}/ico`} className="hover:text-indigo-600">{dict.launchpad.ico_title}</Link>
         <span aria-hidden="true">&rsaquo;</span>
         <span className="text-slate-600" aria-current="page">{p.name}</span>
       </nav>

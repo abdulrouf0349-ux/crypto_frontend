@@ -52,9 +52,9 @@ const EventDetailsPage = ({initialData}) => {
         aria-label="Breadcrumb"
         className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-2 text-[13px] font-medium text-slate-500"
       >
-        <Link href={`/${locale}`} className="hover:text-indigo-600">{dict.header.news}</Link>
+        <Link href={locale === 'en' ? '/' : `/${locale}`} className="hover:text-indigo-600">{dict.header.news}</Link>
         <span aria-hidden="true">›</span>
-        <Link href={`/${locale}/events`} className="hover:text-indigo-600">{dict.header.events}</Link>
+        <Link href={locale === 'en' ? '/events' : `/${locale}/events`} className="hover:text-indigo-600">{dict.header.events}</Link>
         <span aria-hidden="true">›</span>
         <span className="text-slate-400 truncate" aria-current="page">{event.detail_title || event.title}</span>
       </nav>

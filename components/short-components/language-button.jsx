@@ -31,20 +31,24 @@ function useLocaleSwitch() {
     setSelectedLanguage(found ? found.name : 'EN');
   }, [pathname]);
 
-  const switchLocale = (newLocale) => {
-    const pathParts = pathname.split('/');
+ const switchLocale = (newLocale) => {
+  const pathParts = pathname.split('/');
 
-    // ✅ FIX: Check against LOCALE_CODES list, NOT length === 2
-    // This correctly handles 'zh-cn' (length 5), 'en', 'ur' etc.
-    if (LOCALE_CODES.includes(pathParts[1])) {
-      pathParts[1] = newLocale;          // Replace existing locale
+  if (LOCALE_CODES.includes(pathParts[1])) {
+    if (newLocale === 'en') {
+      pathParts.splice(1, 1); // English mein locale hata do
     } else {
-      pathParts.splice(1, 0, newLocale); // Insert locale if missing
+      pathParts[1] = newLocale; // Replace karo
     }
+  } else {
+    if (newLocale !== 'en') {
+      pathParts.splice(1, 0, newLocale); // Sirf non-English insert karo
+    }
+  }
 
-    setSelectedLanguage(languageList.find(l => l.code === newLocale)?.name || newLocale.toUpperCase());
-    router.push(pathParts.join('/'));
-  };
+  setSelectedLanguage(languageList.find(l => l.code === newLocale)?.name || newLocale.toUpperCase());
+  router.push(pathParts.join('/') || '/');
+};
 
   return { selectedLanguage, switchLocale };
 }

@@ -4,8 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Page_NewsData from '../../apis/page_news/page_newsData';
 
-export default function MoreNews({ total_pages, locale, dict }) {
-  const [extraNews, setExtraNews] = useState([]);
+export default function MoreNews({ total_pages,serverData, locale, dict }) {
+const [extraNews, setExtraNews] = useState(serverData || []);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
 

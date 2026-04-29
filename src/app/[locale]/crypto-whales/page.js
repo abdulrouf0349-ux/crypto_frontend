@@ -108,7 +108,9 @@ export async function generateMetadata({ params }) {
 export default async function Page({ params }) {
   const { locale }             = await params;
   const { title, description } = META[locale] || META["en"];
-  const canonicalUrl           = `${BASE_URL}/${locale}/crypto-whales`;
+  const canonicalUrl = locale === 'en' 
+  ? `${BASE_URL}/crypto-whales` 
+  : `${BASE_URL}/${locale}/crypto-whales`;
 
   const webPageSchema = {
     "@context":  "https://schema.org",
@@ -129,7 +131,7 @@ export default async function Page({ params }) {
     "@context": "https://schema.org",
     "@type":    "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home",         item: `${BASE_URL}/${locale}` },
+    { "@type": "ListItem", position: 1, name: "Home", item: locale === 'en' ? BASE_URL : `${BASE_URL}/${locale}` },
       { "@type": "ListItem", position: 2, name: "Crypto Whales", item: canonicalUrl },
     ],
   };

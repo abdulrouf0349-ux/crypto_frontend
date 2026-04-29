@@ -3,44 +3,42 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function FooterInteractive({ dict, locale }) {
-  const [isMobile, setIsMobile] = useState(false);
+// Component ke upar yeh function add karo
+const localePath = (path) => {
+  if (locale === 'en') return path;
+  return `/${locale}${path}`;
+};
+ 
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  const sections = [
-    {
-      title: dict.news.title,
-      links: [
-        { href: `/${locale}`, label: dict.news.latest_news },
-        { href: `/${locale}/news/bitcoin`, label:  dict.news.bitcoin},
-        { href: `/${locale}/news/defi`, label: dict.news.defi },
-        { href: `/${locale}/news/nfts`, label: dict.news.nft },
-        { href: `/${locale}/news/ethereum`, label: dict.news.ethereum },
-      ],
-    },
-    {
-      title: dict.market_data,
-      links: [
-        { href: `/${locale}/ico`, label: dict.ico_token},
-        { href: `/${locale}/events`, label: dict.header.events},
-        { href: `/${locale}/glossary`, label: dict.coin_glossary },
-        { href: `/${locale}/crypto-whales`, label: dict.upcoming_tokens },
-      ],
-    },
-    {
-      title: dict.info_title,
-      links: [
-        { href: `/${locale}/about-us`, label: dict.about.title },
-        { href: `/${locale}/contact-us`, label: dict.about.contact  },
-        { href: `/${locale}/privacy-policy`, label: dict.policies.privacy_policy },
-      ],
-    }
-  ];
+ const sections = [
+  {
+    title: dict.news.title,
+    links: [
+      { href: localePath('/'),               label: dict.news.latest_news },
+      { href: localePath('/news/bitcoin'),   label: dict.news.bitcoin },
+      { href: localePath('/news/defi'),      label: dict.news.defi },
+      { href: localePath('/news/nfts'),      label: dict.news.nft },
+      { href: localePath('/news/ethereum'),  label: dict.news.ethereum },
+    ],
+  },
+  {
+    title: dict.market_data,
+    links: [
+      { href: localePath('/ico'),            label: dict.ico_token },
+      { href: localePath('/events'),         label: dict.header.events },
+      { href: localePath('/glossary'),       label: dict.coin_glossary },
+      { href: localePath('/crypto-whales'),  label: dict.upcoming_tokens },
+    ],
+  },
+  {
+    title: dict.info_title,
+    links: [
+      { href: localePath('/about-us'),       label: dict.about.title },
+      { href: localePath('/contact-us'),     label: dict.about.contact },
+      { href: localePath('/privacy-policy'), label: dict.policies.privacy_policy },
+    ],
+  }
+];
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-12 flex-[2]">

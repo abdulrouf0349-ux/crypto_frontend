@@ -20,7 +20,7 @@ const intelArticles = Array.isArray(articlesData) ? articlesData.slice(0, 8) : [
   useEffect(() => {
     const fetchTopNews = async () => {
       try {
-        const topnewsdata = await Page_NewsData(locale, 1);
+const topnewsdata = await Page_NewsData(1, locale); // ✅
         setTopData(topnewsdata.results);
       } catch (error) {
         console.error('Error fetching top news:', error);
@@ -46,7 +46,7 @@ const intelArticles = Array.isArray(articlesData) ? articlesData.slice(0, 8) : [
 
   const handleShowMore = async () => {
     try {
-      const Apidata = await NewstypeApi(locale, news_name, currentPage + 1);
+const Apidata = await NewstypeApi(news_name, currentPage + 1, locale); // ✅
       setData((prevData) => [...prevData, ...Apidata.data.results]);
       setCurrentPage(Apidata.data.current_page);
     } catch (error) {
@@ -99,16 +99,19 @@ const intelArticles = Array.isArray(articlesData) ? articlesData.slice(0, 8) : [
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {intelArticles?.map((art, i) => (
               <a 
-                href={`/${locale}/articles/${art.slug}`} 
+                href={locale === 'en' ? `/articles/${art.slug}` : `/${locale}/articles/${art.slug}`}
                 key={i} 
                 className="group !bg-white p-4 rounded-[1.5rem] md:rounded-[2rem] border border-slate-100 hover:border-indigo-100 transition-all shadow-sm hover:shadow-xl flex flex-col"
               >
                 <div className="relative aspect-video rounded-xl overflow-hidden mb-4">
-                  <img 
-                    src={art.main_image} 
-                    alt={art.title}
-                    className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500" 
-                  />
+                  <Image 
+  src={art.main_image} 
+  alt={art.title}
+  fill
+  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 20vw"
+  className="object-cover group-hover:scale-110 transition-transform duration-500"
+  unoptimized
+/>
                 </div>
                 <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">{art.category}</span>
                 <h2 className="text-sm md:text-md font-bold text-slate-900 mt-2 line-clamp-2 leading-snug group-hover:text-indigo-700">

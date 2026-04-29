@@ -11,7 +11,7 @@ const SUPPORTED_LOCALES = ['en', 'ur', 'es', 'ru', 'fr', 'de', 'ar', 'zh-CN'];
 
 const LOCALE_TO_HREFLANG = {
   'en': 'en', 'ur': 'ur', 'ar': 'ar', 'de': 'de',
-  'fr': 'fr', 'ru': 'ru', 'zh-CN': 'zh-CN', 'es': 'es',
+  'fr': 'fr', 'ru': 'ru', 'zh-CN': 'zh-Hans', 'es': 'es',
 };
 
 const OG_LOCALE_MAP = {
@@ -140,7 +140,7 @@ export default async function ICODetailServerPage({ params }) {
     if (res?.success) project = res.data;
   } catch (_) {}
 
-  if (!project) notFound();
+if (!project) return notFound();
 
   const p = project;
   const ov = p.overview_data || {};

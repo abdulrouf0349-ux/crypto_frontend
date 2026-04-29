@@ -23,7 +23,9 @@ function CoinListingSchema({ coins, locale }) {
       '@type': 'ListItem',
       position: idx + 1,
       name: coin.name,
-      url: `/${locale}/coin-glossary/${coin.slug || coin.uuid}`,
+      url: locale === 'en' 
+  ? `/glossary/${coin.slug || coin.uuid}` 
+  : `/${locale}/glossary/${coin.slug || coin.uuid}`,
       image: coin.icon_url || '',
       description: coin.description || `${coin.name} (${coin.symbol}) cryptocurrency information`,
     })),
@@ -106,7 +108,7 @@ export default function CoinsPage() {
           className="max-w-[1400px] mx-auto px-4 max-sm:px-3 lg:px-28 py-4 text-sm text-slate-500 flex items-center gap-2"
           aria-label="Breadcrumb"
         >
-          <Link href={`/${locale}`} className="hover:text-indigo-600 transition-colors">
+          <Link href={locale === 'en' ? '/' : `/${locale}`} className="hover:text-indigo-600 transition-colors">
             {dict?.home || 'Home'}
           </Link>
           <span aria-hidden="true">&rsaquo;</span>
@@ -226,7 +228,8 @@ export default function CoinsPage() {
                 return (
                   <Link
                     key={coin.uuid || coin.id}
-                    href={`/${locale}/glossary/${slug}`}
+                    href={locale === 'en' ? `/glossary/${slug}` : `/${locale}/glossary/${slug}`}
+
                     className="group bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-indigo-100 transition-all duration-300 p-5 flex flex-col items-center text-center"
                     aria-label={`${displayName} (${symbol})${rank ? ` Rank #${rank}` : ''}`}
                     title={descPreview}

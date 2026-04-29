@@ -13,7 +13,7 @@ const intelArticles = articles.slice(0, 8);
       <div className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-6">
         {intelArticles.map((art, i) => (
           <Link 
-            href={`/${locale}/${art.slug}`} 
+            href={locale === 'en' ? `/${art.slug}` : `/${locale}/${art.slug}`}
             key={art.id || i} 
             className="group block flex flex-col max-sm:px-4 py-5 md:p-5 md:bg-slate-50 md:rounded-[2rem] border-b border-slate-100 md:border-transparent md:hover:border-indigo-100 md:hover:bg-white transition-all md:shadow-sm md:hover:shadow-xl last:border-0"
           >

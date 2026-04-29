@@ -149,7 +149,7 @@ const WhaleCard = ({ tx, locale, index }) => {
           {isValid(tx.transaction_hash) ? shortAddr(tx.transaction_hash) : '—'}
         </span>
         <div className="flex items-center gap-2">
-          <Link href={`/${locale}/crypto-whales/${tx.hash}`} className="text-indigo-600 font-black text-[10px] uppercase hover:underline">
+          <Link href={locale === 'en' ? `/crypto-whales/${tx.hash}` : `/${locale}/crypto-whales/${tx.hash}`} className="text-indigo-600 font-black text-[10px] uppercase hover:underline">
             Details
           </Link>
           {isValid(tx.url) && (
@@ -228,7 +228,7 @@ const WhaleTracker = () => {
       <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden">
         {/* Breadcrumb */}
         <nav className="max-w-[1400px] mx-auto px-4 lg:px-28 py-4 text-xs text-slate-400">
-          <Link href={`/${locale}`} className="hover:text-indigo-600">Home</Link>
+          <Link href={locale === 'en' ? '/' : `/${locale}`} className="hover:text-indigo-600">Home</Link>
           <span className="mx-2">›</span>
           <span className="text-slate-600">Whale Tracker</span>
         </nav>

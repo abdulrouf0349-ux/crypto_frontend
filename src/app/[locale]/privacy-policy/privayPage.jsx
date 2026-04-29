@@ -30,7 +30,7 @@ export default function PrivacyPolicyPage() {
         className="max-w-[1400px] mx-auto px-4 lg:px-28 py-4 text-sm text-slate-500 flex items-center gap-2"
         aria-label="Breadcrumb"
       >
-        <Link href={`/${locale}`} className="hover:text-indigo-600 transition-colors">
+        <Link href={locale === 'en' ? '/' : `/${locale}`} className="hover:text-indigo-600 transition-colors">
           {dict?.home || 'Home'}
         </Link>
         <span aria-hidden="true">&rsaquo;</span>
@@ -146,7 +146,8 @@ export default function PrivacyPolicyPage() {
               <h3 className="text-xl font-black mb-3">{t.cta_title}</h3>
               <p className="text-slate-400 text-sm mb-6">{t.cta_desc}</p>
               <Link
-                href={`/${locale}/contact-us`}
+                href={locale === 'en' ? '/contact-us' : `/${locale}/contact-us`}
+
                 className="inline-block px-8 py-3 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-500 transition-all"
               >
                 {t.cta_btn}

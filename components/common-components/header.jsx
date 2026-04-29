@@ -12,7 +12,7 @@ export const Header = async ({ dict, locale }) => {
         
         {/* Logo Section */}
         <div className="flex-shrink-0">
-          <Link href={`/${locale}`}>
+          <Link href={locale === 'en' ? '/' : `/${locale}`}>
             <Image 
               src={icon2} 
               alt="Cryptonews" 

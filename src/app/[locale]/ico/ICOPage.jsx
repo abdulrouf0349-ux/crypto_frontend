@@ -66,7 +66,7 @@ const ICOPage = () => {
       <main>
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="max-w-[1400px] mx-auto px-4 lg:px-28 py-4 text-sm text-slate-500 flex items-center gap-2">
-          <Link href={`/${locale}`} className="hover:text-indigo-600 transition-colors">{dict.header.news}</Link>
+          <Link href={locale === 'en' ? '/' : `/${locale}`} className="hover:text-indigo-600 transition-colors">{dict.header.news}</Link>
           <span aria-hidden="true">&rsaquo;</span>
           <span className="text-slate-400" aria-current="page">{dict.launchpad.ico_title}</span>
         </nav>
@@ -124,7 +124,7 @@ const ICOPage = () => {
                   </h2>
                   <p className="text-slate-500 text-[12px] line-clamp-2 mb-4">{ico.description}</p>
                   <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
-                    <Link href={`/${locale}/ico/${ico.slug}`} className="text-indigo-600 font-black text-[12px]">Details</Link>
+                    <Link href={locale === 'en' ? `/ico/${ico.slug}` : `/${locale}/ico/${ico.slug}`} className="text-indigo-600 font-black text-[12px]">Details</Link>
                     <button className="bg-indigo-600 text-white px-4 py-1.5 rounded-lg text-[11px] font-black">Whitelist</button>
                   </div>
                 </div>

@@ -21,7 +21,9 @@ export const HeaderClient = ({ dict, locale }) => {
     
     // Check karte hain ke kya pehla part koi locale hai (ur, ar, etc.) 
     // Agar English hai toh pehla part slug hoga, locale nahi.
-    const hasLocaleInUrl = pathParts.length > 0 && pathParts[0].length === 2 && pathParts[0] !== 'en';
+    const LOCALES = ["ur", "es", "ru", "fr", "de", "ar", "zh-CN"];
+
+    const hasLocaleInUrl = LOCALES.includes(pathParts[0]);
     const currentSlug = hasLocaleInUrl ? pathParts[1] : pathParts[0];
 
     // 1. News / Home Logic

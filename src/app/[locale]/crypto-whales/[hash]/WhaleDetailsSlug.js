@@ -106,7 +106,7 @@ const WhaleDetailsSlug = ({initialData}) => {
     };
     fetchDetails();
   }, [hash]);
-  if (!tx) return notFound();
+
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center bg-white">
@@ -116,13 +116,12 @@ const WhaleDetailsSlug = ({initialData}) => {
       </div>
     </div>
   );
-
   if (!tx) return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center">
         <p className="font-black text-2xl text-slate-200 mb-4">404</p>
         <p className="font-black text-sm uppercase tracking-widest text-slate-400">Transaction not found</p>
-        <Link href={`/${locale}/crypto-whales`} className="mt-6 inline-block text-indigo-600 font-black text-xs uppercase hover:underline">
+        <Link href={locale === 'en' ? '/crypto-whales' : `/${locale}/crypto-whales`} className="mt-6 inline-block text-indigo-600 font-black text-xs uppercase hover:underline">
           ← Back to Tracker
         </Link>
       </div>

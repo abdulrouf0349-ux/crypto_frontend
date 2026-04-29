@@ -31,15 +31,19 @@ const LOCALE_CODES = languageList.map(l => l.code);
 
   const toggleList = () => setIsOpen(!isOpen);
 
- const switchLocale = (newLocale) => {
+const switchLocale = (newLocale) => {
   const pathParts = pathname.split('/');
   
-  // ✅ FIX: Length check karne ke bajaye list se check karein
-  // pathParts[1] wo pehla segment hai jo locale ho sakta hai (e.g., 'en' or 'zh-CN')
   if (LOCALE_CODES.includes(pathParts[1])) {
-    pathParts[1] = newLocale;          // Purane locale ko naye se badal do
+    if (newLocale === 'en') {
+      pathParts.splice(1, 1); // English mein locale segment hata do
+    } else {
+      pathParts[1] = newLocale; // Replace karo
+    }
   } else {
-    pathParts.splice(1, 0, newLocale); // Agar locale nahi tha, toh insert karo
+    if (newLocale !== 'en') {
+      pathParts.splice(1, 0, newLocale); // Sirf non-English insert karo
+    }
   }
 
   const targetPath = pathParts.join('/') || '/';

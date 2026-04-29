@@ -2,7 +2,7 @@ import PrivacyPolicyPage from "./privayPage";
 
 const BASE_URL          = "https://cryptonewstrend.com";
 const SITE_NAME         = "CryptoNews Trend"; 
-const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-CN"];
+const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de","ru", "ar", "zh-CN"];
 const LAST_MODIFIED     = "2025-01-15"; 
 
 const META = {

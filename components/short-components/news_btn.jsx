@@ -29,13 +29,16 @@ export default function News_TypeButtonClient({ dict, locale }) {
             const itemKey = item.key.toLowerCase();
 
             const isSelected = itemKey === 'all'
-              ? pathname === `/${locale}` || pathname === `/${locale}/`
-              : pathname.includes(`/${itemKey}`);
+  ? pathname === '/' || pathname === `/${locale}` || pathname === `/${locale}/`
+  : pathname.includes(`/${itemKey}`);
 
             return (
               <li key={item.id} className="flex-shrink-0">
                 <Link
-                  href={itemKey === 'all' ? `/${locale}` : `/${locale}/news/${itemKey}`}
+                  href={itemKey === 'all' 
+  ? (locale === 'en' ? '/' : `/${locale}`) 
+  : (locale === 'en' ? `/news/${itemKey}` : `/${locale}/news/${itemKey}`)
+}
                   className={`inline-block px-4 py-2.5 text-[10px] sm:text-[12px] rounded-full font-medium uppercase tracking-wider transition-all duration-300 ${
                     isSelected
                       ? 'bg-[#4f39f6] !text-white shadow-[0_8px_20px_-6px_rgba(79,57,246,0.45)] scale-105'

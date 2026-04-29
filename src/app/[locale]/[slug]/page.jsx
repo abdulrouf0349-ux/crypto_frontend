@@ -136,7 +136,7 @@ export default async function DiscriptionPage({ params }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": `${BASE_URL}/${locale}` },
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": locale === 'en' ? BASE_URL : `${BASE_URL}/${locale}` },
       { "@type": "ListItem", "position": 2, "name": article.title, "item": canonicalUrl }
     ]
   };
@@ -150,7 +150,7 @@ export default async function DiscriptionPage({ params }) {
         <header className="pt-10 md:pt-16 pb-8 border-b border-slate-100 dark:border-slate-800">
           <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12">
             <nav className="flex items-center gap-3 text-[11px] font-black uppercase tracking-widest text-indigo-600 mb-6">
-              <Link href={`/${locale}/`} className="hover:underline">{dict.header.news}</Link>
+              <Link href={locale === 'en' ? '/' : `/${locale}/`} className="hover:underline">{dict.header.news}</Link>
               <span className="text-slate-300">/</span>
               <span className="bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 rounded-full">
                 {article.domains || 'Market Update'}
@@ -211,7 +211,7 @@ export default async function DiscriptionPage({ params }) {
               <div className="sticky top-24 space-y-10">
                 <DonateBanner locale={locale} dict={dict} />
                 <TopNews serverData={newsdataResponse?.results || []} locale={locale} dict={dict} />
-                <IcoSidebar icoData={icoDataResponse?.data} />
+                <IcoSidebar icoData={icoDataResponse?.data} locale={locale} dict={dict} />
               </div>
             </aside>
           </div>

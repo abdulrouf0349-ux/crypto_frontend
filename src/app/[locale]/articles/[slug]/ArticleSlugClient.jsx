@@ -83,11 +83,11 @@ export default function ArticleSlugClient({
             aria-label="Breadcrumb"
             className="flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-slate-400 mb-6"
           >
-            <Link href={`/${locale}`} className="hover:text-indigo-600 transition-colors">
+            <Link href={locale === 'en' ? '/' : `/${locale}`} className="hover:text-indigo-600 transition-colors">
               {dict?.home || 'Home'}
             </Link>
             <span aria-hidden="true">/</span>
-            <Link href={`/${locale}/articles`} className="hover:text-indigo-600 transition-colors">
+            <Link href={locale === 'en' ? '/articles' : `/${locale}/articles`} className="hover:text-indigo-600 transition-colors">
               Articles
             </Link>
             <span aria-hidden="true">/</span>
@@ -381,7 +381,7 @@ export default function ArticleSlugClient({
         {/* ── Back to Articles ── */}
         <div className="mt-10 flex justify-center">
           <Link
-            href={`/${locale}/articles`}
+            href={locale === 'en' ? '/articles' : `/${locale}/articles`}
             className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 !text-white font-black rounded-xl hover:bg-indigo-600 transition-all active:scale-95"
           >
             <FiArrowLeft size={16} aria-hidden="true" />

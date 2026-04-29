@@ -254,7 +254,10 @@ export default function CoinAnalysisFloat({ locale = 'en' }) {
 
                 {/* CTA */}
                 <Link
-                  href={`/${locale}/coin-analysis?coin=${encodeURIComponent(coin.name)}`}
+                  href={locale === 'en' 
+  ? `/coin-analysis?coin=${encodeURIComponent(coin.name)}` 
+  : `/${locale}/coin-analysis?coin=${encodeURIComponent(coin.name)}`
+}
                   onClick={() => setOpen(false)}
                   className="block text-center py-3 rounded-xl bg-gradient-to-r from-blue-600 to-sky-400 text-white font-bold text-[13px] no-underline hover:opacity-90 transition-opacity shadow-lg shadow-blue-500/30"
                   style={{fontFamily:'Syne,sans-serif'}}

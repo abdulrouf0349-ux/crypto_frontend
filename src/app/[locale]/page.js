@@ -20,7 +20,7 @@ export async function generateMetadata({ params }) {
   const dict = await getDictionary(locale);
 
   const alternateLanguages = SUPPORTED_LOCALES.reduce((acc, lang) => {
-    const hreflang = lang === 'zh-CN' ? 'zh-CN' : lang;
+    const hreflang = lang === 'zh-CN' ? 'zh-Hans' : lang;
     // English is root, others are /lang
     acc[hreflang] = lang === 'en' ? `${BASE_URL}` : `${BASE_URL}/${lang}`;
     return acc;

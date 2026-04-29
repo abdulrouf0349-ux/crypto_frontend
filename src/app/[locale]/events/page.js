@@ -3,7 +3,7 @@ import EventsPage from "./eventpage";
 
 const BASE_URL          = "https://cryptonewstrend.com";
 const SITE_NAME         = "CryptoNews Trend";
-const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-CN"];
+const SUPPORTED_LOCALES = ["en", "ur", "es", "ru", "fr", "de", "ar", "zh-CN"];
 
 const META = {
   en: {

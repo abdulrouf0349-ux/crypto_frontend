@@ -80,7 +80,7 @@ const EventsPage = () => {
     <div className="min-h-screen bg-white text-slate-900">
       {/* Breadcrumb for SEO */}
       <nav className="max-w-[1400px] mx-auto px-4 lg:px-28 py-4 text-sm text-slate-500">
-        <Link href={`/${locale}`} className="hover:text-indigo-600 transition-colors">{dict.header.news}</Link>
+        <Link href={locale === 'en' ? '/' : `/${locale}`} className="hover:text-indigo-600 transition-colors">{dict.header.news}</Link>
         <span className="mx-2">›</span>
         <span className="text-slate-900 font-bold">{dict.header.events}</span>
       </nav>
@@ -128,7 +128,8 @@ const EventsPage = () => {
             const config = getStatusConfig(event.status);
             return (
               <Link 
-                href={`/${locale}/events/${event.slug}`} 
+                href={locale === 'en' ? `/events/${event.slug}` : `/${locale}/events/${event.slug}`}
+ 
                 key={event.id}
                 className="group bg-white border border-slate-100 rounded-[32px] overflow-hidden hover:shadow-2xl transition-all duration-500 flex flex-col"
               >

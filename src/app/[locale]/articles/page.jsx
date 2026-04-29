@@ -111,7 +111,9 @@ export default async function ArticlesPage({ params, searchParams }) {
       "itemListElement": articles.map((article, index) => ({
         "@type": "ListItem",
         "position": index + 1,
-        "url": `${BASE_URL}/${locale}/articles/${article?.slug}`,
+        "url": locale === 'en' 
+  ? `${BASE_URL}/articles/${article?.slug}` 
+  : `${BASE_URL}/${locale}/articles/${article?.slug}`,
         "name": article?.title,
       })),
     },
@@ -192,7 +194,9 @@ export default async function ArticlesPage({ params, searchParams }) {
 }
 
 function ArticleCard({ article, locale }) {
-  const articleLink = `/${locale}/articles/${article?.slug}`;
+  const articleLink = locale === 'en' 
+  ? `/articles/${article?.slug}` 
+  : `/${locale}/articles/${article?.slug}`;
   
   return (
     <article className="group relative flex flex-col bg-white rounded-[2rem] border border-slate-100 overflow-hidden hover:border-indigo-100 transition-all duration-500">
