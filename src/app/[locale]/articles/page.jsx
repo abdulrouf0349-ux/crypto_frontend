@@ -1,6 +1,3 @@
-// app/[locale]/articles/page.jsx
-// ✅ STATIC — 12 hour revalidate, full SEO
-
 import { fetchAllArticles } from '../../../../apis/page_news/events';
 import { getDictionary } from '../../../../i18n/getDictionary';
 import Link from 'next/link';
@@ -8,107 +5,88 @@ import Image from 'next/image';
 import MobileSupportButton from '../../../../components/Right_side/MobileSupportButton';
 import CoinAnalysisFloat from '../../../../components/Data/CoinAnalysisFloat';
 
-// ─────────────────────────────────────────────
-// CONSTANTS
-// ─────────────────────────────────────────────
-// app/[locale]/articles/page.jsx
-
-// ─────────────────────────────────────────────
-// CONSTANTS
-// ─────────────────────────────────────────────
 const BASE_URL          = "https://cryptonewstrend.com";
-const SITE_NAME         = "CryptoNews Trend"; // ✅ FIX 2
+const SITE_NAME         = "CryptoNews Trend";
 const TWITTER_HANDLE    = "@cryptonews90841";
-
-// ✅ FIX 4: ru add kiya
 const SUPPORTED_LOCALES = ["en", "ur", "es", "ru", "fr", "de", "ar", "zh-CN"];
 
-// ✅ FIX 5: zh-Hans correct hreflang
 const LOCALE_TO_HREFLANG = {
   "en": "en", "ur": "ur", "ar": "ar", "de": "de",
   "fr": "fr", "ru": "ru", "zh-CN": "zh-Hans", "es": "es",
 };
 
-// ✅ FIX 3: OG locale correct format
 const OG_LOCALE_MAP = {
   "en": "en_US", "ur": "ur_PK", "ar": "ar_AR", "de": "de_DE",
   "fr": "fr_FR", "ru": "ru_RU", "zh-CN": "zh_CN", "es": "es_ES",
 };
 
-// ─────────────────────────────────────────────
-// generateMetadata
-// ─────────────────────────────────────────────
-export async function generateMetadata({ params }) {
-  const { locale }   = await params;
-  const canonicalUrl = `${BASE_URL}/${locale}/articles`;
+// ── UTILITY: SEO Friendly URLs ──────────────────────────────
+const getCleanUrl = (locale, page = 1) => {
+  const path = '/articles';
+  const query = page > 1 ? `?page=${page}` : '';
+  const base = locale === 'en' ? `${BASE_URL}${path}` : `${BASE_URL}/${locale}${path}`;
+  return `${base}${query}`;
+};
 
-  // ✅ FIX 1: SITE_NAME mat lagao title mein — layout template auto lagaega
-  const title       = "Crypto Articles | Blockchain Insights";
-  const description = "Read the latest crypto articles, blockchain analysis, DeFi guides and expert insights on CryptoNews Trend.";
+// ── generateMetadata ─────────────────────────────────────────
+export async function generateMetadata({ params, searchParams }) {
+  const { locale } = await params;
+  const { page = 1 } = await searchParams || {};
+  
+  const title = `Latest Crypto Articles & Blockchain Insights (Page ${page}) | ${SITE_NAME}`;
+  const description = "Explore expert blockchain analysis, DeFi guides, and market insights. Read the latest crypto education articles on CryptoNews Trend.";
+  const canonicalUrl = getCleanUrl(locale, page);
 
-  // ✅ FIX 5+6: zh-Hans + x-default + ru
   const alternateLanguages = SUPPORTED_LOCALES.reduce((acc, lang) => {
-    const hreflang = LOCALE_TO_HREFLANG[lang] || lang;
-    acc[hreflang]  = `${BASE_URL}/${lang}/articles`;
+    acc[LOCALE_TO_HREFLANG[lang] || lang] = getCleanUrl(lang, page);
     return acc;
-  }, {});
-  alternateLanguages["x-default"] = `${BASE_URL}/en/articles`; // ✅ FIX 6
+  }, { "x-default": getCleanUrl('en', page) });
 
   return {
-    title,       // ✅ layout: "Crypto Articles | Blockchain Insights | CryptoNews Trend"
+    title,
     description,
-    keywords: "crypto articles, blockchain insights, defi guides, bitcoin analysis, ethereum news, crypto education",
-
+    keywords: "crypto articles, blockchain insights, defi guides, bitcoin analysis, ethereum news, crypto education, altcoin market news",
     alternates: {
       canonical: canonicalUrl,
-      languages: alternateLanguages, // ✅ zh-Hans, ru, x-default
+      languages: alternateLanguages,
     },
-
     openGraph: {
-      title:       `${title} | ${SITE_NAME}`, // ✅ OG mein manually
+      title,
       description,
-      url:         canonicalUrl,
-      siteName:    SITE_NAME,                          // ✅ FIX 2
-      locale:      OG_LOCALE_MAP[locale] || "en_US",   // ✅ FIX 3
-      alternateLocale: SUPPORTED_LOCALES               // ✅ FIX 7
-        .filter(l => l !== locale)
-        .map(l => OG_LOCALE_MAP[l] || l),
-      type:        "website",
+      url: canonicalUrl,
+      siteName: SITE_NAME,
+      locale: OG_LOCALE_MAP[locale] || "en_US",
+      type: "website",
       images: [{
-        url:    `${BASE_URL}/og-image.png`,
-        width:  1200,
+        url: `${BASE_URL}/og-image.png`,
+        width: 1200,
         height: 630,
-        alt:    `${SITE_NAME} Crypto Articles`,
+        alt: `${SITE_NAME} Articles Listing`,
       }],
     },
-
     twitter: {
-      card:        "summary_large_image",
-      site:        TWITTER_HANDLE,
-      creator:     TWITTER_HANDLE,
-      title:       `${title} | ${SITE_NAME}`,
+      card: "summary_large_image",
+      site: TWITTER_HANDLE,
+      title,
       description,
-      images:      [`${BASE_URL}/og-image.png`],
+      images: [`${BASE_URL}/og-image.png`],
     },
-
     robots: {
-      index:  true,
+      index: true,
       follow: true,
       googleBot: {
-        index:               true,
-        follow:              true,
-        "max-image-preview": "large",
-        "max-snippet":       -1,
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
       },
     },
   };
 }
 
-// ─────────────────────────────────────────────
-// ✅ PAGE COMPONENT
-// ─────────────────────────────────────────────
+// ── Page Component ───────────────────────────────────────────
 export default async function ArticlesPage({ params, searchParams }) {
-  const { locale }   = await params;
+  const { locale } = await params;
   const { page = 1, category = null } = await searchParams || {};
 
   const [articlesRes, dict] = await Promise.all([
@@ -116,192 +94,147 @@ export default async function ArticlesPage({ params, searchParams }) {
     getDictionary(locale),
   ]);
 
-  const articles  = articlesRes?.data || [];
-  const hasNext   = articlesRes?.has_next || false;
-  const canonicalUrl = `${BASE_URL}/${locale}/articles`;
+  const articles = articlesRes?.data || [];
+  const hasNext = articlesRes?.has_next || false;
+  const canonicalUrl = getCleanUrl(locale, page);
 
-  // ✅ CollectionPage Schema
+  // ✅ Schema Markup
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: `Crypto Articles | ${SITE_NAME}`,
-    description: "Latest crypto articles and blockchain insights",
-    url: canonicalUrl,
-    inLanguage: locale,
-    publisher: {
-      "@type": "Organization",
-      name: SITE_NAME,
-      url: BASE_URL,
-      logo: {
-        "@type": "ImageObject",
-        url: `${BASE_URL}/logo.png`,
-        width: 200,
-        height: 60,
-      },
-    },
-    // ✅ ItemList — saare articles listed
-    mainEntity: {
+    "headline": `Latest Crypto News and Articles - Page ${page}`,
+    "description": "A collection of in-depth crypto analysis and blockchain guides.",
+    "url": canonicalUrl,
+    "mainEntity": {
       "@type": "ItemList",
-      itemListElement: articles.slice(0, 10).map((article, index) => ({
+      "numberOfItems": articles.length,
+      "itemListElement": articles.map((article, index) => ({
         "@type": "ListItem",
-        position: index + 1,
-        url: `${BASE_URL}/${locale}/articles/${article?.slug}`,
-        name: article?.title,
+        "position": index + 1,
+        "url": `${BASE_URL}/${locale}/articles/${article?.slug}`,
+        "name": article?.title,
       })),
     },
   };
 
-  // ✅ BreadcrumbList Schema
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home",     item: `${BASE_URL}/${locale}` },
-      { "@type": "ListItem", position: 2, name: "Articles", item: canonicalUrl },
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": locale === 'en' ? BASE_URL : `${BASE_URL}/${locale}` },
+      { "@type": "ListItem", "position": 2, "name": "Articles", "item": getCleanUrl(locale) },
     ],
   };
 
   return (
     <>
-      {/* ✅ Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <main className="min-h-screen bg-white font-sans">
+      <main className="min-h-screen bg-white">
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 py-10 md:py-16">
-
-          {/* ── Header ── */}
-          <header className="mb-10 md:mb-14">
-            <nav className="flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-indigo-600 mb-6">
-              <Link href={`/${locale}/`} className="opacity-60 hover:opacity-100">Home</Link>
-              <span className="text-slate-200">/</span>
-              <span className="bg-indigo-50 px-3 py-1 rounded-full">Articles</span>
+          
+          <header className="mb-12">
+            <nav className="flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-indigo-600 mb-6" aria-label="Breadcrumb">
+              <Link href={locale === 'en' ? '/' : `/${locale}/`} className="opacity-60 hover:opacity-100">Home</Link>
+              <span className="text-slate-300">/</span>
+              <span className="bg-indigo-50 px-3 py-1 rounded-full">Articles Listing</span>
             </nav>
 
-            <h1 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-3">
-              Crypto Articles
+            <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-4 leading-tight">
+              Blockchain <span className="text-indigo-600">&</span> Analysis
             </h1>
-            <p className="text-slate-500 text-base md:text-lg font-medium max-w-2xl">
-              In-depth blockchain insights, DeFi guides, and expert crypto analysis.
+            <p className="text-slate-500 text-lg md:text-xl font-medium max-w-2xl leading-relaxed">
+              Deep dives into DeFi protocols, Bitcoin market trends, and educational guides for the modern investor.
             </p>
           </header>
 
-          {/* ── Articles Grid ── */}
           {articles.length === 0 ? (
-            <div className="py-20 text-center text-slate-400 font-bold uppercase tracking-widest">
-              No articles found.
+            <div className="py-32 text-center">
+              <p className="text-slate-400 font-black uppercase tracking-tighter text-2xl">No insights found yet.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {articles.map((article) => (
-                <ArticleCard
-                  key={article?.slug}
-                  article={article}
-                  locale={locale}
-                />
+                <ArticleCard key={article?.slug} article={article} locale={locale} />
               ))}
             </div>
           )}
 
-          {/* ── Pagination ── */}
-          <div className="flex items-center justify-between mt-12 pt-8 border-t border-slate-100">
+          {/* Pagination Navigation */}
+          <nav className="flex items-center justify-between mt-16 pt-10 border-t border-slate-100" aria-label="Pagination">
             {Number(page) > 1 && (
               <Link
-                href={`/${locale}/articles?page=${Number(page) - 1}`}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-slate-50 hover:bg-indigo-50 text-slate-700 hover:text-indigo-600 rounded-xl font-black text-xs uppercase tracking-widest transition-all border border-slate-100"
+                href={getCleanUrl(locale, Number(page) - 1).replace(BASE_URL, '')}
+                className="group flex items-center gap-3 px-8 py-4 bg-slate-50 hover:bg-slate-100 text-slate-900 rounded-2xl font-black text-xs uppercase tracking-widest transition-all"
+                rel="prev"
               >
-                ← Previous
+                <span className="group-hover:-translate-x-1 transition-transform">←</span> Previous Page
               </Link>
             )}
             {hasNext && (
               <Link
-                href={`/${locale}/articles?page=${Number(page) + 1}`}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all ml-auto shadow-lg shadow-indigo-200"
+                href={getCleanUrl(locale, Number(page) + 1).replace(BASE_URL, '')}
+                className="group flex items-center gap-3 px-8 py-4 bg-indigo-600 hover:bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all ml-auto"
+                rel="next"
               >
-                Next →
+                Next Insights <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             )}
-          </div>
-
+          </nav>
         </div>
       </main>
-       <MobileSupportButton dict={dict} />
-                <CoinAnalysisFloat locale={locale} />  
+
+      <MobileSupportButton dict={dict} />
+      <CoinAnalysisFloat locale={locale} />
     </>
   );
 }
 
-// ─────────────────────────────────────────────
-// ✅ Article Card Component
-// ─────────────────────────────────────────────
 function ArticleCard({ article, locale }) {
+  const articleLink = `/${locale}/articles/${article?.slug}`;
+  
   return (
-
-    <>
-    <Link
-      href={`/${locale}/articles/${article?.slug}`}
-      className="group flex flex-col bg-white rounded-[1.5rem] border border-slate-100 overflow-hidden hover:shadow-2xl hover:shadow-indigo-100/50 hover:-translate-y-1 transition-all duration-300"
-    >
-      {/* Image */}
+    <article className="group relative flex flex-col bg-white rounded-[2rem] border border-slate-100 overflow-hidden hover:border-indigo-100 transition-all duration-500">
+      <Link href={articleLink} className="absolute inset-0 z-10" aria-label={article?.title} />
+      
       {article?.main_image && (
-        <figure className="relative aspect-[16/9] w-full overflow-hidden bg-slate-50">
+        <div className="relative aspect-[16/10] w-full overflow-hidden">
           <Image
             src={article.main_image}
-            alt={article?.title || "Article"}
+            alt={article?.title || "Blockchain Analysis"}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
             unoptimized
           />
-        </figure>
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+        </div>
       )}
 
-      {/* Content */}
-      <div className="flex flex-col gap-3 p-5 md:p-6 flex-1">
-
-        {/* Category */}
-        {article?.category && (
-          <span className="text-[10px] font-black uppercase tracking-widest text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full w-fit">
-            {article.category}
-          </span>
-        )}
-
-        {/* Title */}
-        <h2 className="text-slate-900 font-black text-base md:text-lg leading-snug tracking-tight line-clamp-2 group-hover:text-indigo-600 transition-colors">
-          {article?.title}
-        </h2>
-
-        {/* Description */}
-        {article?.description && (
-          <p className="text-slate-500 text-sm leading-relaxed line-clamp-3 font-medium">
-            {article.description}
-          </p>
-        )}
-
-        {/* Footer */}
-        <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-50">
-          {article?.date && (
-            <time
-              dateTime={article.date}
-              className="text-[11px] text-slate-400 font-bold uppercase tracking-widest"
-            >
-              {article.date}
-            </time>
+      <div className="flex flex-col p-7 md:p-8 flex-1">
+        <div className="flex items-center gap-3 mb-4">
+           {article?.category && (
+            <span className="text-[9px] font-black uppercase tracking-[0.15em] text-indigo-600 bg-indigo-50/50 px-3 py-1.5 rounded-lg">
+              {article.category}
+            </span>
           )}
-          <span className="text-[11px] font-black uppercase tracking-widest text-indigo-600 group-hover:translate-x-1 transition-transform">
-            Read →
-          </span>
+          <time className="text-[10px] text-slate-400 font-bold uppercase tracking-widest" dateTime={article?.date}>
+            {article?.date}
+          </time>
         </div>
 
+        <h2 className="text-slate-900 font-black text-xl md:text-2xl leading-[1.1] mb-4 group-hover:text-indigo-600 transition-colors">
+          {article?.title}
+        </h2>
+        
+        <p className="text-slate-500 text-sm md:text-base line-clamp-3 font-medium leading-relaxed mb-6">
+          {article?.description}
+        </p>
+
+        <div className="mt-auto pt-6 border-t border-slate-50 flex items-center text-indigo-600 font-black text-[10px] uppercase tracking-widest">
+          Full Analysis <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+        </div>
       </div>
-    </Link>
-   
-    </>
-    
+    </article>
   );
 }

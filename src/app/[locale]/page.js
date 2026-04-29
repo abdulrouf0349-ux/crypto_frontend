@@ -1,5 +1,4 @@
 import React, { Suspense } from "react";
-
 import Banner from "../../../components/short-components/banner";
 import News_TypeButtonServer from "../../../components/short-components/news_btn";
 import Loading from "../../../components/Data/loading";
@@ -14,50 +13,56 @@ import MobileSupportButton from "../../../components/Right_side/MobileSupportBut
 import CoinAnalysisFloat from "../../../components/Data/CoinAnalysisFloat";
 
 const BASE_URL = "https://cryptonewstrend.com";
-const SUPPORTED_LOCALES = ['en', 'ur', 'es', 'fr', 'de', 'ar','ru', 'zh-CN'];
+const SUPPORTED_LOCALES = ['en', 'ur', 'es', 'fr', 'de', 'ar', 'ru', 'zh-CN'];
 
-// ✅ 1. PAGE-LEVEL METADATA (layout.js wali override karegi yahan se)
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   const dict = await getDictionary(locale);
 
   const alternateLanguages = SUPPORTED_LOCALES.reduce((acc, lang) => {
-    const hreflang = lang === 'zh-CN' ? 'zh-Hans' : lang;
-    acc[hreflang] = `${BASE_URL}/${lang}`;
+    const hreflang = lang === 'zh-CN' ? 'zh-CN' : lang;
+    // English is root, others are /lang
+    acc[hreflang] = lang === 'en' ? `${BASE_URL}` : `${BASE_URL}/${lang}`;
     return acc;
   }, {});
-  alternateLanguages["x-default"] = `${BASE_URL}/en`;
 
-  return {
-    // layout.js ke title template se milkar banega: "Latest Crypto News | CryptoNews"
-    title: dict.seo?.title || "Latest Crypto News | Global Updates",
-    description: dict.seo?.description || "Stay updated with the latest cryptocurrency trends, blockchain updates, and market events from around the world.",
+  alternateLanguages["x-default"] = `${BASE_URL}`;
+  const canonicalURL = locale === 'en' ? `${BASE_URL}` : `${BASE_URL}/${locale}`;
+const pageTitle = dict.seo?.page_title || "Crypto News Today Real-Time Bitcoin, Altcoin & Market Analysis";
+const pageDescription = dict.seo?.description || "Stay updated with CryptoNews Trend. Get real-time cryptocurrency news, Bitcoin price analysis, blockchain trends, and live market updates from the world's leading crypto source.";
 
-    // ✅ Hreflang — Google ko batata hai ke ye page kaun si languages mein available hai
+return {
+  title: pageTitle,
+  description: pageDescription,
     alternates: {
-      canonical: `${BASE_URL}/${locale}`,
+      canonical: canonicalURL,
       languages: alternateLanguages,
     },
-
-    // ✅ Open Graph — Homepage ke liye specific
+    other: {
+      "googlebot-news": "index, follow",
+      "rating": "General",
+    },
+    robots: {
+      index: true,
+      follow: true,
+      nocache: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     openGraph: {
-      title: dict.seo?.title || "Latest Crypto News | Global Updates",
-      description: dict.seo?.description || "Stay updated with the latest cryptocurrency trends and market events.",
-      url: `${BASE_URL}/${locale}`,
-      siteName: "CryptoNews",
-      images: [
-        {
-          url: `${BASE_URL}/og-image.png`,
-          width: 1200,
-          height: 630,
-          alt: "CryptoNews Homepage",
-        },
-      ],
+      title: `${dict.seo?.title || pageTitle}`,
+      description: dict.seo?.description || "Stay updated with the latest cryptocurrency trends.",
+      url: canonicalURL,
+      siteName: "CryptoNews Trend",
+      images: [{ url: `${BASE_URL}/og-image.png`, width: 1200, height: 630, alt: "CryptoNews Trend" }],
       locale: locale,
       type: "website",
     },
-
-    // ✅ Twitter Card
     twitter: {
       card: "summary_large_image",
       title: dict.seo?.title || "Latest Crypto News",
@@ -67,75 +72,56 @@ export async function generateMetadata({ params }) {
   };
 }
 
-// ✅ 2. MAIN PAGE COMPONENT
 export default async function Page({ params }) {
   const { locale = 'en' } = await params;
   const dict = await getDictionary(locale);
 
-  // ✅ Schema 1: NewsMediaOrganization — Google News mein rank karne ke liye
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "NewsMediaOrganization",
-    "name": "CryptoNews",
-    "url": `${BASE_URL}/${locale}`,
-    "logo": {
-      "@type": "ImageObject",
-      "url": `${BASE_URL}/logo.png`,
-      "width": 200,
-      "height": 60,
-    },
-    "sameAs": [
-      "https://twitter.com/cryptonewstrend",
-      "https://facebook.com/cryptonewstrend",
-      "https://t.me/cryptonewstrend",
-    ],
-    "foundingDate": "2024",
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "customer support",
-      "email": "support@cryptonewstrend.com",
-    },
-  };
+  const currentUrl = locale === 'en' ? `${BASE_URL}` : `${BASE_URL}/${locale}`;
+  const searchUrl = locale === 'en' ? `${BASE_URL}/search` : `${BASE_URL}/${locale}/search`;
 
-  // ✅ Schema 2: WebSite — Google Sitelinks Search Box ke liye
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "CryptoNews",
-    "url": `${BASE_URL}/${locale}`,
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": `${BASE_URL}/${locale}/search?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
+  // Combined Schema for Performance
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsMediaOrganization",
+      "name": "CryptoNews Trend",
+      "url": currentUrl,
+      "logo": { "@type": "ImageObject", "url": `${BASE_URL}/logo.png` },
+      "sameAs": [
+        "https://twitter.com/cryptonews90841",
+        "https://facebook.com/cryptonewstrend",
+        "https://t.me/cryptonewstrend"
+      ]
     },
-  };
-
-  // ✅ Schema 3: BreadcrumbList — Homepage breadcrumb
-
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "CryptoNews Trend",
+      "url": currentUrl,
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": { "@type": "EntryPoint", "urlTemplate": `${searchUrl}?q={search_term_string}` },
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ];
 
   return (
     <>
-      {/* ✅ Structured Data Scripts — Google rich results ke liye */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} 
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-      />
+      
+      {/* Visual H1 for SEO, hidden from UI but readable by Google */}
       <h1 className="sr-only">{dict.seo?.title || "Latest Cryptocurrency News and Trends"}</h1>
+      
       <Banner />
       <News_TypeButtonServer dict={dict} locale={locale} />
 
-      <div className="sm:px-6 lg:px-28 !bg-white">
+      <main className="sm:px-6 lg:px-28 bg-white dark:bg-slate-900">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-
-          {/* LEFT COLUMN */}
-          <div className="lg:col-span-2 space-y-6 ">
+          <div className="lg:col-span-2 space-y-6">
             <Suspense fallback={<Loading />}>
               <SliderSection locale={locale} />
             </Suspense>
@@ -144,10 +130,9 @@ export default async function Page({ params }) {
             </Suspense>
           </div>
 
-          {/* RIGHT COLUMN */}
-          <div className="space-y-8">
+          <aside className="space-y-8">
             <DonateBanner locale={locale} dict={dict} />
-            <div className="max-sm:hidden mb-20">
+            <div className="max-sm:hidden">
               <Suspense fallback={<div className="animate-pulse h-40 bg-slate-100 rounded-xl" />}>
                 <TopNews locale={locale} dict={dict} />
               </Suspense>
@@ -155,16 +140,18 @@ export default async function Page({ params }) {
             <Suspense fallback={<div className="animate-pulse h-40 bg-slate-100 rounded-xl" />}>
               <EventNews locale={locale} dict={dict} />
             </Suspense>
-          </div>
+          </aside>
         </div>
 
-        {/* BOTTOM SECTION */}
-        <Suspense fallback={<div className="animate-pulse h-60 bg-slate-50 rounded-3xl mt-10" />}>
-          <ArticlefirstPage locale={locale} dict={dict}/>
-        </Suspense>
-      </div>
+        <section className="mt-10">
+          <Suspense fallback={<div className="animate-pulse h-60 bg-slate-50 rounded-3xl" />}>
+            <ArticlefirstPage locale={locale} dict={dict}/>
+          </Suspense>
+        </section>
+      </main>
+      
       <MobileSupportButton dict={dict} />
-<CoinAnalysisFloat locale={locale} />
+      <CoinAnalysisFloat locale={locale} />
     </>
   );
 }

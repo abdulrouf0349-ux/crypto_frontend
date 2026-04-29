@@ -136,12 +136,12 @@ const ICODetailsPage = ({initialData}) => {
               {p.main_img && (
                 <div className="relative w-20 h-20 flex-shrink-0">
                   <Image
-                    src={p.main_img}
-                    alt={`${p.name} logo`}
-                    fill
-                    className="rounded-2xl shadow-lg object-contain"
-                    unoptimized
-                  />
+  src={p.main_img}
+  alt={`${p.name} (${p.ticker}) ICO Token Sale Details`} // Descriptive alt tag
+  fill
+  className="rounded-2xl shadow-lg object-contain"
+  unoptimized
+/>
                 </div>
               )}
               <div>

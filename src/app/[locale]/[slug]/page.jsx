@@ -12,493 +12,213 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation'
 import MobileSupportButton from '../../../../components/Right_side/MobileSupportButton';
 import CoinAnalysisFloat from '../../../../components/Data/CoinAnalysisFloat';
+
 export const dynamicParams = true;
-export const revalidate = false;
+export const revalidate = 3600; // Update every hour for news freshness
+
 // ─────────────────────────────────────────────
-// CONSTANTS
+// CONSTANTS & HELPERS
 // ─────────────────────────────────────────────
 const BASE_URL = "https://cryptonewstrend.com";
 const SITE_NAME = "CryptoNewsTrend";
-const TWITTER_HANDLE = "@cryptonews90841"; // ✅ FIX: Real handle
-const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-CN"];
+const TWITTER_HANDLE = "@cryptonews90841"; 
+const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-CN", "ru"];
 
-// ─────────────────────────────────────────────
-// HELPER: Safe ISO date — Google News ke liye zaroori
-// ─────────────────────────────────────────────
+const HREFLANG_MAP = {
+  'en': 'en', 'ur': 'ur', 'ar': 'ar', 'de': 'de',
+  'fr': 'fr', 'ru': 'ru', 'zh-CN': 'zh-Hans', 'es': 'es',
+};
+
+const getCleanUrl = (locale, slug) => {
+  return locale === 'en' ? `${BASE_URL}/${slug}` : `${BASE_URL}/${locale}/${slug}`;
+};
+
 function toISODate(dateValue) {
   if (!dateValue) return new Date().toISOString();
-  // Already ISO format
-  if (typeof dateValue === 'string' && dateValue.includes('T')) return dateValue;
-  // Try parsing
   const parsed = new Date(dateValue);
-  if (!isNaN(parsed.getTime())) return parsed.toISOString();
-  // Fallback
-  return new Date().toISOString();
+  return !isNaN(parsed.getTime()) ? parsed.toISOString() : new Date().toISOString();
 }
 
 // ─────────────────────────────────────────────
-// 1. generateMetadata — Article-level SEO
+// 1. GENERATE METADATA
 // ─────────────────────────────────────────────
 export async function generateMetadata({ params }) {
   const { slug, locale } = await params;
-
   const [articleResponse, dict] = await Promise.all([
     getNewsById(locale, slug),
     getDictionary(locale),
   ]);
 
   const article = articleResponse?.data;
+  if (!article) return { title: "Article Not Found | CryptoNewsTrend" };
 
-  const title = article?.title || dict?.seo?.title || `${SITE_NAME} – Crypto News`;
+  const title = article.title || dict?.seo?.title || SITE_NAME;
+  const description = article.description?.slice(0, 160).replace(/\n/g, ' ').trim() || "";
+  const canonicalUrl = getCleanUrl(locale, slug);
+  const image = article.image || `${BASE_URL}/og-image.png`;
 
-  // ✅ FIX: meta = 160 chars, og = 200 chars
-  const metaDescription = article?.description
-    ? article.description.slice(0, 160).replace(/\n/g, ' ').trim()
-    : dict?.seo?.description || "Stay updated with the latest cryptocurrency news and blockchain insights.";
-
-  const ogDescription = article?.description
-    ? article.description.slice(0, 200).replace(/\n/g, ' ').trim()
-    : metaDescription;
-
-  const image        = article?.image || `${BASE_URL}/og-image.png`;
-  const canonicalUrl = `${BASE_URL}/${locale}/${slug}`;
-
-  // ✅ FIX: Safe ISO date — "2 hours ago" Google reject karta hai
-  const publishedTime = toISODate(article?.created_time ?? article?.publishedAt ?? article?.time);
-
-const modifiedTime = toISODate(
-  article?.updatedAt ?? article?.updated_time ?? article?.created_time ?? article?.time
-);
-
-  // ✅ Hreflang — sabhi locales ke liye
   const alternateLanguages = SUPPORTED_LOCALES.reduce((acc, lang) => {
-    acc[lang] = `${BASE_URL}/${lang}/${slug}`;
+    acc[HREFLANG_MAP[lang] || lang] = getCleanUrl(lang, slug);
     return acc;
   }, {});
-
-  // ✅ Author name — URL nahi, actual name
-  const authorName = article?.author || "CryptoNewsTrend Editorial";
+  alternateLanguages['x-default'] = getCleanUrl('en', slug);
 
   return {
     title,
-    description: metaDescription,
-
-    // ✅ Clean keywords
-    keywords: `cryptocurrency, blockchain, bitcoin, ethereum, ${article?.domain || 'cryptonewstrend'}, crypto news, ${article?.category || 'digital assets'}`,
-
-    // ✅ Canonical + Hreflang
-    alternates: {
-      canonical: canonicalUrl,
-      languages: alternateLanguages,
-    },
-
-    // ✅ Open Graph — Article type
+    description,
+    alternates: { canonical: canonicalUrl, languages: alternateLanguages },
     openGraph: {
       title,
-      description: ogDescription,
+      description,
       url: canonicalUrl,
       siteName: SITE_NAME,
-      images: [
-        {
-          url: image,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      images: [{ url: image, width: 1200, height: 630, alt: title }],
       locale,
       type: "article",
-      publishedTime,
-      modifiedTime,
-
-      // ✅ FIX: authors = name string, not URL
-      authors: [authorName],
-      section: article?.category || "Cryptocurrency",
-
-      article: {
-        publishedTime,
-        modifiedTime,
-        authors: [authorName],
-        tags: [
-          "cryptocurrency",
-          "blockchain",
-          "bitcoin",
-          "crypto news",
-          article?.domains || "www.cryptonewstrend.com",
-        ].filter(Boolean),
-      },
+      publishedTime: toISODate(article.time),
+      authors: [article.author || "CryptoNewsTrend Editorial"],
     },
-
-    // ✅ FIX: Real Twitter handle
     twitter: {
       card: "summary_large_image",
-      site: TWITTER_HANDLE,
-      creator: TWITTER_HANDLE,
       title,
-      description: metaDescription,
+      description,
       images: [image],
+      site: TWITTER_HANDLE,
     },
-
-    // ✅ Robots — full indexing with Google News flags
     robots: {
       index: true,
       follow: true,
       googleBot: {
         index: true,
         follow: true,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-        "max-video-preview": -1,
+        'max-image-preview': 'large',
       },
     },
   };
 }
 
-
-// app/[locale]/[slug]/page.jsx
-
-
-
-export async function generateStaticParams() {
-  const LOCALES = ['en', 'ur', 'ar', 'de', 'fr', 'ru', 'zh-CN', 'es'];
-  const params = [];
-
-  for (const locale of LOCALES) {
-    for (let page = 1; page <= 3; page++) {
-      try {
-        const res = await fetch(
-          `https://crytponews.fun/api/getdata${locale === 'en' ? '' : '/' + locale}/?page=${page}`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ news: 'all' }),
-            cache: 'no-store', // ✅ build time pe fresh data
-          }
-        );
-        const data = await res.json();
-
-        // ✅ DEBUG — ek baar build karo, structure dekho
-        if (locale === 'en' && page === 1) {
-          console.log('🔍 Keys:', Object.keys(data));
-          console.log('🔍 Sample:', JSON.stringify(data).slice(0, 400));
-        }
-
-        // ✅ Saare possible keys try karo
-        const items = data?.data || data?.results || data?.news || data?.articles || [];
-
-        items.forEach(item => {
-          const slug = item?.slug || item?.title || item?.id;
-          if (slug) params.push({ locale, slug: String(slug) });
-        });
-
-        const hasNext = data?.metadata?.has_next ?? data?.has_next ?? false;
-        if (!hasNext) break;
-
-      } catch(e) { 
-        console.log('❌ Error:', e.message);
-        break; 
-      }
-    }
-  }
-
-  console.log(`✅ Pre-built: ${params.length} pages`);
-  return params;
-}
-// generateMetadata aur Page component same rehenge
 // ─────────────────────────────────────────────
-// 2. PAGE COMPONENT — Structured Data + UI
+// 2. PAGE COMPONENT
 // ─────────────────────────────────────────────
 export default async function DiscriptionPage({ params }) {
   const { slug, locale } = await params;
-
   const [articleResponse, newsdataResponse, dict] = await Promise.all([
     getNewsById(locale, slug),
     Page_NewsData(locale, 2),
     getDictionary(locale),
   ]);
 
-  const icoData     = await fetchAllIcoProjects(locale);
-  const icoData1    = icoData?.data;
-  const article     = articleResponse?.data;
-  const topNewsData = newsdataResponse?.results || [];
+  const article = articleResponse?.data;
+  if (!article) return notFound();
 
- if (!article) return notFound();
+  const icoDataResponse = await fetchAllIcoProjects(locale);
+  const canonicalUrl = getCleanUrl(locale, slug);
+  const publishedTime = toISODate(article.time);
 
-  const canonicalUrl   = `${BASE_URL}/${locale}/${slug}`;
-  const authorName     = article?.author || "CryptoNewsTrend Editorial";
-
-  // ✅ FIX: Safe ISO dates
-  const publishedTime  = toISODate(article?.isoDate || article?.publishedAt || article?.time);
-  const modifiedTime   = article?.updatedAt && article.updatedAt !== article?.time
-    ? toISODate(article.updatedAt)
-    : publishedTime;
-
-  const description160 = article?.description
-    ? article.description.slice(0, 160).replace(/\n/g, ' ').trim()
-    : "";
-
-  // ✅ wordCount for schema
-  const wordCount = article?.description
-    ? article.description.split(/\s+/).filter(Boolean).length
-    : 0;
-
-  // ─────────────────────────────────────────────
-  // Schema 1: NewsArticle — Google News optimized
-  // ─────────────────────────────────────────────
-  const newsArticleSchema = {
+  // Advanced NewsArticle Schema
+  const jsonLd = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    headline: article?.title,
-    description: description160,
-    image: {
-      "@type": "ImageObject",
-      url: article?.image || `${BASE_URL}/og-image.png`,
-      width: 1200,
-      height: 630,
-    },
-    url: canonicalUrl,
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": canonicalUrl,
-    },
-    datePublished: publishedTime,
-    dateModified: modifiedTime,
-    inLanguage: locale,
-
-    // ✅ FIX: Person type with real name
-    author: {
-      "@type": "Person",
-      name: authorName,
-      url: `${BASE_URL}/about`,
-    },
-
-    publisher: {
+    "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
+    "headline": article.title,
+    "image": [article.image || `${BASE_URL}/og-image.png`],
+    "datePublished": publishedTime,
+    "dateModified": publishedTime,
+    "author": { "@type": "Person", "name": article.author || "CryptoNewsTrend Editorial", "url": BASE_URL },
+    "publisher": {
       "@type": "Organization",
-      name: SITE_NAME,
-      url: BASE_URL,
-      logo: {
-        "@type": "ImageObject",
-        url: `${BASE_URL}/logo.png`,
-        width: 200,
-        height: 60,
-      },
-    },
-
-    // ✅ NEW: articleSection — Google News category
-    articleSection: article?.category || "Cryptocurrency",
-
-    // ✅ NEW: wordCount — content quality signal
-    wordCount,
-
-    // ✅ NEW: speakable — Google News / voice search
-    speakable: {
-      "@type": "SpeakableSpecification",
-      cssSelector: ["h1", "article p:first-of-type"],
-    },
-
-    // ✅ keywords
-    keywords: `cryptocurrency, blockchain, bitcoin, ${article?.domain || 'crypto'}`,
-
-    // ✅ isBasedOn — source credit
-    ...(article?.link && {
-      isBasedOn: {
-        "@type": "NewsArticle",
-        url: article.link,
-        publisher: {
-          "@type": "Organization",
-          name: article?.domain || "Source",
-        },
-      },
-    }),
+      "name": SITE_NAME,
+      "logo": { "@type": "ImageObject", "url": `${BASE_URL}/logo.png` }
+    }
   };
 
-  // ─────────────────────────────────────────────
-  // Schema 2: BreadcrumbList
-  // ─────────────────────────────────────────────
-  const breadcrumbSchema = {
+  const breadcrumbLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "@id": `${canonicalUrl}#breadcrumb`,
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: `${BASE_URL}/${locale}`,
-      },
-    
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: article?.title,
-        item: canonicalUrl,
-      },
-    ],
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": `${BASE_URL}/${locale}` },
+      { "@type": "ListItem", "position": 2, "name": article.title, "item": canonicalUrl }
+    ]
   };
 
-  // ─────────────────────────────────────────────
-  // Schema 3: WebPage
-  // ─────────────────────────────────────────────
-  const webPageSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: article?.title,
-    description: description160,
-    url: canonicalUrl,
-    inLanguage: locale,
-    datePublished: publishedTime,
-    dateModified: modifiedTime,
-    publisher: {
-      "@type": "Organization",
-      name: SITE_NAME,
-      url: BASE_URL,
-    },
-    breadcrumb: {
-      "@id": `${canonicalUrl}#breadcrumb`,
-    },
-  };
-
-  // ─────────────────────────────────────────────
-  // Schema 4: Organization (site-level — Google Knowledge Panel)
-  // ─────────────────────────────────────────────
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: SITE_NAME,
-    url: BASE_URL,
-    logo: `${BASE_URL}/logo.png`,
-    sameAs: [
-      `https://twitter.com/CryptoNewsTrend`,
-      // Add more social links here
-    ],
-  };
-const descriptionStyle = {
-
-  color: '#252525',          // Dark grey/black color
-  fontFamily: 'Noto Sans, sans-serif' // Screenshot mein yehi font use ho raha hai
-};
   return (
     <>
-      {/* ✅ All Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(newsArticleSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
-      {/* ── UI — bilkul same, zero change ─────────────────────── */}
-      <article className="min-h-screen bg-white font-sans selection:bg-indigo-100 overflow-x-hidden">
-
-        {/* Premium Header */}
-        <header className="bg-white pt-10 md:pt-16 pb-6 md:pb-12">
+      <article className="min-h-screen bg-white dark:bg-slate-900 selection:bg-indigo-100">
+        <header className="pt-10 md:pt-16 pb-8 border-b border-slate-100 dark:border-slate-800">
           <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12">
-            <nav
-              aria-label="Breadcrumb"
-              className="flex items-center gap-3 text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-indigo-600 mb-6 md:mb-8"
-            >
-              <Link href={`/${locale}/`} className="opacity-60 hover:cursor-pointer">{dict.header.news}</Link>
-              <span className="text-slate-200">/</span>
-              <span className="bg-indigo-50 px-3 py-1 rounded-full">{article?.domains || 'cryptonewstrend.com'}</span>
+            <nav className="flex items-center gap-3 text-[11px] font-black uppercase tracking-widest text-indigo-600 mb-6">
+              <Link href={`/${locale}/`} className="hover:underline">{dict.header.news}</Link>
+              <span className="text-slate-300">/</span>
+              <span className="bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 rounded-full">
+                {article.domains || 'Market Update'}
+              </span>
             </nav>
 
-            <h1 className="text-slate-900 text-2xl md:text-5xl leading-tight md:leading-[1.1] font-black tracking-tight max-w-5xl mb-8 md:mb-10">
-              {article?.title}
+            <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl leading-tight font-black tracking-tight mb-8">
+              {article.title}
             </h1>
-            {/* Metadata Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-slate-100">
-              <div className="flex items-center gap-4 md:gap-8">
+
+            <div className="flex flex-wrap items-center justify-between gap-6 py-4">
+              <div className="flex items-center gap-8">
                 <div className="flex flex-col gap-1">
-                  <span className="text-[9px] uppercase font-black text-slate-400 tracking-widest">{dict?.news_slug?.source}</span>
-                  <div className="flex items-center gap-1.5 text-slate-900">
-                    <FiGlobe className="text-indigo-600 w-3 h-3 md:w-4 md:h-4" />
-                    <span className="text-xs md:text-sm font-bold">cryptonewstrend.com</span>
+                  <span className="text-[10px] uppercase font-bold text-slate-400">Source</span>
+                  <div className="flex items-center gap-1.5 text-slate-900 dark:text-slate-200 font-bold text-sm">
+                    <FiGlobe className="text-indigo-600" /> {SITE_NAME}
                   </div>
                 </div>
-                <div className="h-6 w-[1px] bg-slate-200" />
                 <div className="flex flex-col gap-1">
-                  <span className="text-[9px] uppercase font-black text-slate-400 tracking-widest">{dict?.news_slug?.published}</span>
-                  <div className="flex items-center gap-1.5 text-slate-900">
-                    <FiClock className="text-indigo-600 w-3 h-3 md:w-4 md:h-4" />
-                    {/* ✅ <time> tag with ISO dateTime — Google date parsing */}
-                    <time dateTime={publishedTime} className="text-xs md:text-sm font-bold">
-                      {article?.time}
-                    </time>
+                  <span className="text-[10px] uppercase font-bold text-slate-400">Published</span>
+                  <div className="flex items-center gap-1.5 text-slate-900 dark:text-slate-200 font-bold text-sm">
+                    <FiClock className="text-indigo-600" />
+                    <time dateTime={publishedTime}>{article.time}</time>
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
-                <ShareButton
-                  title={article?.title}
-                  url={canonicalUrl}
-                  image={article?.image || "/images/bitcoin.jpg"}
-                />
-              </div>
+              <ShareButton title={article.title} url={canonicalUrl} image={article.image} />
             </div>
           </div>
         </header>
 
-        {/* Main Content Grid */}
-      <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 py-4" style={{ fontFamily: "'Noto Sans', sans-serif" }}>
-  <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-10">
+        <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <div className="lg:col-span-8">
+              <div className="relative aspect-video w-full overflow-hidden rounded-2xl shadow-2xl mb-10">
+                <Image 
+                  src={article.image || "/images/placeholder.jpg"} 
+                  alt={article.title} 
+                  fill 
+                  priority 
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 800px"
+                />
+              </div>
 
-    {/* LEFT: Article Content */}
-    <div className="lg:col-span-8 flex flex-col min-w-0">
+              <div className="prose prose-lg dark:prose-invert max-w-none text-slate-800 dark:text-slate-300">
+                {article.description?.split('\n').map((para, i) => (
+                  para.trim() && (
+                    <p key={i} className={`leading-relaxed mb-6 ${i === 0 ? "text-xl font-semibold text-slate-900 dark:text-white" : ""}`}>
+                      {para}
+                    </p>
+                  )
+                ))}
+              </div>
+            </div>
 
-      {/* Featured Image */}
-      <figure className="relative aspect-[16/9] md:aspect-[21/10] w-full overflow-hidden  shadow-xl md:shadow-2xl shadow-indigo-100/50 mb-8 md:mb-16 border border-slate-100">
-        <Image
-          src={article?.image || "/images/bitcoin.jpg"}
-          alt={article?.title}
-          fill
-          priority
-          className="object-cover transition-transform duration-1000 hover:scale-105"
-          unoptimized
-        />
-      </figure>
-
-      {/* Article Body */}
-      <div className="max-w-none">
-        {/* leading-[1.2] used for line-height 12 style */}
-        <div className="text-slate-800 text-[16px] md:text-[18px] font-medium tracking-wide space-y-8 md:space-y-10 leading-[1.2]">
-          {article?.description?.split('\n').map((para, index) => (
-            para.trim() && (
-                   <p key={index} style={descriptionStyle} className='font-medium'>
-  {para}
-</p>
-            )
-          ))}
-        </div>
-  
-      </div>
-
-    </div>
-
-    {/* RIGHT: Sidebar */}
-    <aside className="lg:col-span-4 mt-10 lg:mt-0" aria-label="Sidebar">
-      <div className="lg:sticky lg:top-32 space-y-10">
-        <DonateBanner locale={locale} dict={dict} />
-        <div className=" rounded-[1.5rem] md:rounded-[2.5rem] p-5 md:p-6 ">
-          <TopNews serverData={topNewsData} locale={locale} dict={dict} />
-          <IcoSidebar icoData={icoData1} />
-        </div>
-      </div>
-    </aside>
-
-  </div>
-</main>
+            <aside className="lg:col-span-4 space-y-10">
+              <div className="sticky top-24 space-y-10">
+                <DonateBanner locale={locale} dict={dict} />
+                <TopNews serverData={newsdataResponse?.results || []} locale={locale} dict={dict} />
+                <IcoSidebar icoData={icoDataResponse?.data} />
+              </div>
+            </aside>
+          </div>
+        </main>
       </article>
-          <MobileSupportButton dict={dict} />
+
+      <MobileSupportButton dict={dict} />
       <CoinAnalysisFloat locale={locale} />
     </>
   );

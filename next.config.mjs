@@ -15,6 +15,18 @@ const nextConfig = {
         hostname: "nativeapi.site",
       },
       {
+        protocol: 'https',
+        hostname: 'image.coinpedia.org',
+        port: '',
+        pathname: '/**', // This allows all paths from this domain
+      },
+       {
+        protocol: 'https',
+        hostname: 'cryptonewstrend.com',
+        port: '',
+        pathname: '/**', // This allows all paths from this domain
+      },
+      {
         protocol: "https",
         hostname: "coindesk.com",
       },

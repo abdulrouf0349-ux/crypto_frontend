@@ -4,58 +4,60 @@ import Page_NewsData from '../../apis/page_news/page_newsData';
 import MoreNews from './MoreNews';
 
 export default async function MainNews({ locale, dict }) {
-  const slider_Data = await Page_NewsData(1, locale);
-  const initialNews = slider_Data?.results || [];
-  console.log(slider_Data,'kkkkkkkkkk')
+  const data = await Page_NewsData(1, locale);
+  const initialNews = data?.results || [];
+
+  const formatNewsTime = (timeStr) => {
+    if (!timeStr) return "";
+    const date = new Date(timeStr);
+    return isNaN(date.getTime()) ? timeStr : date.toLocaleDateString('en-US', {
+      day: '2-digit', month: 'short', year: 'numeric'
+    });
+  };
 
   return (
-    <div className="space-y-1">
-      {initialNews.map((newsItem, index) => (
-        <Link href={`/${locale}/${newsItem?.slug}`} key={index} className="group block">
-          <div className="flex flex-row max-sm:flex-col gap-3 sm:gap-6 py-5 px-3 max-sm:px-4 transition-all duration-300 hover:bg-slate-50 dark:hover:bg-gray-800 border-b border-slate-100 dark:border-gray-700 rounded-xl">
-            
-            {/* Image */}
-            <div className="relative flex-shrink-0 w-[160px] h-[122px] max-sm:w-full max-sm:h-[200px]">
-              <Image
-src={(newsItem?.image || newsItem?.image_main || "/images/bitcoin.jpg").replace(
-      'cryptonews.fun', 
-      'cryptonewstrend.com' // Yahan apna sahi domain name likhein jo aap chahte hain
-    )}                alt={newsItem?.title || "news"}
-                className="rounded-lg object-cover shadow-sm group-hover:shadow-md transition-all duration-300"
-                fill
-                sizes="(max-width: 640px) 100vw, 160px"
-                unoptimized 
-              />
-            </div>
+    <div className="space-y-4">
+      {initialNews.map((newsItem, index) => {
+        // Correct URL for English
+        const newsUrl = locale === 'en' ? `/${newsItem?.slug}` : `/${locale}/${newsItem?.slug}`;
+        
+        return (
+          <article key={index} className="group border-b border-slate-100 dark:border-gray-800 last:border-0">
+            <Link href={newsUrl} className="flex flex-row max-sm:flex-col gap-4 sm:gap-6 py-5 px-3 rounded-2xl transition-all hover:bg-slate-50 dark:hover:bg-slate-800/50">
+              
+              <div className="relative flex-shrink-0 w-[180px] h-[120px] max-sm:w-full max-sm:h-[210px] overflow-hidden rounded-xl">
+                <Image
+                  src={(newsItem?.image || newsItem?.image_main || "/images/placeholder.jpg").replace('cryptonews.fun', 'cryptonewstrend.com')}
+                  alt={newsItem?.title || "Crypto News"}
+                  className="object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  fill
+                  sizes="(max-width: 640px) 100vw, 180px"
+                  priority={index < 3} // SEO: Hero images should load fast
+                />
+              </div>
 
-            {/* Content */}
-            <div className="flex flex-col justify-between py-1">
-              <div>
-                {/* ✅ Title dark mode */}
-                <h2 className="text-lg leading-snug font-bold !text-slate-600 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200 line-clamp-2">
+              <div className="flex flex-col flex-1 py-1">
+                <h2 className="text-xl leading-tight font-bold text-slate-800 dark:text-slate-100 group-hover:text-indigo-600 transition-colors line-clamp-2">
                   {newsItem?.title}
                 </h2>
-                <div className="flex items-center gap-3 mt-3">
-                  {/* ✅ Domain badge dark mode */}
-                  <span className="text-[11px] font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-0.5 rounded">
-                    {newsItem?.domains || "cryptpnewstrend.com"}
+                <div className="flex items-center gap-3 mt-auto pt-3">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-1 rounded">
+                    {newsItem?.domains || "Market Update"}
                   </span>
-                  {/* ✅ Time dark mode */}
-                  <span className="text-[11px] font-medium text-slate-400 dark:text-gray-500">
-                    {newsItem?.time}
-                  </span>
+                  <time className="text-xs text-slate-400 dark:text-slate-500" dateTime={newsItem?.time}>
+                    {formatNewsTime(newsItem?.time)}
+                  </time>
                 </div>
               </div>
-            </div>
-          </div>
-        </Link>
-      ))}
+            </Link>
+          </article>
+        );
+      })}
 
       <MoreNews 
-        total_pages={slider_Data?.total_pages} 
+        total_pages={data?.total_pages} 
         locale={locale} 
         dict={dict} 
-        serverData={initialNews}
       />
     </div>
   );

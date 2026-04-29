@@ -65,68 +65,41 @@ const META = {
   },
 };
 
-// ── generateMetadata ──────────────────────────────────────────
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  const { title, description, keywords } = META[locale] || META["en"];
-  const canonicalUrl = `${BASE_URL}/${locale}/crypto-whales`;
-  const pageImage    = `${BASE_URL}/og-image-whales.jpg`;
+  const currentMeta = META[locale] || META["en"];
+  const path = "/crypto-whales";
+  const canonicalUrl = locale === "en" ? `${BASE_URL}${path}` : `${BASE_URL}/${locale}${path}`;
 
-  // ✅ FIX 2: zh-Hans + x-default + ru
-  const alternateLanguages = SUPPORTED_LOCALES.reduce((acc, lang) => {
-    const hreflang = LOCALE_TO_HREFLANG[lang] || lang;
-    acc[hreflang]  = `${BASE_URL}/${lang}/crypto-whales`;
+  const languages = SUPPORTED_LOCALES.reduce((acc, lang) => {
+    const langPath = lang === "en" ? path : `/${lang}${path}`;
+    acc[LOCALE_TO_HREFLANG[lang] || lang] = `${BASE_URL}${langPath}`;
     return acc;
   }, {});
-  alternateLanguages["x-default"] = `${BASE_URL}/en/crypto-whales`; // ✅ x-default
+
+  languages["x-default"] = `${BASE_URL}${path}`;
 
   return {
-    title,
-    description,
-    keywords,
-
-    alternates: {
-      canonical: canonicalUrl,
-      languages: alternateLanguages, // ✅ zh-Hans + ru + x-default
-    },
-
+    title: currentMeta.title,
+    description: currentMeta.description,
+    keywords: currentMeta.keywords,
+    alternates: { canonical: canonicalUrl, languages },
     openGraph: {
-      title:       `${title} | ${SITE_NAME}`,
-      description,
-      url:         canonicalUrl,
-      siteName:    SITE_NAME,                        // ✅ FIX 4: CryptoNews Trend
-      locale:      OG_LOCALE_MAP[locale] || "en_US", // ✅ FIX 3: en_US format
-      // ✅ FIX 6: alternateLocale add kiya
-      alternateLocale: SUPPORTED_LOCALES
-        .filter(l => l !== locale)
-        .map(l => OG_LOCALE_MAP[l] || l),
-      type:        "website",
-      images: [{
-        url:    pageImage,
-        width:  1200,
-        height: 630,
-        alt:    "Crypto Whale Tracker",
-      }],
+      title: `${currentMeta.title} | ${SITE_NAME}`,
+      description: currentMeta.description,
+      url: canonicalUrl,
+      siteName: SITE_NAME,
+      locale: OG_LOCALE_MAP[locale] || "en_US",
+      alternateLocale: SUPPORTED_LOCALES.filter(l => l !== locale).map(l => OG_LOCALE_MAP[l] || l),
+      type: "website",
+      images: [{ url: `${BASE_URL}/og-image-whales.jpg`, width: 1200, height: 630 }],
     },
-
     twitter: {
-      card:        "summary_large_image",
-      site:        "@cryptonews90841",
-      creator:     "@cryptonews90841", // ✅ creator add kiya
-      title:       `${title} | ${SITE_NAME}`,
-      description,
-      images:      [pageImage],
-    },
-
-    robots: {
-      index:  true,
-      follow: true,
-      googleBot: {
-        index:               true,
-        follow:              true,
-        "max-image-preview": "large",
-        "max-snippet":       -1,
-      },
+      card: "summary_large_image",
+      site: "@cryptonews90841",
+      title: `${currentMeta.title} | ${SITE_NAME}`,
+      description: currentMeta.description,
+      images: [`${BASE_URL}/og-image-whales.jpg`],
     },
   };
 }

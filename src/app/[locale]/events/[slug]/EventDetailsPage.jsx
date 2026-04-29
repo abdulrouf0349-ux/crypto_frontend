@@ -151,23 +151,24 @@ const EventDetailsPage = ({initialData}) => {
             </div>
 
             {/* Event Poster */}
-            <figure className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-slate-900 shadow-2xl">
-              <Image
-                src={event.image_src || '/placeholder-event.jpg'}
-                alt={`${event.title} – Event Poster`}
-                fill
-                className="object-cover opacity-80"
-                unoptimized
-              />
-            </figure>
+         <figure className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-slate-900 shadow-xl border border-slate-100">
+  <Image
+    src={event.image_src || '/placeholder-event.jpg'}
+    alt={`Official poster for ${event.title} crypto event`}
+    fill
+    priority // High priority for LCP
+    className="object-cover transition-transform duration-500 hover:scale-105"
+    unoptimized
+  />
+</figure>
 
             {/* Description */}
-            <div className="">
-                <span className='my-5'>Description</span>
-              <p className="text-slate-600 py-10 leading-relaxed text-base leading-7">
-                {event.description}
-              </p>
-            </div>
+          <section className="prose prose-slate max-w-none">
+    <h2 className="text-xl font-bold text-slate-900 mb-4">About this Event</h2>
+    <div className="text-slate-600 leading-relaxed space-y-4">
+        {event.description}
+    </div>
+</section>
           </div>
 
           {/* RIGHT: Sidebar */}

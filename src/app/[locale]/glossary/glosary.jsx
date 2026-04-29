@@ -128,17 +128,28 @@ export default function CoinsPage() {
         </div>
 
         {/* ── Header ── */}
-        <header className="max-w-[1400px] mx-auto px-4 max-sm:px-3 lg:px-28 mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-black tracking-tight mb-2 flex items-center gap-3">
-              <FiTrendingUp className="text-indigo-600" aria-hidden="true" />
-              {dict?.coin_glossary || 'Coin Glossary'}
-            </h1>
-            <p className="text-slate-500 text-sm">
-              Explore all cryptocurrencies, tokens, and blockchain projects.
-            </p>
-          </div>
-        </header>
+        {/* ── Header ── */}
+<header className="max-w-[1400px] mx-auto px-4 max-sm:px-3 lg:px-28 mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+  <div>
+    <h1 className="text-2xl md:text-4xl font-black tracking-tight mb-2 flex flex-wrap items-center gap-3">
+      <FiTrendingUp className="text-indigo-600 shrink-0" aria-hidden="true" />
+      {/* Dynamic H1 for better SEO */}
+      <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600">
+        {dict?.coin_glossary || 'Cryptocurrency Coin Glossary'} 2026
+      </span>
+      {/* Badge showing count */}
+      {!loading && coins.length > 0 && (
+        <span className="text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full border border-indigo-200 animate-fade-in">
+          10,000+ Projects
+        </span>
+      )}
+    </h1>
+    <p className="text-slate-500 text-base max-w-2xl leading-relaxed">
+      Comprehensive directory of <strong>Bitcoin, Ethereum</strong>, and all Altcoins. 
+      Analyze blockchain projects, tokens, and DeFi assets with real-time data.
+    </p>
+  </div>
+</header>
 
         {/* ── Filters ── */}
         <div className="max-w-[1400px] mx-auto px-4 max-sm:px-3 lg:px-28 mb-10">

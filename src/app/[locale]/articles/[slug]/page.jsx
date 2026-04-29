@@ -1,72 +1,65 @@
-// app/[locale]/article/[slug]/page.jsx  →  SERVER COMPONENT
 import { getDictionary } from "../../../../../i18n/getDictionary";
 import ArticleSlugClient from "./ArticleSlugClient";
-import { getArticleBySlug } from "../../../../../apis/page_news/events";  
-export const dynamicParams = true;
-export const revalidate = false;
-import { fetchAllArticles } from "../../../../../apis/page_news/events";
+import { getArticleBySlug, fetchAllArticles } from "../../../../../apis/page_news/events";
 import MobileSupportButton from "../../../../../components/Right_side/MobileSupportButton";
 import CoinAnalysisFloat from "../../../../../components/Data/CoinAnalysisFloat";
-// ─────────────────────────────────────────────
-// CONSTANTS
-// ─────────────────────────────────────────────
+
+export const dynamicParams = true;
+export const revalidate = 43200; // 12 ghante baad refresh (Performance + Freshness)
+
 const BASE_URL          = "https://cryptonewstrend.com";
-const DJANGO_URL        = "https://crytponews.fun";
-const SITE_NAME         = "CryptoNewsTrend";
+const SITE_NAME         = "CryptoNews Trend";
 const TWITTER_HANDLE    = "@cryptonews90841";
-const SUPPORTED_LOCALES = ["en", "ur", "es", "fr", "de", "ar", "zh-CN"];
+const SUPPORTED_LOCALES = ["en", "ur", "es", "ru", "fr", "de", "ar", "zh-CN"];
 
-// ─────────────────────────────────────────────
-// API — Article fetch
-// ─────────────────────────────────────────────
+const LOCALE_TO_HREFLANG = {
+  "en": "en", "ur": "ur", "ar": "ar", "de": "de",
+  "fr": "fr", "ru": "ru", "zh-CN": "zh-Hans", "es": "es",
+};
 
+// ── UTILITY: SEO URLs ──────────────────────────────
+const getCleanArticleUrl = (locale, slug) => {
+  const path = `/articles/${slug}`;
+  return locale === 'en' ? `${BASE_URL}${path}` : `${BASE_URL}/${locale}${path}`;
+};
 
-// ─────────────────────────────────────────────
-// HELPER — safe ISO date
-// ─────────────────────────────────────────────
 function toISODate(val) {
   if (!val) return new Date().toISOString();
   const d = new Date(val);
   return isNaN(d.getTime()) ? new Date().toISOString() : d.toISOString();
 }
 
-// ─────────────────────────────────────────────
-// 1. generateMetadata
-// ─────────────────────────────────────────────
+// ── generateMetadata ──────────────────────────────────────────
 export async function generateMetadata({ params }) {
   const { slug, locale } = await params;
-
-  const [article, dict] = await Promise.all([
-    getArticleBySlug(slug, locale),
-    getDictionary(locale).catch(() => ({})),
-  ]);
+  const article = await getArticleBySlug(slug, locale).catch(() => null);
 
   if (!article) {
     return {
-      title:       `Article Not Found | ${SITE_NAME}`,
-      description: "This article could not be found.",
-      robots:      { index: false },
+      title: `Article Not Found | ${SITE_NAME}`,
+      robots: { index: false },
     };
   }
 
-  const title       = article.title;
-  const description = article.meta_description
-    ? article.meta_description.slice(0, 160).trim()
-    : `Read ${article.title} on ${SITE_NAME} your trusted source for crypto news and blockchain insights.`;
+  const title = `${article.title} | ${SITE_NAME}`;
+  const description = article.meta_description 
+    ? article.meta_description.slice(0, 160).trim() 
+    : `${article.title}. Learn more about ${article.category || 'cryptocurrency'} insights and analysis at ${SITE_NAME}.`;
 
-  const image        = article.main_image || `${BASE_URL}/og-image.png`;
-  const canonicalUrl = `${BASE_URL}/${locale}/articles/${slug}`;
+  const image = article.main_image || `${BASE_URL}/og-image.png`;
+  const canonicalUrl = getCleanArticleUrl(locale, slug);
   const publishedTime = toISODate(article.created_at);
 
+  // Multilingual SEO (Hreflang)
   const alternateLanguages = SUPPORTED_LOCALES.reduce((acc, lang) => {
-    acc[lang] = `${BASE_URL}/${lang}/articles/${slug}`;
+    acc[LOCALE_TO_HREFLANG[lang] || lang] = getCleanArticleUrl(lang, slug);
     return acc;
-  }, {});
+  }, { "x-default": getCleanArticleUrl('en', slug) });
 
   return {
     title,
     description,
-    keywords: `${article.category}, cryptocurrency, blockchain, bitcoin, ethereum, crypto news, ${SITE_NAME}`,
+    keywords: `${article.category || 'crypto'}, blockchain trends, ${article.title.split(' ').slice(0, 5).join(', ')}, ${SITE_NAME}`,
     alternates: {
       canonical: canonicalUrl,
       languages: alternateLanguages,
@@ -74,74 +67,54 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title,
       description,
-      url:           canonicalUrl,
-      siteName:      SITE_NAME,
-      images: [{
-        url:    image,
-        width:  1200,
-        height: 630,
-        alt:    title,
-      }],
-      locale,
-      type:          "article",
+      url: canonicalUrl,
+      siteName: SITE_NAME,
+      images: [{ url: image, width: 1200, height: 630, alt: article.title }],
+      locale: locale === 'ur' ? 'ur_PK' : (locale === 'en' ? 'en_US' : locale),
+      type: "article",
       publishedTime,
-      modifiedTime:  publishedTime,
-      authors:       [article.author || "CryptoNewsTrend Editorial"],
-      section:       article.category || "Cryptocurrency",
+      authors: [article.author || SITE_NAME],
+      section: article.category || "Blockchain",
     },
     twitter: {
-      card:        "summary_large_image",
-      site:        TWITTER_HANDLE,
-      creator:     TWITTER_HANDLE,
+      card: "summary_large_image",
+      site: TWITTER_HANDLE,
       title,
       description,
-      images:      [image],
+      images: [image],
     },
     robots: {
-      index:  true,
+      index: true,
       follow: true,
       googleBot: {
-        index:               true,
-        follow:              true,
-        "max-image-preview": "large",
-        "max-snippet":       -1,
-        "max-video-preview": -1,
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
       },
     },
   };
 }
 
-
+// ── generateStaticParams ────────────────────────────────────────
 export async function generateStaticParams() {
-  const LOCALES = ['en', 'ur', 'ar', 'de', 'fr', 'ru', 'zh-CN', 'es'];
   const params = [];
-
-  for (const locale of LOCALES) {
-    let page = 1;
-
-    for (page = 1; page <= 3; page++) {
-      try {
-        const result = await fetchAllArticles(locale, page);
-
-        if (!result.success) break;
-
-        result.data?.forEach(item => {
+  // Basic locales ko build time pe handle karte hain optimization ke liye
+  const subset = ["en", "ur"]; 
+  for (const locale of subset) {
+    try {
+      const result = await fetchAllArticles(locale, 1);
+      if (result?.success && result.data) {
+        result.data.slice(0, 10).forEach(item => {
           if (item.slug) params.push({ locale, slug: item.slug });
         });
-
-        // Agle page nahi hai toh loop tod do
-        if (!result.has_next) break;
-
-      } catch { break; }
-    }
+      }
+    } catch (e) { console.error("Static Param Error", e); }
   }
-
-  console.log(`✅ Articles Pre-built: ${params.length} pages`);
   return params;
 }
-// ─────────────────────────────────────────────
-// 2. PAGE COMPONENT
-// ─────────────────────────────────────────────
+
+// ── Page Component ────────────────────────────────────────────
 export default async function ArticleSlugPage({ params }) {
   const { slug, locale } = await params;
 
@@ -150,94 +123,55 @@ export default async function ArticleSlugPage({ params }) {
     getDictionary(locale).catch(() => ({})),
   ]);
 
-  const canonicalUrl  = `${BASE_URL}/${locale}/articles/${slug}`;
-  const publishedTime = toISODate(article?.created_at);
-  const image         = article?.main_image || `${BASE_URL}/og-image.png`;
-  const authorName    = article?.author || "CryptoNewsTrend Editorial";
-  const wordCount     = article?.content
-    ? article.content.replace(/<[^>]*>/g, '').split(/\s+/).filter(Boolean).length
-    : 0;
+  if (!article) return <div className="text-center py-32 font-black text-2xl uppercase">Article not found.</div>;
 
-  // ── Schema 1: Article ─────────────────────────────────────
-  const articleSchema = article ? {
-    "@context":   "https://schema.org",
-    "@type":      "Article",
-    headline:      article.title,
-    description:   article.meta_description?.slice(0, 160) || "",
-    image: {
-      "@type": "ImageObject",
-      url:      image,
-      width:    1200,
-      height:   630,
-    },
-    url:           canonicalUrl,
-    datePublished: publishedTime,
-    dateModified:  publishedTime,
-    inLanguage:    locale,
-    wordCount,
-    articleSection: article.category || "Cryptocurrency",
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id":    canonicalUrl,
-    },
-    author: {
-      "@type": "Person",
-      name:     authorName,
-      url:      `${BASE_URL}/`,
-    },
-    publisher: {
-      "@type": "Organization",
-      name:     SITE_NAME,
-      url:      BASE_URL,
-      logo: {
-        "@type":  "ImageObject",
-        url:      `${BASE_URL}/logo.png`,
-        width:    200,
-        height:   60,
-      },
-    },
-    speakable: {
-      "@type":      "SpeakableSpecification",
-      cssSelector:  ["h1", "article p:first-of-type"],
-    },
-    keywords: `${article.category}, cryptocurrency, blockchain, bitcoin`,
-  } : null;
-
-  // ── Schema 2: BreadcrumbList ──────────────────────────────
-  const breadcrumbSchema = {
+  const canonicalUrl  = getCleanArticleUrl(locale, slug);
+  const publishedTime = toISODate(article.created_at);
+  const image         = article.main_image || `${BASE_URL}/og-image.png`;
+  
+  // ✅ 1. NewsArticle Schema (Google News ke liye BEST)
+  const articleSchema = {
     "@context": "https://schema.org",
-    "@type":    "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home",     item: `${BASE_URL}/${locale}` },
-      { "@type": "ListItem", position: 2, name: "Articles", item: `${BASE_URL}/${locale}/articles` },
-      { "@type": "ListItem", position: 3, name: article?.title || slug, item: canonicalUrl },
-    ],
+    "@type": "NewsArticle",
+    "headline": article.title,
+    "description": article.meta_description || article.title,
+    "image": [image],
+    "datePublished": publishedTime,
+    "dateModified": publishedTime, 
+    "author": {
+      "@type": "Person",
+      "name": article.author || "Talha Ishtiaq",
+      "url": `${BASE_URL}/about`
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": SITE_NAME,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${BASE_URL}/logo.png`
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": canonicalUrl
+    }
   };
 
-  // ── Schema 3: WebPage ─────────────────────────────────────
-  const webPageSchema = {
-    "@context":    "https://schema.org",
-    "@type":       "WebPage",
-    name:           article?.title || slug,
-    description:    article?.meta_description?.slice(0, 160) || "",
-    url:            canonicalUrl,
-    inLanguage:     locale,
-    datePublished:  publishedTime,
-    dateModified:   publishedTime,
-    publisher: {
-      "@type": "Organization",
-      name:     SITE_NAME,
-      url:      BASE_URL,
-    },
+  // ✅ 2. Breadcrumb Schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": locale === 'en' ? BASE_URL : `${BASE_URL}/${locale}` },
+      { "@type": "ListItem", "position": 2, "name": "Articles", "item": locale === 'en' ? `${BASE_URL}/articles` : `${BASE_URL}/${locale}/articles` },
+      { "@type": "ListItem", "position": 3, "name": article.title, "item": canonicalUrl },
+    ],
   };
 
   return (
     <>
-      {articleSchema && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-      )}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }} />
 
       <ArticleSlugClient
         initialData={article}
@@ -247,9 +181,9 @@ export default async function ArticleSlugPage({ params }) {
         canonicalUrl={canonicalUrl}
         publishedTime={publishedTime}
       />
-       <MobileSupportButton dict={dict} />
-                      <CoinAnalysisFloat locale={locale} /> 
+      
+      <MobileSupportButton dict={dict} />
+      <CoinAnalysisFloat locale={locale} /> 
     </>
-
   );
 }

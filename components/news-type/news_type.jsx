@@ -59,7 +59,9 @@ const intelArticles = Array.isArray(articlesData) ? articlesData.slice(0, 8) : [
       <div className="!bg-[#eee9e9] w-full h-[100px] md:h-[150px]"></div>
       
       <News_TypeButtonServer locale={locale} dict={dict}/>
-
+<h1 className="sr-only">
+  {news_name.charAt(0).toUpperCase() + news_name.slice(1)} News, Price Analysis & Predictions
+</h1>
       {/* Main Content Grid */}
       <div className="max-w-[1400px] mx-auto  lg:px-28 md:px-6 mt-5">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10">
@@ -97,7 +99,7 @@ const intelArticles = Array.isArray(articlesData) ? articlesData.slice(0, 8) : [
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {intelArticles?.map((art, i) => (
               <a 
-                href={`/${locale}/articles//${art.slug}`} 
+                href={`/${locale}/articles/${art.slug}`} 
                 key={i} 
                 className="group !bg-white p-4 rounded-[1.5rem] md:rounded-[2rem] border border-slate-100 hover:border-indigo-100 transition-all shadow-sm hover:shadow-xl flex flex-col"
               >
@@ -109,9 +111,9 @@ const intelArticles = Array.isArray(articlesData) ? articlesData.slice(0, 8) : [
                   />
                 </div>
                 <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">{art.category}</span>
-                <h4 className="text-sm md:text-md font-bold text-slate-900 mt-2 line-clamp-2 leading-snug group-hover:text-indigo-700">
+                <h2 className="text-sm md:text-md font-bold text-slate-900 mt-2 line-clamp-2 leading-snug group-hover:text-indigo-700">
                   {art.title}
-                </h4>
+                </h2>
               </a>
             ))}
           </div>
