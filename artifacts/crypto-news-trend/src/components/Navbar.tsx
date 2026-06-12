@@ -65,7 +65,7 @@ export function Navbar() {
                 <ChevronDown className="w-3 h-3 opacity-70" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="min-w-[140px]">
+            <DropdownMenuContent align="end" className="min-w-[150px] max-h-72 overflow-y-auto z-[9999]">
               {LOCALES.map((locale) => (
                 <DropdownMenuItem
                   key={locale.code}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { mockCoinAnalysis } from "@/lib/mockData";
 import { Search, BrainCircuit, Activity, BarChart2, TrendingUp, TrendingDown, Check, X, Circle, LineChart } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -8,7 +8,17 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function CoinAnalysis() {
   const [search, setSearch] = useState("");
+
   const [selectedCoinSymbol, setSelectedCoinSymbol] = useState("BTC");
+
+  useEffect(() => {
+    const html = document.documentElement;
+    const wasDark = html.classList.contains("dark");
+    html.classList.add("dark");
+    return () => {
+      if (!wasDark) html.classList.remove("dark");
+    };
+  }, []);
 
   const coins = mockCoinAnalysis;
   const selectedCoin = coins.find(c => c.symbol === selectedCoinSymbol) || coins[0];
