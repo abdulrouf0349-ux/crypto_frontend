@@ -45,39 +45,41 @@ export default function Home() {
     <div className="container mx-auto px-4 py-8">
       {/* Featured Article */}
       {featured && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="relative w-full h-[400px] md:h-[500px] rounded-xl overflow-hidden mb-12 group cursor-pointer"
-        >
-          <img
-            src={featured.imageUrl}
-            alt={featured.title}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-[#0d1117]/80 to-transparent" />
-          <div className="absolute bottom-0 left-0 p-6 md:p-10 w-full md:w-3/4">
-            <div className="flex gap-2 mb-4">
-              <Badge className="bg-purple-600 hover:bg-purple-700 text-white border-0">{featured.category}</Badge>
-              {featured.isBreaking && (
-                <Badge className="bg-orange-500 hover:bg-orange-600 text-white border-0">
-                  {t("home.breaking")}
-                </Badge>
-              )}
+        <Link href={`/news/${featured.slug}`}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="relative w-full h-[400px] md:h-[500px] rounded-xl overflow-hidden mb-12 group cursor-pointer"
+          >
+            <img
+              src={featured.imageUrl}
+              alt={featured.title}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-[#0d1117]/80 to-transparent" />
+            <div className="absolute bottom-0 left-0 p-6 md:p-10 w-full md:w-3/4">
+              <div className="flex gap-2 mb-4">
+                <Badge className="bg-purple-600 hover:bg-purple-700 text-white border-0">{featured.category}</Badge>
+                {featured.isBreaking && (
+                  <Badge className="bg-orange-500 hover:bg-orange-600 text-white border-0">
+                    {t("home.breaking")}
+                  </Badge>
+                )}
+              </div>
+              <h1 className="text-3xl md:text-5xl font-display font-bold text-white mb-4 leading-tight group-hover:text-purple-300 transition-colors">
+                {featured.title}
+              </h1>
+              <p className="text-gray-300 text-sm md:text-base line-clamp-2 md:line-clamp-3 mb-4">
+                {featured.excerpt}
+              </p>
+              <div className="flex items-center gap-4 text-xs text-gray-400 font-mono">
+                <span>{formatDistanceToNow(new Date(featured.date), { addSuffix: true })}</span>
+                <span className="w-1 h-1 rounded-full bg-gray-600" />
+                <span>{featured.readTime} {t("home.minRead")}</span>
+              </div>
             </div>
-            <h1 className="text-3xl md:text-5xl font-display font-bold text-white mb-4 leading-tight">
-              {featured.title}
-            </h1>
-            <p className="text-gray-300 text-sm md:text-base line-clamp-2 md:line-clamp-3 mb-4">
-              {featured.excerpt}
-            </p>
-            <div className="flex items-center gap-4 text-xs text-gray-400 font-mono">
-              <span>{formatDistanceToNow(new Date(featured.date), { addSuffix: true })}</span>
-              <span className="w-1 h-1 rounded-full bg-gray-600" />
-              <span>5 {t("home.minRead")}</span>
-            </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </Link>
       )}
 
       {/* Categories */}
@@ -104,34 +106,37 @@ export default function Home() {
         {/* Main News List */}
         <div className="lg:col-span-8 flex flex-col gap-6">
           {filteredNews.slice(0, visibleCount).map((news, i) => (
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.05 }}
-              key={news.id}
-              className="flex flex-col sm:flex-row gap-4 group cursor-pointer p-4 -mx-4 rounded-lg hover:bg-gray-50 dark:hover:bg-[#161b22]/50 transition-colors"
-            >
-              <div className="w-full sm:w-[150px] h-[100px] shrink-0 overflow-hidden rounded-md">
-                <img
-                  src={news.imageUrl}
-                  alt={news.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-              <div className="flex flex-col justify-center flex-grow">
-                <div className="mb-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
-                    {t("home.marketUpdate")}
-                  </span>
+            <Link href={`/news/${news.slug}`} key={news.id}>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.05 }}
+                className="flex flex-col sm:flex-row gap-4 group cursor-pointer p-4 -mx-4 rounded-lg hover:bg-gray-50 dark:hover:bg-[#161b22]/50 transition-colors"
+              >
+                <div className="w-full sm:w-[150px] h-[100px] shrink-0 overflow-hidden rounded-md">
+                  <img
+                    src={news.thumbnailUrl}
+                    alt={news.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
                 </div>
-                <h3 className="text-lg font-display font-semibold mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors line-clamp-2">
-                  {news.title}
-                </h3>
-                <div className="text-xs text-muted-foreground font-mono">
-                  {formatDistanceToNow(new Date(news.date), { addSuffix: true })}
+                <div className="flex flex-col justify-center flex-grow">
+                  <div className="mb-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                      {news.tag}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-display font-semibold mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors line-clamp-2">
+                    {news.title}
+                  </h3>
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground font-mono">
+                    <span>{formatDistanceToNow(new Date(news.date), { addSuffix: true })}</span>
+                    <span className="w-1 h-1 rounded-full bg-border" />
+                    <span>{news.readTime} {t("home.minRead")}</span>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </Link>
           ))}
 
           {visibleCount < filteredNews.length && (
@@ -156,23 +161,25 @@ export default function Home() {
               </h3>
               <div className="flex flex-col gap-6">
                 {mockTopStories.map((story) => (
-                  <div key={story.id} className="flex gap-4 group cursor-pointer">
-                    <img
-                      src={story.imageUrl}
-                      alt={story.title}
-                      className="w-[60px] h-[60px] rounded object-cover shrink-0"
-                    />
-                    <div>
-                      <h4 className="font-semibold text-sm line-clamp-2 group-hover:text-purple-500 transition-colors mb-1">
-                        {story.title}
-                      </h4>
-                      <div className="flex items-center gap-2 text-[10px] text-muted-foreground font-mono">
-                        <span className="text-orange-500">{story.category}</span>
-                        <span>•</span>
-                        <span>{formatDistanceToNow(new Date(story.date))}</span>
+                  <Link href={`/news/${story.slug}`} key={story.id}>
+                    <div className="flex gap-4 group cursor-pointer">
+                      <img
+                        src={story.thumbnailUrl}
+                        alt={story.title}
+                        className="w-[60px] h-[60px] rounded object-cover shrink-0 transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div>
+                        <h4 className="font-semibold text-sm line-clamp-2 group-hover:text-purple-500 transition-colors mb-1">
+                          {story.title}
+                        </h4>
+                        <div className="flex items-center gap-2 text-[10px] text-muted-foreground font-mono">
+                          <span className="text-orange-500">{story.category}</span>
+                          <span>•</span>
+                          <span>{formatDistanceToNow(new Date(story.date))}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </CardContent>
