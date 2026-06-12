@@ -1,12 +1,25 @@
+import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Flame, Moon, Sun, Menu } from "lucide-react";
+import { Flame, Moon, Sun, Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
+const LOCALES = [
+  { code: "en", label: "EN", name: "English" },
+  { code: "ur", label: "UR", name: "اردو" },
+  { code: "es", label: "ES", name: "Español" },
+  { code: "ru", label: "RU", name: "Русский" },
+  { code: "fr", label: "FR", name: "Français" },
+  { code: "de", label: "DE", name: "Deutsch" },
+  { code: "ar", label: "AR", name: "العربية" },
+  { code: "zh-CN", label: "ZH", name: "中文" },
+];
+
 export function Navbar() {
   const [location] = useLocation();
   const { theme, setTheme } = useTheme();
+  const [activeLang, setActiveLang] = useState(LOCALES[0]);
 
   const navLinks = [
     { label: "NEWS", path: "/" },
@@ -47,14 +60,22 @@ export function Navbar() {
         <div className="flex items-center gap-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="hidden sm:flex text-gray-300 hover:text-white hover:bg-gray-800">
-                EN
+              <Button variant="ghost" size="sm" className="hidden sm:flex items-center gap-1 text-gray-300 hover:text-white hover:bg-gray-800 font-medium tracking-wider">
+                {activeLang.label}
+                <ChevronDown className="w-3 h-3 opacity-70" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>EN - English</DropdownMenuItem>
-              <DropdownMenuItem>ES - Español</DropdownMenuItem>
-              <DropdownMenuItem>FR - Français</DropdownMenuItem>
+            <DropdownMenuContent align="end" className="min-w-[140px]">
+              {LOCALES.map((locale) => (
+                <DropdownMenuItem
+                  key={locale.code}
+                  onClick={() => setActiveLang(locale)}
+                  className={`flex items-center gap-2 cursor-pointer ${activeLang.code === locale.code ? "text-purple-500 font-semibold" : ""}`}
+                >
+                  <span className="w-7 font-bold text-xs">{locale.label}</span>
+                  <span className="text-sm text-muted-foreground">{locale.name}</span>
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
 

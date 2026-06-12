@@ -19,7 +19,7 @@ export default function CoinAnalysis() {
   );
 
   return (
-    <div className="min-h-screen bg-[#0d1117] text-[#e6edf3] forced-dark dark selection:bg-purple-500/30">
+    <div className="dark min-h-screen bg-[#0d1117] text-[#e6edf3] selection:bg-purple-500/30">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl md:text-5xl font-display font-bold mb-3 flex items-center gap-3">
