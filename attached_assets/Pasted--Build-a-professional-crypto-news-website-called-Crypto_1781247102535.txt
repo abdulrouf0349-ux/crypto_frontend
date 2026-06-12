@@ -1,0 +1,220 @@
+
+Build a professional crypto news website called "CryptoNewsTrend" in Next.js 15 (App Router) with Tailwind CSS v4. It should be a pixel-perfect clone of cryptonewstrend.com with full SEO, dark/light mode, SSR/SSG, and sitemap support.
+
+## TECH STACK
+- Next.js 15 (App Router)
+- Tailwind CSS v4
+- TypeScript
+- next-themes (dark/light mode)
+- next-sitemap (sitemap + robots.txt)
+- next/font (Google Fonts: Space Grotesk for headings, Inter for body)
+- Dummy JSON data (no real API needed, use mock data)
+
+---
+
+## DESIGN — Match cryptonewstrend.com EXACTLY
+
+### Colors
+- Dark bg: #0d1117
+- Dark card: #161b22
+- Dark border: #21262d
+- Light bg: #f6f8fa
+- Light card: #ffffff
+- Light border: #e1e4e8
+- Accent purple: #7c3aed
+- Accent orange: #f97316 (logo accent)
+- Text primary dark: #e6edf3
+- Text muted dark: #8b949e
+- Text primary light: #1f2937
+- Text muted light: #6b7280
+- Tag blue: #1d4ed8 bg with #93c5fd text
+- Breaking badge: #7c3aed
+
+### Typography
+- Headings: Space Grotesk (700, 600)
+- Body: Inter (400, 500)
+- Nav links: Inter 500, uppercase, letter-spacing 0.05em
+- Tags/badges: Inter 600, uppercase, 0.6rem
+
+### Layout
+- Max container: 1280px centered
+- Main grid: 65% content + 35% sidebar (desktop), single column (mobile)
+- Navbar: sticky top, dark bg, logo left, nav links center, EN language dropdown right
+
+---
+
+## PAGES & ROUTES
+
+### 1. `/` — News Homepage
+- Hero: large featured article card with category badge + breaking label
+- Filter pills: ALL | BITCOIN | ETHEREUM | BLOCKCHAIN | DEFI | NFTS | CRYPTOCURRENCY | ALTCOIN | STAKING | DAO | MINING
+- News list: article card with thumbnail (150x100), title, MARKET UPDATE tag, date
+- Sidebar: Top Stories list, Market Events list, Donate widget, Ad placeholder
+- "View More" button (loads more mock articles)
+- SSG with revalidate every 60s
+
+### 2. `/events` — Web3 & Fintech Events
+- Header: "Web3 & Fintech Events" + subtitle
+- Filter: ALL | ONGOING | UPCOMING | ENDED + search input
+- Event cards grid (4 cols desktop): image banner, event name, location pin icon, date
+- SSG
+
+### 3. `/crypto-whales` — Whale Tracker
+- Header: "Crypto Whale Tracker" + subtitle "Real-time large transaction monitor..."
+- Filter pills: All Alerts | Burn | Mint | Transfer + search
+- Transaction cards grid (4 cols): type badge (TRANSFER/MINT in yellow/green), coin, amount, USD value, FROM/TO wallets, date/time
+- SSR (simulates real-time data)
+
+### 4. `/ico` — ICO Launchpad
+- Tabs: Active Projects | Upcoming Projects | Ended Projects
+- Page title: "Crypto Launchpad & Token Sales"
+- Project cards: logo, name, description, time badge (45H LEFT / FROM Q4 2025), Whitelist + Details buttons
+- SSG
+
+### 5. `/coin-analysis` — Coin Analysis (AI Terminal)
+- Dark themed full page
+- Title: "Coin Analysis" with subtitle "FINBERT AI · RSI · MACD · VOLUME"
+- Search bar with quick-select pills: Bitcoin | Ethereum | Solana | BNB | XRP | DOGE | Cardano | Avalanche | Chainlink | TON
+- On coin select, show analysis card:
+  - Coin name, symbol, rank badge, price, % change
+  - Signal badge: HOLD/BUY/SELL with confidence score gauge (0-100)
+  - Stats grid: RSI signal | MACD signal | AI Sentiment | VOL/MCAP %
+  - Analysis breakdown checklist (bullish/bearish/neutral items)
+  - Key Price Levels table: TARGET 1/2/3, RESISTANCE, SUPPORT, STOP LOSS
+  - "View Chart + Levels" button
+- Use dummy data for all coins
+
+---
+
+## COMPONENTS
+
+### Navbar
+- Logo: orange flame icon + "CryptoNewsTrend" text
+- Nav: NEWS | EVENTS | WHALES TRACKING | ICO | COIN ANALYSIS
+- Active link: white with bottom purple underline
+- Language dropdown: EN (default), UR, AR, RU, ES, FR, DE, ZH
+- Dark/Light toggle button (moon/sun icon)
+- Mobile: hamburger menu
+
+### NewsCard
+- Horizontal layout: 150px thumbnail + text block
+- Title (font-semibold, clamp 2 lines)
+- Tag pill (MARKET UPDATE in blue) + date
+
+### EventCard
+- Image banner (aspect-video)
+- UPCOMING/ONGOING/ENDED colored badge overlay
+- Title, location (pin icon), date/time
+
+### WhaleCard
+- Colored header: yellow for TRANSFER, green for MINT, red for BURN
+- Amount in large text, USD below
+- FROM → TO wallet addresses (truncated)
+- Timestamp
+
+### SidebarTopStory
+- Small thumbnail (60x60) + title (clamp 2 lines) + tag + time ago
+
+### DonateWidget
+- Dark card, sparkles emoji, title, description
+- ERC20 address with copy button
+- "Help the Project" header with terminal icon
+
+### BreakingBadge, CategoryBadge, TimeBadge components
+
+---
+
+## SEO (CRITICAL)
+
+### Every page must have:
+```tsx
+// app/layout.tsx
+export const metadata: Metadata = {
+  metadataBase: new URL('https://cryptonewstrend.com'),
+  title: { default: 'CryptoNewsTrend', template: '%s | CryptoNewsTrend' },
+  description: 'Latest crypto news, whale tracking, ICO launchpad...',
+  keywords: ['crypto news', 'bitcoin', 'ethereum', 'blockchain', 'whale tracker'],
+  openGraph: { type: 'website', locale: 'en_US', siteName: 'CryptoNewsTrend' },
+  twitter: { card: 'summary_large_image', site: '@cryptonewstrend' },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+  alternates: { canonical: '/' }
+}
+```
+
+### Per-page dynamic metadata using generateMetadata()
+### JSON-LD structured data on homepage and article pages (NewsArticle schema)
+### Semantic HTML: <article>, <nav>, <main>, <aside>, <header>, <footer>
+### next-sitemap config with all routes
+### robots.txt: allow all crawlers
+### Image: always use alt text, next/image with sizes prop
+
+---
+
+## MOCK DATA
+
+Create `/lib/mockData.ts` with:
+- 20+ news articles (title, slug, category, image, date, tag, isFeatured, isBreaking)
+- 8+ events (name, location, date, status, image)
+- 10+ whale transactions (type, coin, amount, usdValue, from, to, timestamp)
+- 6+ ICO projects (name, logo, desc, status, timeLeft)
+- 10 coins for analysis (name, symbol, price, change, rsi, macd, sentiment, signal, confidence, targets)
+
+---
+
+## THEME (next-themes)
+
+- ThemeProvider in root layout
+- CSS variables approach:
+  --bg-primary, --bg-card, --border, --text-primary, --text-muted
+- Toggle button in navbar switches theme
+- System preference default
+- No flash on load (suppressHydrationWarning)
+
+---
+
+## FILE STRUCTURE
+```
+app/
+  layout.tsx (navbar, footer, theme provider)
+  page.tsx (homepage SSG)
+  events/page.tsx
+  crypto-whales/page.tsx
+  ico/page.tsx
+  coin-analysis/page.tsx
+components/
+  Navbar.tsx
+  Footer.tsx
+  NewsCard.tsx
+  EventCard.tsx
+  WhaleCard.tsx
+  ICOCard.tsx
+  CoinAnalysis.tsx
+  Sidebar.tsx
+  CategoryFilter.tsx
+  ThemeToggle.tsx
+lib/
+  mockData.ts
+  utils.ts
+next-sitemap.config.js
+next.config.ts
+tailwind.config.ts
+```
+
+---
+
+## PERFORMANCE
+- next/image for all images (WebP, lazy loading, proper sizes)
+- Dynamic imports for heavy components
+- Skeleton loading states
+- Font preloading via next/font
+
+---
+
+## IMPORTANT NOTES
+- Every page SSG by default, whale tracker page SSR
+- No real API calls — all dummy data from mockData.ts
+- Tailwind only — no CSS modules or styled-components
+- All JSX, no class components
+- Fully responsive: mobile 375px → desktop 1440px
+- Footer: logo, links, copyright, social icons
+- Consistent spacing: gap-4, gap-6, p-4, p-6 throughout
