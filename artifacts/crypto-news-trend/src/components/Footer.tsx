@@ -1,7 +1,9 @@
 import { Flame, Twitter, Send, Disc } from "lucide-react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 
 export function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="border-t border-border bg-[#0d1117] text-white py-12">
       <div className="container mx-auto px-4">
@@ -14,31 +16,28 @@ export function Footer() {
                 <span className="text-orange-500">NewsTrend</span>
               </span>
             </Link>
-            <p className="text-sm text-gray-400 max-w-xs">
-              Your premium terminal for real-time crypto news, market analysis, and blockchain insights.
-            </p>
+            <p className="text-sm text-gray-400 max-w-xs">{t("footer.tagline")}</p>
           </div>
-          
+
           <div>
-            <h4 className="font-bold mb-4 font-display">News</h4>
+            <h4 className="font-bold mb-4 font-display">{t("footer.news")}</h4>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li><Link href="/" className="hover:text-purple-400 transition-colors">Latest News</Link></li>
-              <li><Link href="/" className="hover:text-purple-400 transition-colors">Market Updates</Link></li>
-              <li><Link href="/" className="hover:text-purple-400 transition-colors">Press Releases</Link></li>
+              <li><Link href="/" className="hover:text-purple-400 transition-colors">{t("footer.news")}</Link></li>
+              <li><Link href="/" className="hover:text-purple-400 transition-colors">{t("home.marketUpdate")}</Link></li>
             </ul>
           </div>
-          
+
           <div>
-            <h4 className="font-bold mb-4 font-display">Tools</h4>
+            <h4 className="font-bold mb-4 font-display">{t("footer.tools")}</h4>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li><Link href="/crypto-whales" className="hover:text-purple-400 transition-colors">Whale Tracker</Link></li>
-              <li><Link href="/coin-analysis" className="hover:text-purple-400 transition-colors">Coin Analysis</Link></li>
-              <li><Link href="/ico" className="hover:text-purple-400 transition-colors">ICO Launchpad</Link></li>
+              <li><Link href="/crypto-whales" className="hover:text-purple-400 transition-colors">{t("nav.whalesTracking")}</Link></li>
+              <li><Link href="/coin-analysis" className="hover:text-purple-400 transition-colors">{t("nav.coinAnalysis")}</Link></li>
+              <li><Link href="/ico" className="hover:text-purple-400 transition-colors">{t("nav.ico")}</Link></li>
             </ul>
           </div>
-          
+
           <div>
-            <h4 className="font-bold mb-4 font-display">Community</h4>
+            <h4 className="font-bold mb-4 font-display">{t("footer.community")}</h4>
             <div className="flex gap-4">
               <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-purple-600 transition-colors">
                 <Twitter className="w-5 h-5" />
@@ -52,12 +51,12 @@ export function Footer() {
             </div>
           </div>
         </div>
-        
+
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between text-sm text-gray-500">
-          <p>© {new Date().getFullYear()} CryptoNewsTrend. All rights reserved.</p>
+          <p>{t("footer.copyright")}</p>
           <div className="flex gap-4 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white">Privacy Policy</a>
-            <a href="#" className="hover:text-white">Terms of Service</a>
+            <a href="#" className="hover:text-white">{t("footer.privacy")}</a>
+            <a href="#" className="hover:text-white">{t("footer.terms")}</a>
           </div>
         </div>
       </div>
