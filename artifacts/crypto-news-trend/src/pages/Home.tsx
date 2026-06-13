@@ -49,7 +49,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="relative w-full h-[400px] md:h-[500px] rounded-xl overflow-hidden mb-12 group cursor-pointer"
+            className="relative w-full h-[260px] md:h-[340px] rounded-xl overflow-hidden mb-12 group cursor-pointer"
           >
             <img
               src={featured.imageUrl}
