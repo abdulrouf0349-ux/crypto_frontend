@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { mockNews, mockTopStories, NEWS_CATEGORIES } from "@/lib/mockData";
+import { myArticles } from "@/lib/articles";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
@@ -30,9 +31,14 @@ export default function Home() {
   const [visibleCount, setVisibleCount] = useState(6);
   const [copied, setCopied] = useState(false);
 
-  const featured = mockNews.find((n) => n.isFeatured);
-  const filteredNews = mockNews.filter(
-    (n) => (activeCategory === "ALL" || n.category === activeCategory) && !n.isFeatured
+  // Merge your articles + mock news, newest first
+  const allNews = [...myArticles, ...mockNews].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
+  const featured = allNews.find((n) => n.isFeatured) ?? allNews[0];
+  const filteredNews = allNews.filter(
+    (n) => (activeCategory === "ALL" || n.category === activeCategory) && n.id !== featured?.id
   );
 
   const copyAddress = () => {
@@ -121,10 +127,19 @@ export default function Home() {
                   />
                 </div>
                 <div className="flex flex-col justify-center flex-grow">
-                  <div className="mb-2">
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                  <div className="mb-2 flex items-center gap-2">
+                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded ${
+                      news.tag === "EDITORIAL"
+                        ? "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400"
+                        : "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                    }`}>
                       {news.tag}
                     </span>
+                    {"isEditorial" in news && (
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
+                        YOUR ARTICLE
+                      </span>
+                    )}
                   </div>
                   <h3 className="text-lg font-display font-semibold mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors line-clamp-2">
                     {news.title}

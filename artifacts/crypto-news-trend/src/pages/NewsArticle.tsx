@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { mockNews } from "@/lib/mockData";
+import { myArticles } from "@/lib/articles";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -39,7 +40,8 @@ export default function NewsArticle() {
   const params = useParams<{ slug: string }>();
   const [copied, setCopied] = useState(false);
 
-  const article = mockNews.find((n) => n.slug === params.slug);
+  const allArticles = [...myArticles, ...mockNews];
+  const article = allArticles.find((n) => n.slug === params.slug);
 
   const copyLink = () => {
     navigator.clipboard.writeText(`${SITE_URL}/news/${params.slug}`);
@@ -60,7 +62,7 @@ export default function NewsArticle() {
   }
 
   const related = article.relatedIds
-    .map((id) => mockNews.find((n) => n.id === id))
+    .map((id) => allArticles.find((n) => n.id === id))
     .filter(Boolean) as typeof mockNews;
 
   const canonicalUrl = `${SITE_URL}/news/${article.slug}`;
