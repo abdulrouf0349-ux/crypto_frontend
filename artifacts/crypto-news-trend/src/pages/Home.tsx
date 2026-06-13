@@ -1,5 +1,6 @@
+"use client";
 import { useState } from "react";
-import { Link } from "wouter";
+import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
 import { Copy, TrendingUp, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";

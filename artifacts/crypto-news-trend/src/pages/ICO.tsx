@@ -1,5 +1,6 @@
+"use client";
 import { useState, useMemo } from "react";
-import { Link } from "wouter";
+import Link from "next/link";
 import { mockIcos, ICO_CATEGORIES } from "@/lib/mockData";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";

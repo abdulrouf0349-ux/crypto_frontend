@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import { mockCoinAnalysis } from "@/lib/mockData";
 import { Search, BrainCircuit, Activity, BarChart2, TrendingUp, TrendingDown, Check, X, Circle, LineChart } from "lucide-react";

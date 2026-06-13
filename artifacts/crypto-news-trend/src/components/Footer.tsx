@@ -1,5 +1,6 @@
+"use client";
 import { Flame, Twitter, Send, Disc } from "lucide-react";
-import { Link } from "wouter";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 export function Footer() {

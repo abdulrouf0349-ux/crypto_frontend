@@ -1,4 +1,6 @@
-import { useParams, Link } from "wouter";
+"use client";
+import { useParams } from "next/navigation";
+import Link from "next/link";
 import { Helmet } from "react-helmet-async";
 import { formatDistanceToNow, format } from "date-fns";
 import { ArrowLeft, Clock, Tag, Share2, Twitter, Facebook, Link2, Check, ChevronRight } from "lucide-react";

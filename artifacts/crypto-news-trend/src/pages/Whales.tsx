@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { mockWhales } from "@/lib/mockData";
 import { formatDistanceToNow } from "date-fns";

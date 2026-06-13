@@ -1,4 +1,6 @@
-import { useParams, Link } from "wouter";
+"use client";
+import { useParams } from "next/navigation";
+import Link from "next/link";
 import { ArrowLeft, ChevronRight, Clock, Globe, Twitter, FileText, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

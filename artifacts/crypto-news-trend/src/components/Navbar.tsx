@@ -1,5 +1,7 @@
+"use client";
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "wouter";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Flame, Moon, Sun, Menu, ChevronDown, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
@@ -19,7 +21,7 @@ const LOCALES = [
 ];
 
 export function Navbar() {
-  const [location] = useLocation();
+  const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const { t } = useTranslation();
   const [activeLang, setActiveLang] = useState(LOCALES[0]);
@@ -60,7 +62,7 @@ export function Navbar() {
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => {
-            const isActive = location === link.path;
+            const isActive = pathname === link.path;
             return (
               <Link
                 key={link.path}
@@ -140,7 +142,7 @@ export function Navbar() {
               href={link.path}
               onClick={() => setMobileOpen(false)}
               className={`text-sm uppercase tracking-wider py-2 border-b border-[#21262d] ${
-                location === link.path ? "text-white font-semibold" : "text-gray-400"
+                pathname === link.path ? "text-white font-semibold" : "text-gray-400"
               }`}
             >
               {t(link.key)}

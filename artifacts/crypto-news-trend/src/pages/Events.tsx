@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { mockEvents } from "@/lib/mockData";
 import { format } from "date-fns";
