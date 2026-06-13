@@ -7,6 +7,7 @@ import { HelmetProvider } from "react-helmet-async";
 import NotFound from "@/pages/not-found";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { SupportUsFloat } from "@/components/SupportUsFloat";
 
 import Home from "@/pages/Home";
 import Events from "@/pages/Events";
@@ -35,6 +36,7 @@ function Router() {
         </Switch>
       </main>
       <Footer />
+      <SupportUsFloat />
     </div>
   );
 }
