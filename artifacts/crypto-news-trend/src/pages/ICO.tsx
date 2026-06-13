@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "wouter";
 import { mockIcos } from "@/lib/mockData";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -67,7 +68,9 @@ export default function ICO() {
                   >
                     {t("ico.whitelist")}
                   </Button>
-                  <Button variant="outline" className="w-full">{t("ico.details")}</Button>
+                  <Link href={`/ico/${ico.slug}`}>
+                    <Button variant="outline" className="w-full">{t("ico.details")}</Button>
+                  </Link>
                 </div>
               </motion.div>
             ))}

@@ -12,6 +12,7 @@ import Home from "@/pages/Home";
 import Events from "@/pages/Events";
 import Whales from "@/pages/Whales";
 import ICO from "@/pages/ICO";
+import ICODetail from "@/pages/ICODetail";
 import CoinAnalysis from "@/pages/CoinAnalysis";
 import NewsArticle from "@/pages/NewsArticle";
 
@@ -27,6 +28,7 @@ function Router() {
           <Route path="/events" component={Events} />
           <Route path="/crypto-whales" component={Whales} />
           <Route path="/ico" component={ICO} />
+          <Route path="/ico/:slug" component={ICODetail} />
           <Route path="/coin-analysis" component={CoinAnalysis} />
           <Route path="/news/:slug" component={NewsArticle} />
           <Route component={NotFound} />

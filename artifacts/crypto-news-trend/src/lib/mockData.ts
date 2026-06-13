@@ -186,16 +186,104 @@ export const mockWhales = Array.from({ length: 20 }).map((_, i) => {
   };
 });
 
+const ICO_NAMES = [
+  'BitFi Protocol', 'NovaSpark', 'ZeroLayer', 'AetherDAO', 'ChainForge',
+  'QuantumBridge', 'StellarMesh', 'OmegaVault', 'PulseNet',
+];
+const ICO_TICKERS = ['BITFI', 'NOVA', 'ZLR', 'AETH', 'CFG', 'QNTM', 'STLR', 'OMGV', 'PLSN'];
+const ICO_CATEGORIES = ['Layer 2', 'DeFi', 'ZK Rollup', 'DAO', 'Infrastructure', 'Bridges', 'Mesh Network', 'Vaults', 'Oracle'];
+const ICO_ABOUT = [
+  'BitFi Protocol is a next-generation Layer 2 scaling solution that leverages zero-knowledge proofs to deliver near-infinite transaction throughput while preserving Ethereum-level security. Built by a team of cryptography researchers and infrastructure veterans, BitFi targets institutional DeFi use cases requiring sub-second finality and predictable gas costs.',
+  'NovaSpark is a permissionless DeFi platform enabling cross-chain yield aggregation with a single-click interface. Its novel liquidity routing algorithm consistently finds the best APY across 14+ chains without requiring manual bridging. The protocol is governed by NOVA token holders through an on-chain DAO.',
+  'ZeroLayer introduces a universal ZK rollup settlement layer that any application chain can plug into. By batching proofs from multiple rollups into a single Ethereum transaction, ZeroLayer reduces settlement costs by up to 95% while maintaining full data availability.',
+  'AetherDAO is a community-first protocol enabling decentralized decision-making for on-chain treasuries. AETH holders vote on grant allocations, protocol upgrades, and partnership initiatives. The platform features quadratic voting and time-locked execution for added security.',
+  'ChainForge provides an open-source toolkit for building and deploying application-specific blockchains. Using a modular architecture inspired by the Cosmos SDK, teams can launch a sovereign chain with EVM compatibility in under 24 hours — no core blockchain expertise required.',
+  'QuantumBridge is a trustless cross-chain messaging protocol backed by a network of decentralized relayers. Transactions are secured by a novel optimistic verification system with a 2-hour fraud proof window, making it one of the most capital-efficient bridges in the ecosystem.',
+  'StellarMesh is a decentralized wireless infrastructure network that rewards node operators with STLR tokens for providing connectivity. The protocol aggregates coverage from thousands of IoT devices to build a censorship-resistant data layer for Web3 applications.',
+  'OmegaVault is an institutional-grade on-chain asset custody protocol featuring multi-signature security, time-locks, and insurance integrations. It targets DAOs and treasuries managing over $10M in assets who require enterprise controls without sacrificing self-custody.',
+  'PulseNet is a decentralized oracle network specializing in real-time sports, weather, and financial data feeds. Its reputation-based data aggregation model slashes manipulation risk while delivering sub-100ms latency — fast enough for on-chain prediction markets and perpetuals.',
+];
+const FUNDING_ROUND_SETS = [
+  [
+    { round: 'Seed', type: 'Private', status: 'ENDED', date: 'Jan 2024 – Mar 2024', tokens: '50,000,000', platform: 'Coinlist' },
+    { round: 'Series A', type: 'Strategic', status: 'ENDED', date: 'Apr 2024 – Jun 2024', tokens: '80,000,000', platform: 'Republic' },
+    { round: 'Public Sale', type: 'IDO', status: 'ACTIVE', date: 'Jul 2024 – Present', tokens: '120,000,000', platform: 'Binance Launchpad' },
+  ],
+  [
+    { round: 'Pre-Seed', type: 'Private', status: 'ENDED', date: 'Oct 2023 – Dec 2023', tokens: '30,000,000', platform: 'Polkastarter' },
+    { round: 'Public Sale', type: 'IDO', status: 'ACTIVE', date: 'Feb 2024 – Present', tokens: '100,000,000', platform: 'DAO Maker' },
+  ],
+  [
+    { round: 'Seed', type: 'Private', status: 'ENDED', date: 'Mar 2024 – May 2024', tokens: '40,000,000', platform: 'Coinlist' },
+    { round: 'KOL Round', type: 'Strategic', status: 'ENDED', date: 'Jun 2024 – Jul 2024', tokens: '25,000,000', platform: 'Private' },
+    { round: 'Public Sale', type: 'IDO', status: 'ACTIVE', date: 'Aug 2024 – Present', tokens: '90,000,000', platform: 'Bybit Launchpad' },
+  ],
+  [
+    { round: 'Seed', type: 'Private', status: 'ENDED', date: 'Feb 2024 – Apr 2024', tokens: '60,000,000', platform: 'Republic' },
+    { round: 'Public Sale', type: 'IDO', status: 'UPCOMING', date: 'Q3 2025', tokens: '110,000,000', platform: 'Binance Launchpad' },
+  ],
+  [
+    { round: 'Pre-Seed', type: 'Private', status: 'ENDED', date: 'Nov 2023 – Jan 2024', tokens: '20,000,000', platform: 'Polkastarter' },
+    { round: 'Seed', type: 'Private', status: 'ENDED', date: 'Feb 2024 – May 2024', tokens: '45,000,000', platform: 'Coinlist' },
+    { round: 'Public Sale', type: 'IDO', status: 'UPCOMING', date: 'Q4 2025', tokens: '130,000,000', platform: 'OKX Jumpstart' },
+  ],
+  [
+    { round: 'Seed', type: 'Private', status: 'ENDED', date: 'Jan 2024 – Mar 2024', tokens: '35,000,000', platform: 'DAO Maker' },
+    { round: 'Public Sale', type: 'IDO', status: 'UPCOMING', date: 'Q1 2026', tokens: '95,000,000', platform: 'Binance Launchpad' },
+  ],
+  [
+    { round: 'Seed', type: 'Private', status: 'ENDED', date: 'Sep 2023 – Nov 2023', tokens: '55,000,000', platform: 'Coinlist' },
+    { round: 'Series A', type: 'Strategic', status: 'ENDED', date: 'Dec 2023 – Feb 2024', tokens: '70,000,000', platform: 'Private' },
+    { round: 'Public Sale', type: 'IDO', status: 'ENDED', date: 'Mar 2024 – May 2024', tokens: '115,000,000', platform: 'Bybit Launchpad' },
+  ],
+  [
+    { round: 'Pre-Seed', type: 'Private', status: 'ENDED', date: 'Jul 2023 – Sep 2023', tokens: '25,000,000', platform: 'Republic' },
+    { round: 'Seed', type: 'Private', status: 'ENDED', date: 'Oct 2023 – Dec 2023', tokens: '40,000,000', platform: 'Polkastarter' },
+    { round: 'Public Sale', type: 'IDO', status: 'ENDED', date: 'Jan 2024 – Mar 2024', tokens: '80,000,000', platform: 'OKX Jumpstart' },
+  ],
+  [
+    { round: 'Seed', type: 'Private', status: 'ENDED', date: 'Apr 2023 – Jun 2023', tokens: '30,000,000', platform: 'DAO Maker' },
+    { round: 'KOL Round', type: 'Strategic', status: 'ENDED', date: 'Jul 2023 – Aug 2023', tokens: '20,000,000', platform: 'Private' },
+    { round: 'Public Sale', type: 'IDO', status: 'ENDED', date: 'Sep 2023 – Nov 2023', tokens: '75,000,000', platform: 'Coinlist' },
+  ],
+];
+const INVESTMENT_STATS = [
+  { totalRaised: '$8,400,000', preValuation: '$42,000,000', rounds: 3, lastUpdated: 'Jun 10, 2026' },
+  { totalRaised: '$5,200,000', preValuation: '$26,000,000', rounds: 2, lastUpdated: 'Jun 8, 2026' },
+  { totalRaised: '$6,750,000', preValuation: '$33,750,000', rounds: 3, lastUpdated: 'Jun 11, 2026' },
+  { totalRaised: '$12,000,000', preValuation: '$60,000,000', rounds: 2, lastUpdated: 'Jun 7, 2026' },
+  { totalRaised: '$9,300,000', preValuation: '$46,500,000', rounds: 3, lastUpdated: 'Jun 9, 2026' },
+  { totalRaised: '$7,100,000', preValuation: '$35,500,000', rounds: 2, lastUpdated: 'Jun 6, 2026' },
+  { totalRaised: '$15,600,000', preValuation: '$78,000,000', rounds: 3, lastUpdated: 'May 30, 2026' },
+  { totalRaised: '$11,200,000', preValuation: '$56,000,000', rounds: 3, lastUpdated: 'May 28, 2026' },
+  { totalRaised: '$4,800,000', preValuation: '$24,000,000', rounds: 3, lastUpdated: 'May 25, 2026' },
+];
+
 export const mockIcos = Array.from({ length: 9 }).map((_, i) => {
   const status = i < 3 ? 'active' : i < 6 ? 'upcoming' : 'ended';
+  const name = ICO_NAMES[i];
+  const slug = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
   return {
     id: `ico-${i}`,
-    name: `Project ${String.fromCharCode(65 + i)} Protocol`,
+    slug,
+    name,
+    ticker: ICO_TICKERS[i],
     logo: `https://picsum.photos/seed/ico${i}/100/100`,
     description: "A revolutionary Layer 2 scaling solution aiming to provide infinite throughput with zero knowledge proofs.",
+    about: ICO_ABOUT[i],
+    category: ICO_CATEGORIES[i],
+    rank: i + 1,
     status,
     timeLeft: status === 'active' ? `${(i + 1) * 12}H LEFT` : status === 'upcoming' ? `FROM Q${(i % 4) + 1} 2025` : "ENDED",
     startDate: new Date(Date.now() + (i - 4) * 86400000 * 10).toISOString(),
+    fundingRounds: FUNDING_ROUND_SETS[i],
+    investmentStats: INVESTMENT_STATS[i],
+    links: {
+      website: 'https://example.com',
+      twitter: 'https://twitter.com/example',
+      whitepaper: 'https://example.com/whitepaper.pdf',
+      source: 'https://coinlist.co',
+    },
   };
 });
 
