@@ -8,6 +8,7 @@ import NotFound from "@/pages/not-found";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { SupportUsFloat } from "@/components/SupportUsFloat";
+import { PriceTicker } from "@/components/PriceTicker";
 
 import Home from "@/pages/Home";
 import Events from "@/pages/Events";
@@ -23,6 +24,7 @@ function Router() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
+      <PriceTicker />
       <main className="flex-grow">
         <Switch>
           <Route path="/" component={Home} />
