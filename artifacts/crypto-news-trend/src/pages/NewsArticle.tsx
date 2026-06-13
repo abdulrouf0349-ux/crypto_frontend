@@ -152,7 +152,7 @@ export default function NewsArticle() {
 
       <article className="min-h-screen">
         {/* Hero Image */}
-        <div className="relative w-full h-[40vh] md:h-[55vh] overflow-hidden">
+        <div className="relative w-full h-[28vh] md:h-[35vh] overflow-hidden">
           <img
             src={article.imageUrl}
             alt={article.title}
