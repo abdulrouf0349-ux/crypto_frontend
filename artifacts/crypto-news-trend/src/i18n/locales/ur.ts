@@ -56,6 +56,10 @@ export default {
     whitelist: "وائٹ لسٹ",
     details: "تفصیلات",
     noProjects: "کوئی پروجیکٹ نہیں ملا۔",
+    searchPlaceholder: "پروجیکٹس تلاش کریں...",
+    allCategories: "تمام زمرے",
+    noResults: "آپ کی تلاش سے کوئی پروجیکٹ میل نہیں کھاتا۔",
+    clearFilters: "فلٹر صاف کریں",
   },
   coinAnalysis: {
     title: "کوائن تجزیہ",

@@ -56,6 +56,10 @@ export default {
     whitelist: "白名单",
     details: "详情",
     noProjects: "未找到项目。",
+    searchPlaceholder: "搜索项目...",
+    allCategories: "所有类别",
+    noResults: "没有项目匹配您的搜索。",
+    clearFilters: "清除筛选",
   },
   coinAnalysis: {
     title: "币种分析",

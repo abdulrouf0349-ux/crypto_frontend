@@ -56,6 +56,10 @@ export default {
     whitelist: "القائمة البيضاء",
     details: "التفاصيل",
     noProjects: "لم يتم العثور على مشاريع.",
+    searchPlaceholder: "ابحث عن مشاريع...",
+    allCategories: "جميع الفئات",
+    noResults: "لا توجد مشاريع تطابق بحثك.",
+    clearFilters: "مسح الفلاتر",
   },
   coinAnalysis: {
     title: "تحليل العملات",

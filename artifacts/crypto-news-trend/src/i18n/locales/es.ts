@@ -56,6 +56,10 @@ export default {
     whitelist: "Lista Blanca",
     details: "Detalles",
     noProjects: "No se encontraron proyectos.",
+    searchPlaceholder: "Buscar proyectos...",
+    allCategories: "Todas las categorías",
+    noResults: "Ningún proyecto coincide con tu búsqueda.",
+    clearFilters: "Borrar filtros",
   },
   coinAnalysis: {
     title: "Análisis de Monedas",

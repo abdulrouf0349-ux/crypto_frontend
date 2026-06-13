@@ -191,7 +191,7 @@ const ICO_NAMES = [
   'QuantumBridge', 'StellarMesh', 'OmegaVault', 'PulseNet',
 ];
 const ICO_TICKERS = ['BITFI', 'NOVA', 'ZLR', 'AETH', 'CFG', 'QNTM', 'STLR', 'OMGV', 'PLSN'];
-const ICO_CATEGORIES = ['Layer 2', 'DeFi', 'ZK Rollup', 'DAO', 'Infrastructure', 'Bridges', 'Mesh Network', 'Vaults', 'Oracle'];
+export const ICO_CATEGORIES = ['Layer 2', 'DeFi', 'ZK Rollup', 'DAO', 'Infrastructure', 'Bridges', 'Mesh Network', 'Vaults', 'Oracle'];
 const ICO_ABOUT = [
   'BitFi Protocol is a next-generation Layer 2 scaling solution that leverages zero-knowledge proofs to deliver near-infinite transaction throughput while preserving Ethereum-level security. Built by a team of cryptography researchers and infrastructure veterans, BitFi targets institutional DeFi use cases requiring sub-second finality and predictable gas costs.',
   'NovaSpark is a permissionless DeFi platform enabling cross-chain yield aggregation with a single-click interface. Its novel liquidity routing algorithm consistently finds the best APY across 14+ chains without requiring manual bridging. The protocol is governed by NOVA token holders through an on-chain DAO.',

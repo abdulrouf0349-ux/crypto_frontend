@@ -56,6 +56,10 @@ export default {
     whitelist: "Whitelist",
     details: "Details",
     noProjects: "No projects found.",
+    searchPlaceholder: "Search projects...",
+    allCategories: "All Categories",
+    noResults: "No projects match your search.",
+    clearFilters: "Clear filters",
   },
   coinAnalysis: {
     title: "Coin Analysis",

@@ -56,6 +56,10 @@ export default {
     whitelist: "Белый Список",
     details: "Подробнее",
     noProjects: "Проектов не найдено.",
+    searchPlaceholder: "Поиск проектов...",
+    allCategories: "Все категории",
+    noResults: "Проекты не соответствуют вашему запросу.",
+    clearFilters: "Сбросить фильтры",
   },
   coinAnalysis: {
     title: "Анализ Монет",
