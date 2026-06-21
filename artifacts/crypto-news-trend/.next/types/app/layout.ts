@@ -1,4 +1,4 @@
-// File: /home/runner/workspace/artifacts/crypto-news-trend/src/app/layout.tsx
+// File: C:\Users\VS\Desktop\cryoti\Crypto-Wire\artifacts\crypto-news-trend\src\app\layout.jsx
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
